@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use common\models\Perfil;
 use Yii;
 use yii\base\Model;
 use common\models\User;
@@ -14,6 +15,12 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+
+    //perfil
+    public $telemovel;
+    public $primeiro_nome;
+    public $ultimo_nome;
+
 
 
     /**
@@ -35,6 +42,29 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+
+            ['telemovel', 'integer', 'message' => 'Número de telemovel incorreto.'],
+            ['telemovel', 'required', 'message' => 'Introduza um número de telemovel.'],
+            ['telemovel', 'unique', 'targetClass' => '\common\models\Perfil', 'message' => 'Este número de telemovel já está registado.'],
+            [
+                'telemovel', 'string', 'min' => 9, 'max' => 9,
+                'tooShort' => 'O número de telemovel tem que ter 9 dígitos.',
+                'tooLong' => 'O número de telemovel tem que ter 9 dígitos.'
+            ],
+
+            ['primeiro_nome', 'required', 'message' => 'Introduza um nome.'],
+            [
+                'primeiro_nome', 'string', 'min' => 2, 'max' => 50,
+                'tooShort' => 'O nome tem que ter no mínimo 2 digitos.',
+                'tooLong' => 'O nome não pode exceder os 50 digitos.'
+            ],
+
+            ['ultimo_nome', 'required', 'message' => 'Introduza um apelido.'],
+            [
+                'ultimo_nome', 'string', 'min' => 2, 'max' => 50,
+                'tooShort' => 'O apelido tem que ter no mínimo 2 digitos.',
+                'tooLong' => 'O apelido não pode exceder os 50 digitos.'
+            ],
         ];
     }
 
@@ -48,15 +78,29 @@ class SignupForm extends Model
         if (!$this->validate()) {
             return null;
         }
-        
+
+        //user
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
+        $user->save();
 
-        return $user->save() && $this->sendEmail($user);
+        //perfil
+        $perfil = new Perfil();
+        $perfil->primeiro_nome = $this->primeiro_nome;
+        $perfil->ultimo_nome = $this->ultimo_nome;
+        $perfil->telemovel = $this->telemovel;
+        $perfil->id_user = $user->id;
+        $perfil->save();
+
+        $auth = \Yii::$app->authManager;
+        $clienteRole = $auth->getRole('cliente');
+        $auth->assign($clienteRole, $user->getId());
+
+        return true;
     }
 
     /**

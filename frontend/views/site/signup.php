@@ -2,6 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap4\ActiveForm */
+
 /* @var $model \frontend\models\SignupForm */
 
 use yii\bootstrap4\Html;
@@ -15,19 +16,26 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>Please fill out the following fields to signup:</p>
 
+
     <div class="row">
         <div class="col-lg-5">
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
-                <?= $form->field($model, 'email') ?>
+            <?= $form->field($model, 'primeiro_nome')->label('Primeiro Nome') ?>
 
-                <?= $form->field($model, 'password')->passwordInput() ?>
+            <?= $form->field($model, 'ultimo_nome')->label('Último Nome') ?>
 
-                <div class="form-group">
-                    <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
-                </div>
+            <?= $form->field($model, 'telemovel')->label('Número de Telemóvel') ?>
+
+            <?= $form->field($model, 'email') ?>
+
+            <?= $form->field($model, 'password')->passwordInput() ?>
+
+            <div class="form-group">
+                <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+            </div>
 
             <?php ActiveForm::end(); ?>
         </div>
