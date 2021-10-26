@@ -4,8 +4,51 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d22b902b148b28298601ec014616fdf3",
+    "content-hash": "6169e9f3990b71308602878739534663",
     "packages": [
+        {
+            "name": "almasaeed2010/adminlte",
+            "version": "v3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ColorlibHQ/AdminLTE.git",
+                "reference": "c641d7f5716ed47e76f70ab16e05ae41420120b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ColorlibHQ/AdminLTE/zipball/c641d7f5716ed47e76f70ab16e05ae41420120b8",
+                "reference": "c641d7f5716ed47e76f70ab16e05ae41420120b8",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Colorlib"
+                }
+            ],
+            "description": "AdminLTE - admin control panel and dashboard that's based on Bootstrap 4",
+            "homepage": "https://adminlte.io/",
+            "keywords": [
+                "JS",
+                "admin",
+                "back-end",
+                "css",
+                "less",
+                "responsive",
+                "template",
+                "theme",
+                "web"
+            ],
+            "support": {
+                "issues": "https://github.com/ColorlibHQ/AdminLTE/issues",
+                "source": "https://github.com/ColorlibHQ/AdminLTE/tree/v3.1.0"
+            },
+            "time": "2021-03-22T07:30:50+00:00"
+        },
         {
             "name": "bower-asset/inputmask",
             "version": "3.3.11",
@@ -346,6 +389,100 @@
                 "source": "https://github.com/ezyang/htmlpurifier/tree/master"
             },
             "time": "2020-06-29T00:56:53+00:00"
+        },
+        {
+            "name": "hail812/yii2-adminlte-widgets",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hail812/yii2-adminlte-widgets.git",
+                "reference": "67454f5e3dcfe62e689547efb4d32335bc67f58b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hail812/yii2-adminlte-widgets/zipball/67454f5e3dcfe62e689547efb4d32335bc67f58b",
+                "reference": "67454f5e3dcfe62e689547efb4d32335bc67f58b",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "~2.0.0",
+                "yiisoft/yii2-bootstrap4": "~2.0.8"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "hail812\\adminlte\\widgets\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "hail",
+                    "email": "hail812@163.com"
+                }
+            ],
+            "description": "yii2 adminlte widgets",
+            "keywords": [
+                "extension",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/hail812/yii2-adminlte-widgets/issues",
+                "source": "https://github.com/hail812/yii2-adminlte-widgets/tree/v1.0.3"
+            },
+            "time": "2021-06-17T00:29:14+00:00"
+        },
+        {
+            "name": "hail812/yii2-adminlte3",
+            "version": "v1.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hail812/yii2-adminlte3.git",
+                "reference": "3c82edef9a2db36b1fa074725978183fd2999516"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hail812/yii2-adminlte3/zipball/3c82edef9a2db36b1fa074725978183fd2999516",
+                "reference": "3c82edef9a2db36b1fa074725978183fd2999516",
+                "shasum": ""
+            },
+            "require": {
+                "almasaeed2010/adminlte": "~3.1",
+                "hail812/yii2-adminlte-widgets": "~1.0.2",
+                "php": ">=7.0",
+                "yiisoft/yii2": "~2.0.0",
+                "yiisoft/yii2-bootstrap4": "~2.0.8"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "hail812\\adminlte3\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "hail",
+                    "email": "hail812@163.com"
+                }
+            ],
+            "description": "adminlte3 for yii2",
+            "keywords": [
+                "AdminLTE",
+                "extension",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/hail812/yii2-adminlte3/issues",
+                "source": "https://github.com/hail812/yii2-adminlte3/tree/v1.1.3"
+            },
+            "time": "2021-05-16T05:11:55+00:00"
         },
         {
             "name": "npm-asset/bootstrap",
