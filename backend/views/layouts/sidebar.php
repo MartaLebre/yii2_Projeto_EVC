@@ -19,8 +19,8 @@
             <?php echo \hail812\adminlte\widgets\Menu::widget([
                 'items' => [
                     ['label' => 'Gestão de Utilizadores', 'header' => true],
-                    ['label' => 'Adicionar Gestor de Stock', 'iconClass' => 'nav-icon far fa-circle text-success', 'url' => ['site/index']],
-                    ['label' => 'Gerir Utilizadores', 'iconClass' => 'nav-icon far fa-circle text-warning', 'url' => ['site/index']],
+                    ['label' => 'Adicionar Gestor de Stock', 'iconClass' => 'nav-icon far fa-circle text-success', 'url' => ['user/create']],
+                    ['label' => 'Gerir Utilizadores', 'iconClass' => 'nav-icon far fa-circle text-warning', 'url' => ['user/index']],
                     ['label' => 'Gestão de Produtos', 'header' => true],
                     ['label' => 'Adicionar Produtos', 'iconClass' => 'nav-icon far fa-circle text-success', 'url' => ['site/index']],
                     ['label' => 'Gerir Produtos', 'iconClass' => 'nav-icon far fa-circle text-warning', 'url' => ['site/index']],

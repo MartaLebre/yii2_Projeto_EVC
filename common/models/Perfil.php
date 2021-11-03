@@ -7,9 +7,11 @@ use Yii;
 /**
  * This is the model class for table "perfil".
  *
+ * @property int $id
  * @property string $primeiro_nome
  * @property string $ultimo_nome
  * @property int $telemovel
+ * @property string|null $morada
  * @property int $id_user
  *
  * @property User $user
@@ -33,8 +35,8 @@ class Perfil extends \yii\db\ActiveRecord
             [['primeiro_nome', 'ultimo_nome', 'telemovel', 'id_user'], 'required'],
             [['telemovel', 'id_user'], 'integer'],
             [['primeiro_nome', 'ultimo_nome'], 'string', 'max' => 45],
+            [['morada'], 'string', 'max' => 90],
             [['telemovel'], 'unique'],
-            [['id_user'], 'unique'],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id']],
         ];
     }
@@ -45,9 +47,11 @@ class Perfil extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            'id' => 'ID',
             'primeiro_nome' => 'Primeiro Nome',
             'ultimo_nome' => 'Ultimo Nome',
             'telemovel' => 'Telemovel',
+            'morada' => 'Morada',
             'id_user' => 'Id User',
         ];
     }
