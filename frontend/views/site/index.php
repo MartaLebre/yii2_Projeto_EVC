@@ -2,11 +2,12 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'eClothingVintage';
 ?>
-<div class="site-index">
 
-    <div class="jumbotron text-center bg-transparent">
+
+<div class="site-index text-center"
+    <div class="bg-transparent">
         <h1 class="display-4">Congratulations!</h1>
 
         <p class="lead">You have successfully created your Yii-powered application.</p>
@@ -48,6 +49,5 @@ $this->title = 'My Yii Application';
                 <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
             </div>
         </div>
-
     </div>
 </div>
