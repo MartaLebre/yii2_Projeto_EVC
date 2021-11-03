@@ -51,7 +51,7 @@ use yii\helpers\Html;
                 <?= Html::a('<i class="fas fa-heart" style="color: #dc3545"></i>', ['#'], ['class' => 'nav-link']) ?>
             </li>
             <li class="nav-item">
-                <?= Html::a('<i class="fas fa-user" style="color: #007bff"></i>', ['#'], ['class' => 'nav-link']) ?>
+                <?= Html::a('<i class="fas fa-user" style="color: #007bff"></i>', ['/site/login'], ['class' => 'nav-link']) ?>
             </li>
             <li class="nav-item">
                 <?= Html::a('<i class="fas fa-sign-out-alt"></i>', ['/site/logout'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
