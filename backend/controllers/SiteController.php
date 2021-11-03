@@ -6,6 +6,7 @@ use common\models\LoginForm;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\rbac\Role;
 use yii\web\Controller;
 use yii\web\Response;
 
@@ -79,10 +80,23 @@ class SiteController extends Controller
         $this->layout = 'blank';
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
 
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+
+
+
+
+            $auth = \Yii::$app->authManager;
+            $userAssigned = $auth->getRolesByUser(\Yii::$app->user->id);
+
+            foreach($userAssigned as $userAssign){
+                if ($userAssign->name == 'admin' || $userAssign->name == 'gestorStock'){
+
+                    return $this->redirect('index');
+                }
+            }
+
+        }
         $model->password = '';
 
         return $this->render('login', [

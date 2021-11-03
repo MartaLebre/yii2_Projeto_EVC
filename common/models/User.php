@@ -142,6 +142,8 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->getPrimaryKey();
     }
 
+
+
     /**
      * {@inheritdoc}
      */
