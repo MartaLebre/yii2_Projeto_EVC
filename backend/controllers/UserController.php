@@ -2,7 +2,7 @@
 
 namespace backend\controllers;
 
-use backend\models\CreateForm;
+use backend\models\UserForm;
 use common\models\User;
 use common\models\UserSearch;
 use yii\web\Controller;
@@ -67,7 +67,7 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-        $model = new CreateForm();
+        $model = new UserForm();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->createUser()) {
@@ -126,7 +126,7 @@ class UserController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne($id)) !== null) {
+        if (($model = User::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

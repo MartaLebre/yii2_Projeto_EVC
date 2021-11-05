@@ -10,7 +10,7 @@ use common\models\User;
 /**
  * Signup form
  */
-class CreateForm extends Model
+class UserForm extends Model
 {
     public $username;
     public $email;
@@ -74,6 +74,41 @@ class CreateForm extends Model
      * @return bool whether the creating new account was successful and email was sent
      */
     public function createUser()
+    {
+        if (!$this->validate()) {
+            return null;
+        }
+
+        //user
+        $user = new User();
+        $user->username = $this->username;
+        $user->email = $this->email;
+        $user->setPassword($this->password);
+        $user->generateAuthKey();
+        $user->generateEmailVerificationToken();
+        $user->save();
+
+        //perfil
+        $perfil = new Perfil();
+        $perfil->primeiro_nome = $this->primeiro_nome;
+        $perfil->ultimo_nome = $this->ultimo_nome;
+        $perfil->telemovel = $this->telemovel;
+        $perfil->id_user = $user->id;
+        $perfil->save();
+
+        $auth = \Yii::$app->authManager;
+        $clienteRole = $auth->getRole('gestorStock');
+        $auth->assign($clienteRole, $user->getId());
+
+        return true;
+    }
+
+    /**
+     * Signs user up.
+     *
+     * @return bool whether the creating new account was successful and email was sent
+     */
+    public function updateUser()
     {
         if (!$this->validate()) {
             return null;
