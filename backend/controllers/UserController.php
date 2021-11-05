@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\UserForm;
+use common\models\Perfil;
 use common\models\User;
 use common\models\UserSearch;
 use yii\web\Controller;
@@ -112,6 +113,7 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
+        Perfil::deleteAll(['id_user' => $id]);
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
