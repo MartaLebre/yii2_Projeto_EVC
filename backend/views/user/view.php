@@ -31,15 +31,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'username',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
-            'email:email',
-            'status',
-            'created_at',
-            'updated_at',
-            'verification_token',
+            'primeiro_nome',
+            'ultimo_nome',
+            'telemovel',
+            'morada',
         ],
     ]) ?>
+
+    <h2>User </h2><br>
+    <ul>
+        <?php  foreach ($perfis as $perfil){?>
+        <li><?php echo $perfil->primeiro_nome?>
+            <?=$perfil->ultimo_nome; }?></li>
+        <li><?php echo $perfil->telemovel?></li>
+    </ul>
 
 </div>
