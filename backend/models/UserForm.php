@@ -80,7 +80,7 @@ class UserForm extends Model
         }
 
         //user
-        $user = new User();
+        $user = new User(); // find .... update
         $user->username = $this->username;
         $user->email = $this->email;
         $user->setPassword($this->password);
@@ -88,8 +88,8 @@ class UserForm extends Model
         $user->generateEmailVerificationToken();
         $user->save();
 
-        //perfil
-        $perfil = new Perfil();
+        //perfils
+        $perfil = new Perfil(); //  ... find update
         $perfil->primeiro_nome = $this->primeiro_nome;
         $perfil->ultimo_nome = $this->ultimo_nome;
         $perfil->telemovel = $this->telemovel;

@@ -213,4 +213,14 @@ class User extends ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
 
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPerfil()
+    {
+        return $this->hasOne(Perfil::className(), ['id_user' => 'id']);
+    }
+
 }

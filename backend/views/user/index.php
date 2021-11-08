@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'username',
-            'primeiro_nome',
+            'perfil.primeiro_nome',
             'ultimo_nome',
             'telemovel',
             //'auth_key',
