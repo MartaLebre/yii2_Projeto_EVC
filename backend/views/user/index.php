@@ -15,8 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="user-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <h1><?php echo User::isGestor(Yii::$app->user->id) ?></h1>
-
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -29,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'username',
             'perfil.primeiro_nome',
             'perfil.ultimo_nome',
+            
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
