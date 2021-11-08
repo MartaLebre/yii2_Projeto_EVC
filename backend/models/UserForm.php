@@ -15,14 +15,14 @@ class UserForm extends Model
     public $username;
     public $email;
     public $password;
-
+    
     //perfil
     public $telemovel;
     public $primeiro_nome;
     public $ultimo_nome;
-
-
-
+    
+    
+    
     /**
      * {@inheritdoc}
      */
@@ -33,16 +33,16 @@ class UserForm extends Model
             ['username', 'required'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
-
+            
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
-
+            
             ['password', 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
-
+            
             ['telemovel', 'integer', 'message' => 'Número de telemovel incorreto.'],
             ['telemovel', 'required', 'message' => 'Introduza um número de telemovel.'],
             ['telemovel', 'unique', 'targetClass' => '\common\models\Perfil', 'message' => 'Este número de telemovel já está registado.'],
@@ -51,14 +51,14 @@ class UserForm extends Model
                 'tooShort' => 'O número de telemovel tem que ter 9 dígitos.',
                 'tooLong' => 'O número de telemovel tem que ter 9 dígitos.'
             ],
-
+            
             ['primeiro_nome', 'required', 'message' => 'Introduza um nome.'],
             [
                 'primeiro_nome', 'string', 'min' => 2, 'max' => 50,
                 'tooShort' => 'O nome tem que ter no mínimo 2 digitos.',
                 'tooLong' => 'O nome não pode exceder os 50 digitos.'
             ],
-
+            
             ['ultimo_nome', 'required', 'message' => 'Introduza um apelido.'],
             [
                 'ultimo_nome', 'string', 'min' => 2, 'max' => 50,
@@ -67,7 +67,7 @@ class UserForm extends Model
             ],
         ];
     }
-
+    
     /**
      * Signs user up.
      *
@@ -78,42 +78,7 @@ class UserForm extends Model
         if (!$this->validate()) {
             return null;
         }
-
-        //user
-        $user = new User(); // find .... update
-        $user->username = $this->username;
-        $user->email = $this->email;
-        $user->setPassword($this->password);
-        $user->generateAuthKey();
-        $user->generateEmailVerificationToken();
-        $user->save();
-
-        //perfils
-        $perfil = new Perfil(); //  ... find update
-        $perfil->primeiro_nome = $this->primeiro_nome;
-        $perfil->ultimo_nome = $this->ultimo_nome;
-        $perfil->telemovel = $this->telemovel;
-        $perfil->id_user = $user->id;
-        $perfil->save();
-
-        $auth = \Yii::$app->authManager;
-        $clienteRole = $auth->getRole('gestorStock');
-        $auth->assign($clienteRole, $user->getId());
-
-        return true;
-    }
-
-    /**
-     * Signs user up.
-     *
-     * @return bool whether the creating new account was successful and email was sent
-     */
-    public function updateUser()
-    {
-        if (!$this->validate()) {
-            return null;
-        }
-
+        
         //user
         $user = new User();
         $user->username = $this->username;
@@ -122,7 +87,7 @@ class UserForm extends Model
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
         $user->save();
-
+        
         //perfil
         $perfil = new Perfil();
         $perfil->primeiro_nome = $this->primeiro_nome;
@@ -130,14 +95,49 @@ class UserForm extends Model
         $perfil->telemovel = $this->telemovel;
         $perfil->id_user = $user->id;
         $perfil->save();
-
+        
         $auth = \Yii::$app->authManager;
         $clienteRole = $auth->getRole('gestorStock');
         $auth->assign($clienteRole, $user->getId());
-
+        
         return true;
     }
-
+    
+    /**
+     * Signs user up.
+     *
+     * @return bool whether the creating new account was successful and email was sent
+     */
+    public function updateUser($modelUser, $modelPerfil)
+    {
+        if (!$this->validate()) {
+            return null;
+        }
+        
+        //user
+        $user = User::findOne($modelUser->id);
+        $user->username = $modelUser->username;
+        $user->email = $modelUser->email;
+        $user->setPassword($modelUser->password);
+        $user->generateAuthKey();
+        $user->generateEmailVerificationToken();
+        $user->save();
+        
+        //perfil
+        $perfil = Perfil::findOne($user->id);
+        $perfil->primeiro_nome = $modelPerfil->primeiro_nome;
+        $perfil->ultimo_nome = $modelPerfil->ultimo_nome;
+        $perfil->telemovel = $modelPerfil->telemovel;
+        $perfil->id_user = $user->id;
+        $perfil->save();
+        
+        $auth = \Yii::$app->authManager;
+        $clienteRole = $auth->getRole('gestorStock');
+        $auth->assign($clienteRole, $user->getId());
+        
+        return true;
+    }
+    
     /**
      * Sends confirmation email to user
      * @param User $user user model to with email should be send

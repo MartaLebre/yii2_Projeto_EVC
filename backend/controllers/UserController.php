@@ -93,14 +93,19 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $modelUser = $this->findModel($id);
+        $modelPerfil = $modelUser->perfil;
+    
+        if($this->request->isPost && $modelUser->load($this->request->post()) && $modelPerfil->load($this->request->post())){
+            $modelUser->update();
+            $modelPerfil->update();
+            return $this->redirect(['view', 'id' => $modelUser->id]);
         }
-
+        
         return $this->render('update', [
-            'model' => $model,
+            'modelUser' => $modelUser,
+            'modelPerfil' => $modelPerfil,
+            
         ]);
     }
 

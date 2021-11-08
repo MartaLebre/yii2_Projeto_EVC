@@ -38,12 +38,4 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
-    <h2>User </h2><br>
-    <ul>
-        <?php  foreach ($perfis as $perfil){?>
-        <li><?php echo $perfil->primeiro_nome?>
-            <?=$perfil->ultimo_nome; }?></li>
-        <li><?php echo $perfil->telemovel?></li>
-    </ul>
-
 </div>
