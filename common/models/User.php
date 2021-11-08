@@ -222,5 +222,44 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasOne(Perfil::className(), ['id_user' => 'id']);
     }
+    
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public static function isAdmin($id)
+    {
+        $user = User::findOne($id);
+    
+        if(Yii::$app->user->can('admin')) return true;
+        else return false;
+    }
+    
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public static function isGestor($id)
+    {
+        $user = User::findOne($id);
+    
+        if(Yii::$app->user->can('gestorStock')) return true;
+        else return false;
+    }
+    
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public static function isCliente($id)
+    {
+        $user = User::findOne($id);
+    
+        if(Yii::$app->user->can('cliente')) return true;
+        else return false;
+    }
 
 }

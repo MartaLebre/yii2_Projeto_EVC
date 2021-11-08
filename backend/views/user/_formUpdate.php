@@ -23,8 +23,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($modelUser, 'email')->textInput() ?>
 
-    <?= $form->field($modelUser, 'password')->passwordInput() ?>
-
 
 
     <div class="form-group">

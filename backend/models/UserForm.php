@@ -104,41 +104,6 @@ class UserForm extends Model
     }
     
     /**
-     * Signs user up.
-     *
-     * @return bool whether the creating new account was successful and email was sent
-     */
-    public function updateUser($modelUser, $modelPerfil)
-    {
-        if (!$this->validate()) {
-            return null;
-        }
-        
-        //user
-        $user = User::findOne($modelUser->id);
-        $user->username = $modelUser->username;
-        $user->email = $modelUser->email;
-        $user->setPassword($modelUser->password);
-        $user->generateAuthKey();
-        $user->generateEmailVerificationToken();
-        $user->save();
-        
-        //perfil
-        $perfil = Perfil::findOne($user->id);
-        $perfil->primeiro_nome = $modelPerfil->primeiro_nome;
-        $perfil->ultimo_nome = $modelPerfil->ultimo_nome;
-        $perfil->telemovel = $modelPerfil->telemovel;
-        $perfil->id_user = $user->id;
-        $perfil->save();
-        
-        $auth = \Yii::$app->authManager;
-        $clienteRole = $auth->getRole('gestorStock');
-        $auth->assign($clienteRole, $user->getId());
-        
-        return true;
-    }
-    
-    /**
      * Sends confirmation email to user
      * @param User $user user model to with email should be send
      * @return bool whether the email was sent
