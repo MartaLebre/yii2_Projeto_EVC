@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\LoginForm;
+use common\models\User;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -73,7 +74,7 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
+        if(!Yii::$app->user->isGuest){
             return $this->goHome();
         }
 
@@ -81,19 +82,14 @@ class SiteController extends Controller
 
         $model = new LoginForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-
-
-
-
-            $auth = \Yii::$app->authManager;
-            $userAssigned = $auth->getRolesByUser(\Yii::$app->user->id);
-
-            foreach($userAssigned as $userAssign){
-                if ($userAssign->name == 'admin' || $userAssign->name == 'gestorStock'){
-
-                    return $this->redirect('index');
-                }
+        if($model->load(Yii::$app->request->post())){
+            
+            $checkUser = User::findByUsername($model->username);
+            
+            if($checkUser['status'] == User::STATUS_ACTIVE && !Yii::$app->authManager->getAssignment('cliente', $checkUser->id)){
+                $model->login();
+                
+                return $this->redirect('index');
             }
 
         }
