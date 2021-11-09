@@ -1,3 +1,8 @@
+<?php
+
+use common\models\User;
+
+?>
 <style>
     .brand-image {
         margin-top: -10px !important;
@@ -17,7 +22,7 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2" style="font-size: 14px">
 
-            <?php  if(Yii::$app->user->can('admin')) {
+            <?php  if(User::isAdmin(Yii::$app->user->id)) {
                 echo \hail812\adminlte\widgets\Menu::widget([
                     'items' => [
                         ['label' => 'Gestão de Utilizadores', 'header' => true],
