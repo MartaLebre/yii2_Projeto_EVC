@@ -44,7 +44,6 @@ class UserSearch extends User
     public function search($params)
     {
         $query = User::find();
-        //$query = Perfil::find();
 
         // add conditions that should always apply here
 
@@ -63,7 +62,7 @@ class UserSearch extends User
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'status' => $this->status,
+            'status' => User::STATUS_ACTIVE,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
