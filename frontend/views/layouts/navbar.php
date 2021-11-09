@@ -35,7 +35,7 @@ use yii\helpers\Html;
 
     <div>
         <a id="brandlink" href="<?=\yii\helpers\Url::home()?>" class="brand-link">
-            <img src="<?=Yii::getAlias('@web'); ?>/img/Untitled.png" class="brand-image" style="size: ">
+            <img src="<?=Yii::getAlias('@web'); ?>/img/logo.png" class="brand-image" style="size: ">
             <span class="brand-text font-weight-light">eClothingVintage</span>
         </a>
     </div>
@@ -54,7 +54,9 @@ use yii\helpers\Html;
                 <?= Html::a('<i class="fas fa-user" style="color: #007bff"></i>', ['/site/login'], ['class' => 'nav-link']) ?>
             </li>
             <li class="nav-item">
-                <?= Html::a('<i class="fas fa-sign-out-alt"></i>', ['/site/logout'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                <?php if(!Yii::$app->user->isGuest){
+                   echo Html::a('<i class="fas fa-sign-out-alt"></i>', ['/site/logout'], ['data-method' => 'post', 'class' => 'nav-link']);
+                }?>
             </li>
         </ul>
     </div>

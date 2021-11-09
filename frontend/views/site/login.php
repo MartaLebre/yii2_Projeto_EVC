@@ -33,18 +33,15 @@ $this->title = 'Login';
                 ->passwordInput(['placeholder' => $model->getAttributeLabel('password')]) ?>
 
             <div class="row">
-                <div class="col-4 offset-8">
+                <div class="col-6">
+                    <p>Não têm uma conta? <?= Html::a('Registe-se', ['/site/signup'], ['name' => 'signin-button']) ?></p>
+                </div>
+                <div class="col-3 offset-3">
                     <?= Html::submitButton('Login', ['class' => 'btn btn-primary btn-block', 'name' => 'login-button']) ?>
                 </div>
             </div>
 
             <?php \yii\bootstrap4\ActiveForm::end(); ?>
-
-            <div class="row">
-                <div class="col-6 offset-0">
-            <?= Html::a('Não têm Conta!! Registe-se', ['/site/signup'], ['data-method' => 'post']) ?>
-                </div>
-            </div>
         </div>
     </div>
 </div>

@@ -261,5 +261,4 @@ class User extends ActiveRecord implements IdentityInterface
         if(Yii::$app->user->can('cliente')) return true;
         else return false;
     }
-
 }

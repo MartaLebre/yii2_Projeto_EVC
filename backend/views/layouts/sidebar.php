@@ -8,7 +8,7 @@
 <aside class="main-sidebar sidebar-dark-primary shadow">
     <!-- Brand Logo -->
     <a href="<?= \yii\helpers\Url::home() ?>" class="brand-link" style="height: 57px">
-        <img src="<?= Yii::$app->request->baseUrl ?>/img/Untitled.png" class="brand-image">
+        <img src="<?= Yii::$app->request->baseUrl ?>/img/logo.png" class="brand-image">
         <span class="brand-text font-weight-light">eClothingVintage</span>
     </a>
 

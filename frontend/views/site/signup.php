@@ -5,7 +5,6 @@
 /* @var $model \frontend\models\SignupForm */
 
 use yii\bootstrap4\Html;
-use yii\bootstrap4\ActiveForm;
 
 $this->title = 'Signup';
 ?>
@@ -66,8 +65,8 @@ $this->title = 'Signup';
                 ->passwordInput(['placeholder' => $model->getAttributeLabel('password')]) ?>
 
             <div class="row">
-                <div class="col-4 offset-8">
-                    <?= Html::submitButton('Signup', ['class' => 'btn btn-primary btn-block', 'name' => 'login-button']) ?>
+                <div class="col-3 offset-9">
+                    <?= Html::submitButton('Registar', ['class' => 'btn btn-primary btn-block', 'name' => 'signup-button']) ?>
                 </div>
             </div>
             
