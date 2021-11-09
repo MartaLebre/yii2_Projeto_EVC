@@ -48,10 +48,10 @@ use yii\helpers\Html;
                 <?= Html::a('<i class="fas fa-shopping-bag"></i>', ['#'], ['class' => 'nav-link']) ?>
             </li>
             <li class="nav-item">
-                <?= Html::a('<i class="fas fa-heart" style="color: #dc3545"></i>', ['#'], ['class' => 'nav-link']) ?>
+                <?= Html::a('<i class="fas fa-heart text-danger"></i>', ['#'], ['class' => 'nav-link']) ?>
             </li>
             <li class="nav-item">
-                <?= Html::a('<i class="fas fa-user" style="color: #007bff"></i>', ['/site/login'], ['class' => 'nav-link']) ?>
+                <?= Html::a('<i class="fas fa-user text-primary"></i>', ['/site/login'], ['class' => 'nav-link']) ?>
             </li>
             <li class="nav-item">
                 <?php if(!Yii::$app->user->isGuest){

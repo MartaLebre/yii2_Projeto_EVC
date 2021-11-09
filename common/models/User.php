@@ -232,7 +232,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $user = User::findOne($id);
     
-        if(Yii::$app->user->can('admin')) return true;
+        if(Yii::$app->authManager->getAssignment('admin', $user->id)) return true;
         else return false;
     }
     
@@ -245,7 +245,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $user = User::findOne($id);
     
-        if(Yii::$app->user->can('gestorStock')) return true;
+        if(Yii::$app->authManager->getAssignment('gestorStock', $user->id)) return true;
         else return false;
     }
     
@@ -258,7 +258,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $user = User::findOne($id);
     
-        if(Yii::$app->user->can('cliente')) return true;
+        if(Yii::$app->authManager->getAssignment('cliente', $user->id)) return true;
         else return false;
     }
 }

@@ -39,12 +39,13 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $modelUsers = User::find()
+            ->where(['status' => User::STATUS_ACTIVE])
+            ->orWhere(['status' => User::STATUS_INACTIVE])
+            ->all();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'modelUsers' => $modelUsers,
         ]);
     }
 
