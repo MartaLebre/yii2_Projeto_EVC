@@ -118,8 +118,12 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        Perfil::deleteAll(['id_user' => $id]);
-        $this->findModel($id)->delete();
+        //Perfil::deleteAll(['id_user' => $id]);
+        $user = User::findOne(['id' => $id]);
+
+        $user->status  = User::STATUS_DELETED;
+
+        $user->save();
 
         return $this->redirect(['index']);
     }
@@ -139,4 +143,20 @@ class UserController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
+    public function actionBloquear($id){
+
+        $this->findModel($id)->updateAttributes(['status' => User::STATUS_INACTIVE]);
+
+         return $this->redirect(['index']);
+    }
+
+    public function actionDesbloquear($id){
+
+        $this->findModel($id)->updateAttributes(['status' => User::STATUS_ACTIVE]);
+
+        return $this->redirect(['index']);
+    }
+
 }
