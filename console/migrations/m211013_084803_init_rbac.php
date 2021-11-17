@@ -32,6 +32,7 @@ class m211013_084803_init_rbac extends Migration
         $bloquearCliente->description = 'Bloquear Cliente';
         $auth->add($bloquearCliente);
 
+        //meter aqui comentarios para dizer a que requisito diz respeito
         $desbloquearCliente = $auth->createPermission('desbloquearCliente');
         $desbloquearCliente->description = 'Desbloquear Cliente';
         $auth->add($desbloquearCliente);
