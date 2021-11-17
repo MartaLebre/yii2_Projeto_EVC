@@ -54,17 +54,17 @@ use yii\helpers\Html;
                 <li class="nav-item">
                     <?= Html::a('<i class="fas fa-user text-primary"></i>', ['login'], ['class' => 'nav-link']) ?>
                 </li>
+                <li class="nav-item">
+                </li>
             <?php }
             else{ ?>
                 <li class="nav-item">
-                    <?= Html::a('<i class="fas fa-user-edit text-primary"></i>', ['perfil'], ['class' => 'nav-link']) ?>
+                    <?= Html::a('<i class="fas fa-user-edit text-primary"></i>', ['perfil/update', 'id' => Yii::$app->user->id], ['class' => 'nav-link']) ?>
+                </li>
+                <li class="nav-item">
+                    <?= Html::a('<i class="fas fa-sign-out-alt"></i>', ['logout'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
                 </li>
             <?php }?>
-            <li class="nav-item">
-                <?php if(!Yii::$app->user->isGuest){
-                   echo Html::a('<i class="fas fa-sign-out-alt"></i>', ['logout'], ['data-method' => 'post', 'class' => 'nav-link']);
-                }?>
-            </li>
         </ul>
     </div>
 </nav>
