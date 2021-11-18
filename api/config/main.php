@@ -49,6 +49,7 @@ return [
                         'POST login' => 'login',
                         'PUT editar/{username}' => 'editar',
                         'GET detalhes/{id}' => 'detalhes',
+                        'PATCH apagar/{username}' => 'apagar',
                     ],
                     'tokens' =>
                         [
