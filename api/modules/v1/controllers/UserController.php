@@ -66,6 +66,7 @@ class UserController extends ActiveController
 
             $user->username = \Yii::$app->request->post('username');
             $user->email = \Yii::$app->request->post('email');
+            $user->password = \Yii::$app->request->post('password');
             $perfil->primeiro_nome = \Yii::$app->request->post('primeiro_nome');
             $perfil->ultimo_nome = \Yii::$app->request->post('ultimo_nome');
             $perfil->telemovel = \Yii::$app->request->post('telemovel');
