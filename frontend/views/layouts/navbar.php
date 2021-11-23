@@ -4,25 +4,43 @@ use yii\helpers\Html;
 
 ?>
 <style>
-    #brandlink:link, #brandlink:visited{
-        color:rgba(0,0,0,.8); !important;
+    .brand-link{
+        letter-spacing: 1px;
+        font-size: 22px;
     }
-    #brandlink:hover{
+    .brand-link:link, .brand-link:visited{
+        color: #222 !important;
+    }
+    .brand-link:hover{
         color: black !important;
     }
-    
+    .navbar-search{
+        padding-right: 25%;
+        padding-left: 5%;
+    }
+    .navbar-search form, .navbar-search .input-group{
+        width: 150%;
+    }
+    .navbar-icons{
+        padding-left: 30%;
+    }
     .brand-image{
         margin-top: -12px !important;
         max-height: 50px !important;
     }
+    .navbar-dark{
+        letter-spacing: 1px;
+        background-color: #222;
+        height: 46px;
+        padding-left: 31%;
+    }
 </style>
-<!-- Navbar -->
-<nav class="navbar navbar-expand navbar-light navbar-white" style="height: 76px">
 
+<nav class="navbar navbar-expand navbar-light navbar-white">
     <!-- SEARCH FORM -->
-    <div style="padding-right: 25%; padding-left: 5%">
-        <form class="form-inline" style="width: 150%">
-            <div class="input-group input-group-sm" style="width: 150%">
+    <div class="navbar-search">
+        <form class="form-inline">
+            <div class="input-group input-group-sm">
                 <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
                     <button class="btn btn-navbar" type="submit">
@@ -34,15 +52,15 @@ use yii\helpers\Html;
     </div>
 
     <div>
-        <a id="brandlink" href="<?=\yii\helpers\Url::home()?>" class="brand-link">
-            <img src="<?=Yii::getAlias('@web'); ?>/img/logo.png" class="brand-image" style="size: ">
+        <a href="<?=\yii\helpers\Url::home()?>" class="brand-link">
+            <img src="<?=Yii::getAlias('@web'); ?>/img/logo.png" class="brand-image">
             <span class="brand-text font-weight-light">eClothingVintage</span>
         </a>
     </div>
 
 
     <!-- Right navbar links -->
-    <div style="padding-left: 30%">
+    <div class="navbar-icons">
         <ul class="navbar-nav">
             <li class="nav-item">
                 <?= Html::a('<i class="fas fa-shopping-bag"></i>', ['#'], ['class' => 'nav-link']) ?>
@@ -68,9 +86,9 @@ use yii\helpers\Html;
         </ul>
     </div>
 </nav>
-<!-- /.navbar -->
-<nav class="navbar navbar-expand navbar-dark shadow" style="height: 46px">
-    <ul class="navbar-nav" style="padding-left: 32%">
+
+<nav class="navbar navbar-expand navbar-dark shadow">
+    <ul class="navbar-nav text-uppercase">
         <li class="nav-item">
             <a href="<?=\yii\helpers\Url::home()?>" class="nav-link">Home</a>
         </li>
@@ -95,4 +113,3 @@ use yii\helpers\Html;
         </li>
     </ul>
 </nav>
-<!-- /.navbar -->

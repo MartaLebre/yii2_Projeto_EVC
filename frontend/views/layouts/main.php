@@ -5,6 +5,7 @@
 
 use common\widgets\Alert;
 use yii\bootstrap4\Breadcrumbs;
+use yii\bootstrap4\Carousel;
 use yii\bootstrap4\Html;
 
 \hail812\adminlte3\assets\FontAwesomeAsset::register($this);
@@ -27,12 +28,7 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
 <?php $this->beginBody() ?>
 
 <div class="wrapper">
-    <!-- Navbar -->
     <?= $this->render('navbar', ['assetDir' => $assetDir]) ?>
-
-
-    <!-- Main Sidebar Container -->
-    
 </div>
 
 <main role="main" class="flex-shrink-0">
