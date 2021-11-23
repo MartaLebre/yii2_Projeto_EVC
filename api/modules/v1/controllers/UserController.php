@@ -47,17 +47,14 @@ class UserController extends ActiveController
         $model->username = \Yii::$app->request->post('username');
         $model->password = \Yii::$app->request->post('password');
 
-        $modeluser = User::find()->where(['username' => $model->username])->one();
+        $modeluser = User::findByUsername($model->username);
 
-        if ($modeluser->status != 10) {
-            throw new \yii\web\NotFoundHttpException("Esta conta não pode ser acedida.");
+        if($modeluser['status'] == User::STATUS_ACTIVE && Yii::$app->authManager->getAssignment('cliente', $modeluser->id)){
+            $model->login();
 
+            return true;
         } else {
-            if ($model->login()) {
-                return $modeluser;
-            } else {
-                return null;
-            }
+            throw new \yii\web\NotFoundHttpException("Esta conta não pode ser acedida.");
         }
     }
 
@@ -69,6 +66,7 @@ class UserController extends ActiveController
 
             $user->username = \Yii::$app->request->post('username');
             $user->email = \Yii::$app->request->post('email');
+            $user->password = \Yii::$app->request->post('password');
             $perfil->primeiro_nome = \Yii::$app->request->post('primeiro_nome');
             $perfil->ultimo_nome = \Yii::$app->request->post('ultimo_nome');
             $perfil->telemovel = \Yii::$app->request->post('telemovel');
@@ -100,6 +98,19 @@ class UserController extends ActiveController
             ]];
         } else {
             throw new \yii\web\NotFoundHttpException("O utilizador não foi encontrado");
+        }
+    }
+
+    public function actionApagar($username){
+        $statusDelete = 0;
+
+        $user = User::findOne(['username' => $username]);
+
+        if($user != null){
+            $user->status = $statusDelete;
+            $user->save(false);
+        } else {
+            throw new \yii\web\NotFoundHttpException("Utilizador não encontrado");
         }
     }
 }
