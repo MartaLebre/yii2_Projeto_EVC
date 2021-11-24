@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Modelo;
 use common\models\ModeloSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -68,9 +69,28 @@ class ModeloController extends Controller
     {
         $model = new Modelo();
 
+        $modelos = $this->getModelos();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())) {
+
+                //var_dump($modelos);
+                $checkModelo = false;
+                if ($modelos != null) {
+                    foreach ($modelos as $modelo) {
+                        if ($model->modelo == $modelo) {
+                            $checkModelo = true;
+
+                        }
+                    }
+                    if($checkModelo == false){
+                        $model->save();
+                    }else {
+                        Yii::$app->session->setFlash('error', "O Modelo criado já existe");
+                    }
+
+                }
+
                 return $this->redirect(['index']);
             }
         } else {
@@ -80,6 +100,20 @@ class ModeloController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+
+    public static function getModelos()
+    {
+
+        $modelos = Modelo::find()->all();
+
+        if ($modelos != null) {
+            foreach ($modelos as $model) {
+                $modelos_all[] = $model->modelo;
+            }
+            return $modelos_all;
+        }
+
     }
 
     /**

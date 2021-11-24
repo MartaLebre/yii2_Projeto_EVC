@@ -1,5 +1,6 @@
 <?php
 
+use common\widgets\Alert;
 use yii\helpers\Html;
 use common\models\User;
 
@@ -29,6 +30,9 @@ $this->title = 'Lista de Modelos';
         border-bottom: 0px;
     }
 </style>
+
+<?= Alert::widget() ?>
+
 <div class="user-index">
     <p>
         <?= Html::a('Criar Modelo', ['create'], ['class' => 'btn btn-success']) ?>
