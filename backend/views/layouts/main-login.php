@@ -26,11 +26,9 @@ $this->registerCssFile('https://code.ionicframework.com/ionicons/2.0.1/css/ionic
     <div class="login-logo">
         <a href="<?=Yii::$app->homeUrl?>"><b>Admin</b>LTE</a>
     </div>
-    <!-- /.login-logo -->
 
     <?= $content ?>
 </div>
-<!-- /.login-box -->
 
 <?php $this->endBody() ?>
 </body>

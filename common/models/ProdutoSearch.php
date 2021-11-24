@@ -11,15 +11,17 @@ use common\models\Produto;
  */
 class ProdutoSearch extends Produto
 {
+    public $searchstring;
+    
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['codigo_produto', 'tamanho', 'quantidade', 'id_modelo'], 'integer'],
-            [['nome', 'genero', 'descrição', 'data'], 'safe'],
-            [['preço'], 'number'],
+            [['searchstring'], 'safe'],
+            [['codigo_produto'], 'integer'],
+            [['nome'], 'safe'],
         ];
     }
 
@@ -60,16 +62,11 @@ class ProdutoSearch extends Produto
         // grid filtering conditions
         $query->andFilterWhere([
             'codigo_produto' => $this->codigo_produto,
-            'tamanho' => $this->tamanho,
-            'preço' => $this->preço,
-            'quantidade' => $this->quantidade,
-            'data' => $this->data,
-            'id_modelo' => $this->id_modelo,
+            'nome' => $this->nome,
         ]);
 
-        $query->andFilterWhere(['like', 'nome', $this->nome])
-            ->andFilterWhere(['like', 'genero', $this->genero])
-            ->andFilterWhere(['like', 'descrição', $this->descrição]);
+        $query->andFilterWhere(['like', 'codigo_produto', $this->searchstring])
+            ->andFilterWhere(['like', 'nome', $this->searchstring]);
 
         return $dataProvider;
     }

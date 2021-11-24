@@ -5,12 +5,11 @@
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Carousel;
 
-$this->title = 'eClothingVintage';
+$this->title = 'eVintageClothing';
 ?>
 <style>
     .carousel-item{
-        max-height: 400px;
-        object-position: 20% 80%;
+        height: 400px;
     }
     .carousel-indicators{
         top: 0;
@@ -52,7 +51,7 @@ $this->title = 'eClothingVintage';
         text-transform: uppercase;
         position: absolute;
         top: 95%;
-        left: 45.5%;
+        left: 44%;
     }
     .button-slideshow{
         background-color: #222;
@@ -72,7 +71,7 @@ $this->title = 'eClothingVintage';
 <div class="site-index">
     <div class="card slideshow">
         <?= yii\bootstrap4\Carousel::widget(['items' => $slideshow]); ?>
-        <?= Html::a('Novidades', ['produto/index    '], ['class' => 'btn button-slideshow shadow']) ?>
+        <?= Html::a('Novidades', ['produto/index'], ['class' => 'btn button-slideshow shadow']) ?>
     </div>
 </div>
 

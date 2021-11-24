@@ -9,20 +9,21 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="produto-search">
-
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'codigo_produto') ?>
-
-    <?= $form->field($model, 'nome') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
+    <div class="row">
+        <div class="col-6 offset-3">
+            <?= $form->field($model, 'searchstring',
+                ['template' => '<div class="input-group">{input}<span class="input-group-append">' .
+                    Html::submitButton('Search', ['class' => 'btn btn-default']) .
+                    '</span></div>',])->textInput(['placeholder' => 'Search']);
+            ?>
+        </div>
     </div>
-
+    <hr>
+    
     <?php ActiveForm::end(); ?>
-
 </div>

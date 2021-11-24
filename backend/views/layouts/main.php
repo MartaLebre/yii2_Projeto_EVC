@@ -26,16 +26,12 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
 <?php $this->beginBody() ?>
 
 <div class="wrapper">
-    <!-- Navbar -->
     <?= $this->render('navbar', ['assetDir' => $assetDir]) ?>
 
-    <!-- Main Sidebar Container -->
     <?= $this->render('sidebar', ['assetDir' => $assetDir]) ?>
 
-    <!-- Content Wrapper. Contains page content -->
     <?= $this->render('content', ['content' => $content, 'assetDir' => $assetDir]) ?>
 
-    <!-- Main Footer -->
     <?php //$this->render('footer') ?>
 </div>
 

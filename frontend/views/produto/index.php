@@ -15,6 +15,7 @@ $this->title = 'Produtos';
         max-height: 95%;
     }
     .card-img-top{
+        object-fit: cover;
         opacity: .75;
     }
     .card-img-top:hover{
@@ -42,16 +43,17 @@ $this->title = 'Produtos';
 </style>
 
 <div class="produto-index">
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <?= $this->render('_search', ['model' => $searchModel]) ?>
+    
     <div class="row">
         <div class="col-3">
             <div class="card">
                 <img class="card-img-top" src="img/clothing/teste1.jpg">
                 <hr>
                 <div class="card-body">
-                    <h6 class="card-text text-center">Vintage Reebok Jacket Large</h6>
-                    <p class="card-text text-center">57.55€</p    >
+                    <h6 class="card-text text-center">Vintage Reebok Jacket</h6>
+                    <h6 class="card-text text-center">Large</h6>
+                    <p class="card-text text-center">57.55€</p>
                     <?= Html::a('Ver Produto', ['#'], ['class' => 'btn btn-dark btn-block']) ?>
                     <div class="row sub-row">
                         <div class="col-9">
@@ -69,8 +71,9 @@ $this->title = 'Produtos';
                 <img class="card-img-top" src="img/clothing/teste2.jpg">
                 <hr>
                 <div class="card-body">
-                    <h6 class="card-text text-center">Vintage Reebok Jacket Large</h6>
-                    <p class="card-text text-center">57.55€</p    >
+                    <h6 class="card-text text-center">Vintage Reebok Jacket</h6>
+                    <h6 class="card-text text-center">Large</h6>
+                    <p class="card-text text-center">57.55€</p>
                     <?= Html::a('Ver Produto', ['#'], ['class' => 'btn btn-dark btn-block']) ?>
                     <div class="row sub-row">
                         <div class="col-9">

@@ -13,8 +13,8 @@ $this->title = 'Login';
 <div class="col-6 offset-3">
     <div class="card">
         <div class="card-body login-card-body">
-            <h4>Iniciar sessão</h4>
-            <p>Por favor preencha os seguintes campos</p>
+            <h4 class="card-text">Iniciar sessão</h4>
+            <p class="card-text">Por favor preencha os seguintes campos</p>
 
             <?php $form = \yii\bootstrap4\ActiveForm::begin(['id' => 'login-form']) ?>
 
