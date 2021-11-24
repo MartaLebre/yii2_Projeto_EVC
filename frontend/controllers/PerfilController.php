@@ -3,9 +3,8 @@
 namespace frontend\controllers;
 
 use common\models\User;
-use common\models\UserSearch;
 use common\models\Perfil;
-use app\models\PerfilSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -48,7 +47,8 @@ class PerfilController extends Controller
         if($this->request->isPost && $modelUser->load($this->request->post()) && $modelPerfil->load($this->request->post())){
             $modelUser->update();
             $modelPerfil->update();
-            return $this->redirect(['site/index']);
+            Yii::$app->session->setFlash('success', 'Dados atualizados com sucesso.');
+            return $this->redirect(['update', 'id' => $modelUser->id]);
         }
     
         return $this->render('update', [

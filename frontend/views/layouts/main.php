@@ -27,12 +27,7 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
 <?php $this->beginBody() ?>
 
 <div class="wrapper">
-    <!-- Navbar -->
     <?= $this->render('navbar', ['assetDir' => $assetDir]) ?>
-
-
-    <!-- Main Sidebar Container -->
-    
 </div>
 
 <main role="main" class="flex-shrink-0">

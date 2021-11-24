@@ -34,7 +34,7 @@ $this->title = 'Login';
 
             <div class="row">
                 <div class="col-6">
-                    <p>Não têm uma conta? <?= Html::a('Registe-se', ['/site/signup'], ['name' => 'signin-button']) ?></p>
+                    <p>Não tem uma conta? <?= Html::a('Registe-se', ['/site/signup'], ['name' => 'signin-button']) ?></p>
                 </div>
                 <div class="col-3 offset-3">
                     <?= Html::submitButton('Login', ['class' => 'btn btn-primary btn-block', 'name' => 'login-button']) ?>
