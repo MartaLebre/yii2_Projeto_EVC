@@ -12,23 +12,17 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'codigo_produto')->textInput() ?>
-
     <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'genero')->dropDownList([ 'feminino' => 'Feminino', 'masculino' => 'Masculino', ], ['prompt' => '']) ?>
 
     <?= $form->field($model, 'descrição')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'tamanho')->textInput() ?>
+    <?= $form->field($model, 'tamanho')->dropDownList([ 'XS' => 'XS', 'S' => 'S', 'M' => 'M', 'L' => 'L', 'XL' => 'XL', ], ['prompt' => '']) ?>
 
     <?= $form->field($model, 'preço')->textInput() ?>
 
     <?= $form->field($model, 'quantidade')->textInput() ?>
-
-    <?= $form->field($model, 'data')->textInput() ?>
-
-    <?= $form->field($model, 'id_modelo')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

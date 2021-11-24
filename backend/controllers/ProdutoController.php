@@ -64,13 +64,36 @@ class ProdutoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id_modelo)
     {
         $model = new Produto();
 
+        $codigoProdutos = $this->getCodigoProdutos();
+
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'codigo_produto' => $model->codigo_produto]);
+
+            if ($model->load($this->request->post())) {
+
+                if($codigoProdutos != null) {
+                    $codigo = rand(1, 4);
+                    foreach ($codigoProdutos as $codigo_produto) {
+                        while ($codigo_produto == $codigo){
+                            $codigo = rand(1, 4);
+                        }
+                        var_dump($codigo_produto);
+                       var_dump($codigo);
+                        var_dump($codigo_produto == $codigo);
+                    }
+                }else{
+                    $codigo = rand(1, 4);
+                }
+
+                $model->codigo_produto = $codigo;
+                $model->data = date('Y-m-d H:i:s');
+                $model->id_modelo = $id_modelo;
+                $model->save();
+
+                //return $this->redirect(['view', 'codigo_produto' => $model->codigo_produto]);
             }
         } else {
             $model->loadDefaultValues();
@@ -81,6 +104,18 @@ class ProdutoController extends Controller
         ]);
     }
 
+    public static function getCodigoProdutos(){
+
+        $codigosProdutos = Produto::find()->all();
+
+        if ($codigosProdutos != null) {
+            foreach ($codigosProdutos as $codigo) {
+                $codigosProduto_all[] = +$codigo->codigo_produto;
+            }
+            return $codigosProduto_all;
+        }
+
+    }
     /**
      * Updates an existing Produto model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -124,7 +159,7 @@ class ProdutoController extends Controller
      */
     protected function findModel($codigo_produto)
     {
-        if (($model = Produto::findOne($id)) !== null) {
+        if (($model = Produto::findOne($codigo_produto)) !== null) {
             return $model;
         }
 

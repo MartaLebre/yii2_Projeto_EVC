@@ -1,37 +1,60 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use common\models\User;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\ModeloSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Modelos';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Lista de Modelos';
+
 ?>
-<div class="modelo-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
+<style>
+    table{
+        width: 100%;
+    }
+    .styled-table{
+        margin: 25px 0;
+        font-family: sans-serif;
+    }
+    .styled-table th{
+        background-color: #dddddd;
+    }
+    .styled-table tr{
+        border-bottom: 1px solid #dddddd;
+    }
+    .styled-table tr:nth-of-type(even){
+        background-color: #f3f3f3;
+    }
+    .unstyled-table #tbButtons{
+        border-bottom: 0px;
+    }
+</style>
+<div class="user-index">
     <p>
-        <?= Html::a('Create Modelo', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Criar Modelo', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    <table class="styled-table">
+        <tr>
+            <th>Modelo</th>
+            <th></th>
+        </tr>
+        <?php foreach($modelo as $modeloProduto){ ?>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+                <tr>
+                    <td><?= $modeloProduto->modelo ?></td>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+                    <td>
+                        <table class="unstyled-table">
+                            <tr id="tbButtons">
+                                    <td><?= Html::a('<i class="fas fa-eye text-info"></i>', ['/produto/create', 'id_modelo' => $modeloProduto->id]) ?></td>
 
-            'id',
-            'modelo',
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
+       <?php }?>
+    </table>
 
 </div>
+

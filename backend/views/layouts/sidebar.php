@@ -39,8 +39,8 @@ use common\models\User;
                 echo \hail812\adminlte\widgets\Menu::widget([
                     'items' => [
                         ['label' => 'Gestão de Produtos', 'header' => true],
-                        ['label' => 'Adicionar Produtos', 'iconClass' => 'nav-icon far fa-circle text-success', 'url' => ['site/index']],
-                        ['label' => 'Gerir Produtos', 'iconClass' => 'nav-icon far fa-circle text-warning', 'url' => ['site/index']],
+                        ['label' => 'Adicionar Produtos', 'iconClass' => 'nav-icon far fa-circle text-success', 'url' => ['modelo/index']],
+                        ['label' => 'Gerir Produtos', 'iconClass' => 'nav-icon far fa-circle text-warning', 'url' => ['produto/index']],
                     ],
                 ]);
             }

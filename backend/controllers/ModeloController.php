@@ -37,12 +37,12 @@ class ModeloController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ModeloSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $modeloProduto = Modelo::find()
+            ->indexBy('id')
+            ->all();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'modelo' => $modeloProduto,
         ]);
     }
 
@@ -68,9 +68,10 @@ class ModeloController extends Controller
     {
         $model = new Modelo();
 
+
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['index']);
             }
         } else {
             $model->loadDefaultValues();
