@@ -11,7 +11,7 @@ use Yii;
  * @property string $nome
  * @property string $genero
  * @property string $descrição
- * @property int $tamanho
+ * @property string $tamanho
  * @property float $preço
  * @property int $quantidade
  * @property string $data
@@ -40,8 +40,8 @@ class Produto extends \yii\db\ActiveRecord
     {
         return [
             [['codigo_produto', 'nome', 'genero', 'descrição', 'tamanho', 'preço', 'quantidade', 'data', 'id_modelo'], 'required'],
-            [['codigo_produto', 'tamanho', 'quantidade', 'id_modelo'], 'integer'],
-            [['genero'], 'string'],
+            [['codigo_produto', 'quantidade', 'id_modelo'], 'integer'],
+            [['genero', 'tamanho'], 'string'],
             [['preço'], 'number'],
             [['data'], 'safe'],
             [['nome'], 'string', 'max' => 45],

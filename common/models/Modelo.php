@@ -29,10 +29,8 @@ class Modelo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'modelo'], 'required'],
-            [['id'], 'integer'],
+            [['modelo'], 'required'],
             [['modelo'], 'string', 'max' => 45],
-            [['id'], 'unique'],
         ];
     }
 
