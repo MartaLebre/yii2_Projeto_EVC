@@ -5,7 +5,6 @@
 
 use common\widgets\Alert;
 use yii\bootstrap4\Breadcrumbs;
-use yii\bootstrap4\Carousel;
 use yii\bootstrap4\Html;
 
 \hail812\adminlte3\assets\FontAwesomeAsset::register($this);

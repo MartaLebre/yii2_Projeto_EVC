@@ -3,6 +3,7 @@
 /* @var $this yii\web\View */
 
 use yii\bootstrap4\Html;
+use yii\bootstrap4\Carousel;
 
 $this->title = 'eClothingVintage';
 ?>
@@ -48,8 +49,9 @@ $this->title = 'eClothingVintage';
         display: inline-block;
     }
     .slideshow .btn{
+        text-transform: uppercase;
         position: absolute;
-        top: 63%;
+        top: 95%;
         left: 45.5%;
     }
     .button-slideshow{
@@ -57,21 +59,20 @@ $this->title = 'eClothingVintage';
         border-radius: 6px;
         color: #fff;
         display: inline-block;
-        font-size: 18px;
+        font-size: 16px;
         padding: 9px 20px 8px;
         letter-spacing: 2px;
     }
-    .button-slideshow:hover,
-    .button-slideshow:focus{
+    .button-slideshow:hover, .button-slideshow:focus{
         color: #fff;
         background-color: #151515;
     }
 </style>
 
 <div class="site-index">
-    <div class="slideshow text-uppercase">
+    <div class="card slideshow">
         <?= yii\bootstrap4\Carousel::widget(['items' => $slideshow]); ?>
-        <?= Html::a('Produtos', ['#'], ['class' => 'btn button-slideshow shadow', 'name' => 'produtos-button']) ?>
+        <?= Html::a('Novidades', ['produto/index    '], ['class' => 'btn button-slideshow shadow']) ?>
     </div>
 </div>
 
@@ -87,7 +88,7 @@ $this->title = 'eClothingVintage';
             <div class="col-2 offset-1">
                 <h6>Quick Links</h6>
                 <ul class="footer-links text-uppercase">
-                    <li><a href="#">Novos Produtos</a></li>
+                    <li><a href="#">Novidades</a></li>
                     <li><a href="#">Mystery Boxes</a></li>
                     <li><a href="#">Descontos</a></li>
                 </ul>
