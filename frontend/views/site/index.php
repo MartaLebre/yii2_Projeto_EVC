@@ -82,7 +82,9 @@ $this->title = 'eClothingVintage';
         <div class="row">
             <div class="col-9">
                 <h6>About</h6>
-                <p class="text-justify">Scanfcode.com <i>CODE WANTS TO BE SIMPLE </i> is an initiative  to help the upcoming programmers with the code. Scanfcode focuses on providing the most efficient code or snippets as the code wants to be simple. We will help programmers build up concepts in different programming languages that include C, C++, Java, HTML, CSS, Bootstrap, JavaScript, PHP, Android, SQL and Algorithm.</p>
+                <p class="text-justify">A eVintageClothing é uma loja online em desenvolvimento criada por estudantes da ESTG, do curso de Programação de Sistemas de informação.
+                    Esta loja foi criada com o objetivo de realização de um projeto de final de curso e com o objetivo de conhecer e dar a conhecer mais sobre o mundo de roupa Vintage.
+                    <br>Seja bem vindo ao site e desfrute de todos os produtos, incluindo Mystery Boxes!</p>
             </div>
 
             <div class="col-2 offset-1">
