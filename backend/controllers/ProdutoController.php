@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Produto;
 use common\models\ProdutoSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -30,7 +31,7 @@ class ProdutoController extends Controller
             ]
         );
     }
-
+    
     /**
      * Lists all Produto models.
      * @return mixed
@@ -39,13 +40,13 @@ class ProdutoController extends Controller
     {
         $searchModel = new ProdutoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
-
+    
     /**
      * Displays a single Produto model.
      * @param int $codigo_produto Codigo Produto
@@ -58,63 +59,74 @@ class ProdutoController extends Controller
             'model' => $this->findModel($codigo_produto),
         ]);
     }
-
+    
     /**
      * Creates a new Produto model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($id_modelo)
-    {
+    public function actionCreate($id_modelo){
         $model = new Produto();
-
         $codigoProdutos = $this->getCodigoProdutos();
-
-        if ($this->request->isPost) {
-
-            if ($model->load($this->request->post())) {
-
-                if($codigoProdutos != null) {
-                    $codigo = rand(1, 4);
-                    foreach ($codigoProdutos as $codigo_produto) {
-                        while ($codigo_produto == $codigo){
-                            $codigo = rand(1, 4);
+        
+        if($this->request->isPost && $model->load($this->request->post())){
+            
+            $codigo_random = rand(1, 5);
+            
+            if($codigoProdutos != null){
+                
+                $checkDisponivel['tentativas'] = 0;
+                
+                do{
+                    $codigo_random = rand(1, 5);
+                    $checkDisponivel['indisponivel'] = false;
+                    
+                    foreach($codigoProdutos as $codigo_produto){
+                        if($codigo_random == $codigo_produto){
+                            $checkDisponivel['indisponivel'] = true;
+                            break;
                         }
-                        var_dump($codigo_produto);
-                       var_dump($codigo);
-                        var_dump($codigo_produto == $codigo);
                     }
-                }else{
-                    $codigo = rand(1, 4);
-                }
-
-                $model->codigo_produto = $codigo;
-                $model->data = date('Y-m-d H:i:s');
-                $model->id_modelo = $id_modelo;
-                $model->save();
-
-                //return $this->redirect(['view', 'codigo_produto' => $model->codigo_produto]);
+    
+                    $checkDisponivel['tentativas'] += 1;
+                    
+                    if($checkDisponivel['tentativas'] >= 5){
+                        
+                        Yii::$app->session->setFlash('error', 'ERRO! Tente novamente.');
+                        return $this->render('create', [
+                            'model' => $model,
+                        ]);
+                    }
+                }while($checkDisponivel['indisponivel'] == true);
             }
-        } else {
+            
+            $model->codigo_produto = $codigo_random;
+            $model->data = date('Y-m-d H:i:s');
+            $model->id_modelo = $id_modelo;
+            $model->save();
+    
+            return $this->redirect(['index']);
+        }
+        else{
             $model->loadDefaultValues();
         }
-
+        
         return $this->render('create', [
             'model' => $model,
         ]);
     }
-
+    
     public static function getCodigoProdutos(){
-
+        
         $codigosProdutos = Produto::find()->all();
-
+        
         if ($codigosProdutos != null) {
             foreach ($codigosProdutos as $codigo) {
-                $codigosProduto_all[] = +$codigo->codigo_produto;
+                $codigosProduto_all[] = $codigo->codigo_produto;
             }
             return $codigosProduto_all;
         }
-
+        
     }
     /**
      * Updates an existing Produto model.
@@ -126,16 +138,16 @@ class ProdutoController extends Controller
     public function actionUpdate($codigo_produto)
     {
         $model = $this->findModel($codigo_produto);
-
+        
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'codigo_produto' => $model->codigo_produto]);
         }
-
+        
         return $this->render('update', [
             'model' => $model,
         ]);
     }
-
+    
     /**
      * Deletes an existing Produto model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -146,10 +158,10 @@ class ProdutoController extends Controller
     public function actionDelete($codigo_produto)
     {
         $this->findModel($codigo_produto)->delete();
-
+        
         return $this->redirect(['index']);
     }
-
+    
     /**
      * Finds the Produto model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -162,7 +174,7 @@ class ProdutoController extends Controller
         if (($model = Produto::findOne($codigo_produto)) !== null) {
             return $model;
         }
-
+        
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 }
