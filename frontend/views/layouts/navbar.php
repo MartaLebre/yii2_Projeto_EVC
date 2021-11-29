@@ -19,12 +19,12 @@ use yii\helpers\Html;
     }
     .navbar-icons-login{
         padding-top: 4%;
-        padding-left: 60%;
+        padding-left: 15%;
     }
     .navbar-icons-guest{
         text-transform: uppercase;
         padding-top: 4%;
-        padding-left: 120%;
+        padding-left: 76%;
     }
     .fa-heart a:hover{
         color: #dc3545 !important;
@@ -42,6 +42,10 @@ use yii\helpers\Html;
         padding-left: 32%;
         margin-bottom: 15px;
     }
+    .dropdown-menu{
+        padding-top: 4px !important;
+        padding-bottom: 4px !important;
+    }
 </style>
 
 <nav class="navbar-expand navbar-light">
@@ -52,7 +56,7 @@ use yii\helpers\Html;
                 <span class="brand-text font-weight-light">eVintageClothing</span>
             </a>
         </div>
-        <div class="col-2 offset-2">
+        <div class="col-2 offset-3">
             <?php if(Yii::$app->user->isGuest){ ?>
                 <div class="navbar-icons-guest">
                     <ul class="navbar-nav">
@@ -93,10 +97,21 @@ use yii\helpers\Html;
         <li class="nav-item">
             <?= Html::a('Novidades', ['produto/index'], ['class' => 'nav-link']) ?>
         </li>
+        
+        <?php $modelos = \common\models\Modelo::find()->all(); ?>
+        
+        <li class="nav-item dropdown">
+            <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link">Homem</a>
+            <ul aria-labelledby="dropdownSubMenu" class="dropdown-menu border-0 shadow">
+                <?php foreach($modelos as $modelo){ ?>
+                    <li><?= Html::a($modelo->modelo, ['#'], ['class' => 'dropdown-item']) ?></li>
+                <?php }?>
+            </ul>
+        </li>
 
         <li class="nav-item dropdown">
-            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Produtos</a>
-            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+            <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link">Mulher</a>
+            <ul aria-labelledby="dropdownSubMenu" class="dropdown-menu border-0 shadow">
                 <li><?= Html::a('Modelos..', ['#'], ['class' => 'dropdown-item']) ?></li>
             </ul>
         </li>

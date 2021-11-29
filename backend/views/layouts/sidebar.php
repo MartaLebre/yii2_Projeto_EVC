@@ -9,7 +9,6 @@ use common\models\User;
         max-height: 45px !important;
     }
     .brand-link{
-        margin-top: 5px;
         height: 57px;
     }
     .sidebar nav{

@@ -10,9 +10,9 @@ use Yii;
  * @property int $codigo_produto
  * @property string $nome
  * @property string $genero
- * @property string $descrição
+ * @property string $descricao
  * @property string $tamanho
- * @property float $preço
+ * @property float $preco
  * @property int $quantidade
  * @property string $data
  * @property int $id_modelo

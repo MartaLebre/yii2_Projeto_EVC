@@ -30,36 +30,36 @@ class UserForm extends Model
     {
         return [
             ['username', 'trim'],
-            ['username', 'required'],
+            ['username', 'required', 'message' => 'Necessário introduzir um username.'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
             
             ['email', 'trim'],
-            ['email', 'required'],
+            ['email', 'required', 'message' => 'Necessário introduzir um email.'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
             
-            ['password', 'required'],
+            ['password', 'required', 'message' => 'Necessário introduzir uma password.'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
             
-            ['telemovel', 'integer', 'message' => 'Número de telemovel incorreto.'],
-            ['telemovel', 'required', 'message' => 'Introduza um número de telemovel.'],
-            ['telemovel', 'unique', 'targetClass' => '\common\models\Perfil', 'message' => 'Este número de telemovel já está registado.'],
+            ['telemovel', 'integer', 'message' => 'Número de telemóvel incorreto.'],
+            ['telemovel', 'required', 'message' => 'Necessário introduzir um número de telemóvel.'],
+            ['telemovel', 'unique', 'targetClass' => '\common\models\Perfil', 'message' => 'Este número de telemóvel já está registado.'],
             [
                 'telemovel', 'string', 'min' => 9, 'max' => 9,
-                'tooShort' => 'O número de telemovel tem que ter 9 dígitos.',
-                'tooLong' => 'O número de telemovel tem que ter 9 dígitos.'
+                'tooShort' => 'O número de telemóvel tem que ter 9 dígitos.',
+                'tooLong' => 'O número de telemóvel tem que ter 9 dígitos.'
             ],
             
-            ['primeiro_nome', 'required', 'message' => 'Introduza um nome.'],
+            ['primeiro_nome', 'required', 'message' => 'Necessário introduzir um primeiro nome.'],
             [
                 'primeiro_nome', 'string', 'min' => 2, 'max' => 50,
                 'tooShort' => 'O nome tem que ter no mínimo 2 digitos.',
                 'tooLong' => 'O nome não pode exceder os 50 digitos.'
             ],
             
-            ['ultimo_nome', 'required', 'message' => 'Introduza um apelido.'],
+            ['ultimo_nome', 'required', 'message' => 'Necessário introduzir um apelido.'],
             [
                 'ultimo_nome', 'string', 'min' => 2, 'max' => 50,
                 'tooShort' => 'O apelido tem que ter no mínimo 2 digitos.',
