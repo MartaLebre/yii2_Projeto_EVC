@@ -50,8 +50,7 @@ $this->title = 'Lista de Modelos';
                     <td>
                         <table class="unstyled-table">
                             <tr id="tbButtons">
-                                    <td><?= Html::a('<i class="fas fa-eye text-info"></i>', ['/produto/create', 'id_modelo' => $modeloProduto->id]) ?></td>
-
+                                    <td><?= Html::a('Adicionar Produto', ['/produto/create', 'id_modelo' => $modeloProduto->id], ['class'=>'btn btn-primary']) ?></td>
                             </tr>
                         </table>
                     </td>

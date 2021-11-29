@@ -34,13 +34,13 @@ class Produto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['codigo_produto', 'nome', 'genero', 'descrição', 'tamanho', 'preço', 'quantidade', 'data', 'id_modelo'], 'required'],
+            [['codigo_produto', 'nome', 'genero', 'descricao', 'tamanho', 'preco', 'quantidade', 'data', 'id_modelo'], 'required'],
             [['codigo_produto', 'quantidade', 'id_modelo'], 'integer'],
             [['genero', 'tamanho', 'foto'], 'string'],
-            [['preço'], 'number'],
+            [['preco'], 'number'],
             [['data'], 'safe'],
             [['nome'], 'string', 'max' => 45],
-            [['descrição'], 'string', 'max' => 90],
+            [['descricao'], 'string', 'max' => 90],
             [['codigo_produto'], 'unique'],
         ];
     }
@@ -54,13 +54,18 @@ class Produto extends \yii\db\ActiveRecord
             'codigo_produto' => 'Codigo Produto',
             'nome' => 'Nome',
             'genero' => 'Genero',
-            'descrição' => 'Descrição',
+            'descricao' => 'Descrição',
             'tamanho' => 'Tamanho',
-            'preço' => 'Preço',
+            'preco' => 'Preço',
             'quantidade' => 'Quantidade',
             'data' => 'Data',
             'id_modelo' => 'Id Modelo',
             'foto' => 'Foto',
         ];
+    }
+
+    public function getModelo()
+    {
+        return $this->hasOne(Modelo::className(), ['id' => 'id_modelo']);
     }
 }
