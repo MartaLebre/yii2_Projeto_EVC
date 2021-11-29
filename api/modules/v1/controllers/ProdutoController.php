@@ -15,7 +15,19 @@ class ProdutoController extends ActiveController
             ->one();
 
         if ($pesquisaCodigo != null){
-            $codigoproduto = $pesquisaCodigo;
+            $produtos = $pesquisaCodigo;
+        }
+
+        if($produtos != null){
+            foreach ($produtos as $produto){
+                if($produto->codigo_produto != null){
+                    $produto->codigo_produto = Produto::find()->where(['codigo_produto' => $produto->codigo_produto])->one()->nome;
+                    $produto->codigo_produto = Produto::find()->where(['codigo_produto' => $produto->codigo_produto])->one()->descrição;
+                    $produto->codigo_produto = Produto::find()->where(['codigo_produto' => $produto->codigo_produto])->one()->preço;
+                }
+                $produto->foto = 'http://10.0.2.2:9515/imagens/img-pt/' . $produto->foto;
+            }
+            return $produtos;
         }
     }
 }

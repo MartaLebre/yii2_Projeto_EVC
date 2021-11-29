@@ -61,6 +61,8 @@ return [
                     'controller' => 'v1/produto',
                     'pluralize' => false,
                     'extraPatterns' => [
+                        'GET pesquisa/{pesquisa}' => 'pesquisa'
+
 
                     ],
                     'tokens' =>
