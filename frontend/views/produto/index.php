@@ -11,7 +11,7 @@ use yii\grid\GridView;
 
 $this->title = 'Produtos';
 Yii::$app->language = 'pt-PT';
-$produtos = $dataProvider->getModels();
+$modelProdutos = $dataProvider->getModels();
 ?>
 <style>
     .card{
@@ -59,6 +59,11 @@ $produtos = $dataProvider->getModels();
     .btn-desconto:hover, .btn-desconto:focus{
         color: #fff;
     }
+    .preco-desconto{
+        color: grey;
+        text-decoration: line-through;
+        margin-right: 10px
+    }
 </style>
 
 <div class="produto-index">
@@ -95,7 +100,7 @@ $produtos = $dataProvider->getModels();
                 <div class="card-body">
                     <h6 class="card-text text-center">Vintage Reebok Jacket</h6>
                     <h6 class="card-text text-center">Large</h6>
-                    <p class="card-text text-center"><span style="color: grey; text-decoration: line-through; margin-right: 10px">57.55€</span>55.55€</p>
+                    <p class="card-text text-center"><span class="preco-desconto">57.55€</span>55.55€</p>
                     <?= Html::a('Ver Produto', ['#'], ['class' => 'btn btn-dark btn-block']) ?>
                     <div class="row sub-row">
                         <div class="col-9">
@@ -109,8 +114,7 @@ $produtos = $dataProvider->getModels();
             </div>
         </div>
         
-        <?php
-        foreach($produtos as $produto){?>
+        <?php foreach($modelProdutos as $produto){?>
         <div class="col-3">
             <div class="card">
                 <img class="card-img-top" src="img/clothing/teste1.jpg">
@@ -119,7 +123,7 @@ $produtos = $dataProvider->getModels();
                     <h6 class="card-text text-center"><?= $produto->nome ?></h6>
                     <h6 class="card-text text-center"><?= $produto->tamanho ?></h6>
                     <p class="card-text text-center"><?= $produto->preco ?>€</p>
-                    <?= Html::a('Ver Produto', ['#'], ['class' => 'btn btn-dark btn-block']) ?>
+                    <?= Html::a('Ver Produto', ['produto/view', 'codigo_produto' => $produto->codigo_produto], ['class' => 'btn btn-dark btn-block']) ?>
                     <div class="row sub-row">
                         <div class="col-9">
                             <p class="card-text text-published"><small class="text-muted">Publicado <?= Yii::$app->formatter->asRelativeTime($produto->data) ?></small></p>
