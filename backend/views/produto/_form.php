@@ -16,11 +16,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'genero')->dropDownList([ 'feminino' => 'Feminino', 'masculino' => 'Masculino', ], ['prompt' => '']) ?>
 
-    <?= $form->field($model, 'descrição')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'tamanho')->dropDownList([ 'XS' => 'XS', 'S' => 'S', 'M' => 'M', 'L' => 'L', 'XL' => 'XL', ], ['prompt' => '']) ?>
 
-    <?= $form->field($model, 'preço')->textInput() ?>
+    <?= $form->field($model, 'preco')->textInput() ?>
 
     <?= $form->field($model, 'quantidade')->textInput() ?>
 

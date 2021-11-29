@@ -40,7 +40,7 @@ class ProdutoController extends Controller
     {
         $searchModel = new ProdutoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-        
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -71,14 +71,14 @@ class ProdutoController extends Controller
         
         if($this->request->isPost && $model->load($this->request->post())){
             
-            $codigo_random = rand(1, 5);
+            $codigo_random = rand(100, 1000);
             
             if($codigoProdutos != null){
                 
                 $checkDisponivel['tentativas'] = 0;
                 
                 do{
-                    $codigo_random = rand(1, 5);
+                    $codigo_random = rand(100, 1000);
                     $checkDisponivel['indisponivel'] = false;
                     
                     foreach($codigoProdutos as $codigo_produto){

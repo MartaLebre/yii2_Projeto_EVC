@@ -15,28 +15,16 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'codigo_produto') ?>
-
-    <?= $form->field($model, 'nome') ?>
-
-    <?= $form->field($model, 'genero') ?>
-
-    <?= $form->field($model, 'descrição') ?>
-
-    <?= $form->field($model, 'tamanho') ?>
-
-    <?php // echo $form->field($model, 'preço') ?>
-
-    <?php // echo $form->field($model, 'quantidade') ?>
-
-    <?php // echo $form->field($model, 'data') ?>
-
-    <?php // echo $form->field($model, 'id_modelo') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+    <div class="row">
+        <div class="col-6 offset-3">
+            <?= $form->field($model, 'searchstring',
+                ['template' => '<div class="input-group">{input}<span class="input-group-append">' .
+                    Html::submitButton('Search', ['class' => 'btn btn-default']) .
+                    '</span></div>',])->textInput(['placeholder' => 'Search']);
+            ?>
+        </div>
     </div>
+    <hr>
 
     <?php ActiveForm::end(); ?>
 
