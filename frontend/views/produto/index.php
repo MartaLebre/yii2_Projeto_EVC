@@ -1,95 +1,25 @@
 <?php
 
-use common\models\Produto;
 use yii\helpers\Html;
-use yii\grid\GridView;
+use yii\bootstrap4\BootstrapAsset;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\ProdutoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-/* @var $produtos Produto */
+/* @var $produtos common\models\Produto */
+/* @var $modelo common\models\Modelo */
+
+$this->registerCssFile("@web/css/card.css");
 
 $this->title = 'Produtos';
 Yii::$app->language = 'pt-PT';
 $modelProdutos = $dataProvider->getModels();
 ?>
-<style>
-    .card{
-        min-height: 95%;
-        max-height: 95%;
-    }
-    .card-img-top{
-        object-fit: cover;
-        opacity: .75;
-    }
-    .card-img-top:hover{
-        opacity: 1;
-    }
-    .card hr{
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-    .text-published{
-        padding-top: 5px;
-    }
-    .btn-dark{
-        background-color: #222;
-        font-size: 14px;
-        text-transform: uppercase;
-    }
-    .btn-dark:hover, .btn-dark:focus{
-        color: #fff;
-        background-color: #151515;
-    }
-    .sub-row{
-        padding-top: 5px;
-    }
-    .img-overlay{
-        position: absolute;
-        top: 0;
-        padding: 1.25rem;
-    }
-    .btn-desconto{
-        color: #fff;
-        background-color: red;
-        font-size: 14px;
-        text-transform: uppercase;
-        padding: 3px 6px 3px 6px;
-    }
-    .btn-desconto:hover, .btn-desconto:focus{
-        color: #fff;
-    }
-    .preco-desconto{
-        color: grey;
-        text-decoration: line-through;
-        margin-right: 10px
-    }
-</style>
 
 <div class="produto-index">
     <?= $this->render('_search', ['model' => $searchModel]) ?>
     
     <div class="row">
-        <div class="col-3">
-            <div class="card">
-                <img class="card-img-top" src="img/clothing/teste1.jpg">
-                <hr>
-                <div class="card-body">
-                    <h6 class="card-text text-center">Vintage Reebok Jacket</h6>
-                    <h6 class="card-text text-center">Large</h6>
-                    <p class="card-text text-center">57.55€</p>
-                    <?= Html::a('Ver Produto', ['#'], ['class' => 'btn btn-dark btn-block']) ?>
-                    <div class="row sub-row">
-                        <div class="col-9">
-                            <p class="card-text text-published"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                        <div class="col-3">
-                            <?= Html::a('<i class="far fa-heart text-danger"></i>', ['#'], ['class' => 'nav-link']) ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="col-3">
             <div class="card">
                 <img class="card-img-top" src="img/clothing/teste2.jpg">
@@ -98,13 +28,12 @@ $modelProdutos = $dataProvider->getModels();
                 </div>
                 <hr>
                 <div class="card-body">
-                    <h6 class="card-text text-center">Vintage Reebok Jacket</h6>
-                    <h6 class="card-text text-center">Large</h6>
-                    <p class="card-text text-center"><span class="preco-desconto">57.55€</span>55.55€</p>
+                    <h6 class="card-text">Modelo Vintage Reebok Jacket (L)</h6>
+                    <p class="card-text"><span class="preco-desconto">57.55€</span>55.55€</p>
                     <?= Html::a('Ver Produto', ['#'], ['class' => 'btn btn-dark btn-block']) ?>
-                    <div class="row sub-row">
+                    <div class="row">
                         <div class="col-9">
-                            <p class="card-text text-published"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            <p class="card-text text-published">Last updated 3 mins ago</p>
                         </div>
                         <div class="col-3">
                             <?= Html::a('<i class="far fa-heart text-danger"></i>', ['#'], ['class' => 'nav-link']) ?>
@@ -114,19 +43,20 @@ $modelProdutos = $dataProvider->getModels();
             </div>
         </div>
         
-        <?php foreach($modelProdutos as $produto){?>
+        <?php foreach($modelProdutos as $produto){
+            $modelo = $produto->modelo; ?>
         <div class="col-3">
             <div class="card">
                 <img class="card-img-top" src="img/clothing/teste1.jpg">
                 <hr>
                 <div class="card-body">
-                    <h6 class="card-text text-center"><?= $produto->nome ?></h6>
-                    <h6 class="card-text text-center"><?= $produto->tamanho ?></h6>
-                    <p class="card-text text-center"><?= $produto->preco ?>€</p>
+                    <h6 class="card-text"><?= $modelo->modelo . ' ' . $produto->nome .
+                        ' (' . $produto->tamanho . ')' ?></h6>
+                    <p class="card-text"><?= sprintf('%.2f', $produto->preco) ?>€</p>
                     <?= Html::a('Ver Produto', ['produto/view', 'codigo_produto' => $produto->codigo_produto], ['class' => 'btn btn-dark btn-block']) ?>
-                    <div class="row sub-row">
+                    <div class="row">
                         <div class="col-9">
-                            <p class="card-text text-published"><small class="text-muted">Publicado <?= Yii::$app->formatter->asRelativeTime($produto->data) ?></small></p>
+                            <p class="card-text text-published">Publicado <?= Yii::$app->formatter->asRelativeTime($produto->data) ?></p>
                         </div>
                         <div class="col-3">
                             <?= Html::a('<i class="far fa-heart text-danger"></i>', ['#'], ['class' => 'nav-link']) ?>
