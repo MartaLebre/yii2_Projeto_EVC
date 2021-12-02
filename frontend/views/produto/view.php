@@ -61,7 +61,10 @@ Yii::$app->language = 'pt-PT';
             </div>
             <div class="produto-btn">
                 <?= Html::a('Adicionar ao Carrinho', ['#'], ['class' => 'btn btn-dark btn-block']) ?>
-                <?= Html::a('<i class="far fa-heart"></i><span>Adicionar aos favoritos</span>', ['#'], ['class' => 'nav-link text-danger']) ?>
+                <?php if(!Yii::$app->user->isGuest){
+                    if($produto->favorito != null) echo Html::a('<i class="fa fa-heart text-danger"></i><span>Remover dos favoritos</span>', ['/favorito/delete', 'id' => $produto->favorito->id], ['data' => ['method' => 'post']]);
+                    else echo Html::a('<i class="far fa-heart text-danger"></i><span>Adicionar aos favoritos</span>', ['/favorito/create', 'codigo_produto' => $produto->codigo_produto]);
+                }?>
             </div>
         </div>
     </div>

@@ -52,3 +52,7 @@
     text-decoration: line-through;
     margin-right: 10px
 }
+.fa-heart{
+    display: block;
+    padding: 14px 16px 14px 16px;
+}

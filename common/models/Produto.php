@@ -68,4 +68,9 @@ class Produto extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Modelo::className(), ['id' => 'id_modelo']);
     }
+    
+    public function getFavorito()
+    {
+        return $this->hasOne(Favorito::className(), ['codigo_produto' => 'codigo_produto']);
+    }
 }

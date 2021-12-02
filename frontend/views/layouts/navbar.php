@@ -26,9 +26,6 @@ use yii\helpers\Html;
         padding-top: 4%;
         padding-left: 76%;
     }
-    .fa-heart a:hover{
-        color: #dc3545 !important;
-    }
     .brand-image{
         margin-top: -12px !important;
         max-height: 50px !important;
@@ -46,6 +43,14 @@ use yii\helpers\Html;
         padding-top: 4px !important;
         padding-bottom: 4px !important;
     }
+    .fas{
+        display: block;
+        padding: 12px 16px 0 16px !important;
+        color: rgba(0,0,0,.5);
+    }
+    .fas:hover{
+        color: rgba(0,0,0,.7);
+    }
 </style>
 
 <nav class="navbar-expand navbar-light">
@@ -61,7 +66,7 @@ use yii\helpers\Html;
                 <div class="navbar-icons-guest">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <?= Html::a('<i class="fas fa-sign-in-alt"></i>', ['site/login'], ['class' => 'nav-link']) ?>
+                            <?= Html::a('<i class="fas fa-sign-in-alt"></i>', ['site/login']) ?>
                         </li>
                     </ul>
                 </div>
@@ -70,16 +75,16 @@ use yii\helpers\Html;
                 <div class="navbar-icons-login">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <?= Html::a('<i class="fas fa-shopping-bag"></i>', ['#'], ['class' => 'nav-link']) ?>
+                            <?= Html::a('<i class="fas fa-shopping-bag"></i>', ['#']) ?>
                         </li>
                         <li class="nav-item">
-                            <?= Html::a('<i class="fas fa-heart"></i>', ['#'], ['class' => 'nav-link']) ?>
+                            <?= Html::a('<i class="fas fa-heart"></i>', ['#']) ?>
                         </li>
                         <li class="nav-item">
-                            <?= Html::a('<i class="fas fa-user-edit"></i>', ['perfil/update', 'id' => Yii::$app->user->id], ['class' => 'nav-link']) ?>
+                            <?= Html::a('<i class="fas fa-user-edit"></i>', ['perfil/update', 'id' => Yii::$app->user->id]) ?>
                         </li>
                         <li class="nav-item">
-                            <?= Html::a('<i class="fas fa-sign-out-alt"></i>', ['site/logout'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                            <?= Html::a('<i class="fas fa-sign-out-alt"></i>', ['site/logout'], ['data-method' => 'post']) ?>
                         </li>
                     </ul>
                 </div>
