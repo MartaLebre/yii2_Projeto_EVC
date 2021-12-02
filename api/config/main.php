@@ -48,13 +48,14 @@ return [
                         'POST registo' => 'registo',
                         'POST login' => 'login',
                         'PUT editar/{username}' => 'editar',
-                        'GET detalhes/{id}' => 'detalhes',
+                        'GET detalhes/{username}' => 'detalhes',
                         'PATCH apagar/{username}' => 'apagar',
                     ],
                     'tokens' =>
                         [
                             '{id}' => '<id:\\d+>',
                             '{username}' => '<username:.*?>',
+                            '{token}' => '<token:.*?>',
                         ],
                 ],
                 ['class' => 'yii\rest\UrlRule',
