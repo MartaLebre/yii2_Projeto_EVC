@@ -82,14 +82,13 @@ class UserController extends ActiveController
         return "Utilizador não encontrado/atualizado";
     }
 
-    public function actionDetalhes($id){
+    public function actionDetalhes($username){
 
-        $user = User::findOne(['id' => $id]);
-        $perfil = Perfil::findOne(['id_user' => $id]);
+        $user = User::findOne(['username' => $username]);
+        $perfil = Perfil::findOne(['id_user' => $user->id]);
 
         if($user != null && $perfil != null){
             return ['Utilizador' => [
-                'ID' => $perfil->id_user,
                 'Username' => $user->username,
                 'Email' => $user->email,
                 'Primeiro Nome' => $perfil->primeiro_nome,
