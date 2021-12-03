@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "modelo".
  *
  * @property int $id
- * @property string $modelo
+ * @property string $nome
  *
  * @property Desconto $desconto
  * @property Produto[] $produtos
@@ -29,8 +29,8 @@ class Modelo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['modelo'], 'required'],
-            [['modelo'], 'string', 'max' => 45],
+            [['nome'], 'required'],
+            [['nome'], 'string', 'max' => 45],
         ];
     }
 
@@ -41,7 +41,7 @@ class Modelo extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'modelo' => 'Modelo',
+            'nome' => 'Nome',
         ];
     }
 

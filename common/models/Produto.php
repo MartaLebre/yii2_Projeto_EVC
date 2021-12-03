@@ -17,6 +17,8 @@ use Yii;
  * @property string $data
  * @property int $id_modelo
  * @property resource|null $foto
+ *
+ * @property Modelo $modelo
  */
 class Produto extends \yii\db\ActiveRecord
 {

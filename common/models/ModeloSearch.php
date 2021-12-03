@@ -61,7 +61,7 @@ class ModeloSearch extends Modelo
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'modelo', $this->modelo]);
+        $query->andFilterWhere(['like', 'modelo', $this->nome]);
 
         return $dataProvider;
     }

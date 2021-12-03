@@ -64,7 +64,7 @@ $produtos = $dataProvider->getModels();
                 <td><?= $produto->preco ?></td>
                 <td><?= $produto->quantidade ?></td>
                 <td><?= $produto->data ?></td>
-                <td><?= $produto->modelo->modelo ?></td>
+                <td><?= $produto->modelo->nome ?></td>
                 <td>
                     <table class="unstyled-table">
                         <tr id="tbButtons">

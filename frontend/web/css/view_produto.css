@@ -1,0 +1,26 @@
+
+.header{
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.header p{
+    margin-top: -7px;
+    font-size: 14px;
+    letter-spacing: 0;
+    color: #6c757d;
+}
+.info p{
+    text-align: center;
+    margin-bottom: 5px;
+}
+.produto-btn{
+    text-transform: uppercase;
+    width: 90%;
+    padding-left: 10%;
+}
+.fa-heart{
+    margin-left: -10px;
+}
+a span{
+    padding-left: 7px;
+}

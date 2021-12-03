@@ -6,63 +6,55 @@ use yii\bootstrap4\BootstrapAsset;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\ProdutoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-/* @var $produtos common\models\Produto */
-/* @var $modelo common\models\Modelo */
+/* @var $model_produto common\models\Produto */
+/* @var $model_modelo common\models\Modelo */
 
 $this->registerCssFile("@web/css/card.css");
 
-$this->title = 'Produtos';
+$model_produtos = $dataProvider->getModels();
+
 Yii::$app->language = 'pt-PT';
-$modelProdutos = $dataProvider->getModels();
+$this->title = 'Produtos';
 ?>
 
 <div class="produto-index">
     <?= $this->render('_search', ['model' => $searchModel]) ?>
     
     <div class="row">
-        <div class="col-3">
-            <div class="card">
-                <img class="card-img-top" src="img/clothing/teste2.jpg">
-                <div class="img-overlay">
-                    <button class="btn btn-desconto">DESCONTO</button>
-                </div>
-                <hr>
-                <div class="card-body">
-                    <h6 class="card-text">Modelo Vintage Reebok Jacket (L)</h6>
-                    <p class="card-text"><span class="preco-desconto">57.55€</span>55.55€</p>
-                    <?= Html::a('Ver Produto', ['#'], ['class' => 'btn btn-dark btn-block']) ?>
-                    <div class="row">
-                        <div class="col-9">
-                            <p class="card-text text-published">Last updated 3 mins ago</p>
-                        </div>
-                        <div class="col-3">
-                            <?= Html::a('<i class="far fa-heart text-danger"></i>', ['#']) ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
-        <?php foreach($modelProdutos as $produto){
-            $modelo = $produto->modelo; ?>
+        <?php foreach($model_produtos as $model_produto){
+            $model_modelo = $model_produto->modelo;
+            $model_desconto = $model_modelo->desconto; ?>
             <div class="col-3">
                 <div class="card">
                     <img class="card-img-top" src="img/clothing/teste1.jpg">
+                    <?php if($model_desconto != null){ ?>
+                        <div class="img-overlay">
+                            <p class="btn btn-desconto shadow-sm">-25<i class="fa fa-percent icon-percentagem"></i></p>
+                        </div>
+                    <?php }?>
                     <hr>
                     <div class="card-body">
-                        <h6 class="card-text"><?= $modelo->modelo . ' ' . $produto->nome .
-                            ' (' . $produto->tamanho . ')' ?></h6>
-                        <p class="card-text"><?= sprintf('%.2f', $produto->preco) ?>€</p>
-                        <?= Html::a('Ver Produto', ['produto/view', 'codigo_produto' => $produto->codigo_produto], ['class' => 'btn btn-dark btn-block']) ?>
+                        <h6 class="card-text"><?= $model_modelo->nome . ' ' . $model_produto->nome .
+                            ' (' . $model_produto->tamanho . ')' ?></h6>
+                        <?php if($model_desconto != null){ ?>
+                            <p class="card-text"><?= '<span class="preco-semdesconto">' . sprintf('%.2f', $model_produto->preco) . '€</span>' .
+                                sprintf('%.2f', $model_produto->preco - ($model_produto->preco * ($model_desconto->valor / 100))) ?>€</h5></p>
+                        <?php }
+                        else{ ?>
+                            <p class="card-text"><?= sprintf('%.2f', $model_produto->preco) ?>€</p>
+                        <?php }?>
+                        <?= Html::a('Ver Produto', ['produto/view', 'codigo_produto' => $model_produto->codigo_produto], ['class' => 'btn btn-dark btn-block']) ?>
                         <div class="row">
                             <div class="col-9">
-                                <p class="card-text text-published">Publicado <?= Yii::$app->formatter->asRelativeTime($produto->data) ?></p>
+                                <p class="card-text text-publicado">Publicado <?= Yii::$app->formatter->asRelativeTime($model_produto->data) ?></p>
                             </div>
                             <div class="col-3">
-                                <?php if(!Yii::$app->user->isGuest){
-                                    if($produto->favorito != null) echo Html::a('<i class="fa fa-heart text-danger"></i>', ['/favorito/delete', 'id' => $produto->favorito->id], ['data' => ['method' => 'post']]);
-                                    else echo Html::a('<i class="far fa-heart text-danger"></i>', ['/favorito/create', 'codigo_produto' => $produto->codigo_produto]);
-                                }?>
+                                <?php
+                                if(!Yii::$app->user->isGuest){
+                                    if($model_produto->favorito != null) echo Html::a('<i class="fa fa-heart icon-favorito"></i>', ['/favorito/delete', 'id' => $model_produto->favorito->id], ['data' => ['method' => 'post']]);
+                                    else echo Html::a('<i class="far fa-heart icon-favorito"></i>', ['/favorito/create', 'codigo_produto' => $model_produto->codigo_produto]);
+                                }
+                                else echo Html::a('<i class="far fa-heart icon-favorito"></i>', ['/site/login']); ?>
                             </div>
                         </div>
                     </div>

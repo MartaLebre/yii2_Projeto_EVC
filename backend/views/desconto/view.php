@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_modelo',
             'data_começo',
             'data_final',
-            'desconto',
+            'valor',
         ],
     ]) ?>
 

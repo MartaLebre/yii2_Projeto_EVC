@@ -47,7 +47,7 @@ $this->title = 'Lista de Modelos';
         <?php foreach($modelo as $modeloProduto){ ?>
 
                 <tr>
-                    <td><?= $modeloProduto->modelo ?></td>
+                    <td><?= $modeloProduto->nome ?></td>
 
                     <td>
                         <table class="unstyled-table">

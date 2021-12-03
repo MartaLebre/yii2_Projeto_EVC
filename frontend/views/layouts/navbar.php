@@ -2,56 +2,8 @@
 
 use yii\helpers\Html;
 
+$this->registerCssFile("@web/css/navbar.css");
 ?>
-<style>
-    .navbar-light{
-        background-color: white;
-        margin: 5px;
-    }
-    .brand-link{
-        font-size: 22px;
-    }
-    .brand-link:link, .brand-link:visited{
-        color: #222 !important;
-    }
-    .brand-link:hover{
-        color: black !important;
-    }
-    .navbar-icons-login{
-        padding-top: 4%;
-        padding-left: 15%;
-    }
-    .navbar-icons-guest{
-        text-transform: uppercase;
-        padding-top: 4%;
-        padding-left: 76%;
-    }
-    .brand-image{
-        margin-top: -12px !important;
-        max-height: 50px !important;
-    }
-    .navbar-dark{
-        text-transform: uppercase;
-        font-size: 14px;
-        letter-spacing: 1px;
-        background-color: #222;
-        height: 40px;
-        padding-left: 32%;
-        margin-bottom: 15px;
-    }
-    .dropdown-menu{
-        padding-top: 4px !important;
-        padding-bottom: 4px !important;
-    }
-    .fas{
-        display: block;
-        padding: 12px 16px 0 16px !important;
-        color: rgba(0,0,0,.5);
-    }
-    .fas:hover{
-        color: rgba(0,0,0,.7);
-    }
-</style>
 
 <nav class="navbar-expand navbar-light">
     <div class="row">
@@ -109,7 +61,7 @@ use yii\helpers\Html;
             <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link">Homem</a>
             <ul aria-labelledby="dropdownSubMenu" class="dropdown-menu border-0 shadow">
                 <?php foreach($modelos as $modelo){ ?>
-                    <li><?= Html::a($modelo->modelo, ['#'], ['class' => 'dropdown-item']) ?></li>
+                    <li><?= Html::a($modelo->nome, ['#'], ['class' => 'dropdown-item']) ?></li>
                 <?php }?>
             </ul>
         </li>

@@ -10,7 +10,7 @@ use Yii;
  * @property int $id_modelo
  * @property string $data_começo
  * @property string $data_final
- * @property int $desconto
+ * @property int $valor
  *
  * @property Modelo $modelo
  */
@@ -30,8 +30,8 @@ class Desconto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_modelo', 'data_começo', 'data_final', 'desconto'], 'required'],
-            [['id_modelo', 'desconto'], 'integer'],
+            [['id_modelo', 'data_começo', 'data_final', 'valor'], 'required'],
+            [['id_modelo', 'valor'], 'integer'],
             [['data_começo', 'data_final'], 'safe'],
             [['id_modelo'], 'unique'],
             [['id_modelo'], 'exist', 'skipOnError' => true, 'targetClass' => Modelo::className(), 'targetAttribute' => ['id_modelo' => 'id']],
@@ -47,7 +47,7 @@ class Desconto extends \yii\db\ActiveRecord
             'id_modelo' => 'Id Modelo',
             'data_começo' => 'Data Começo',
             'data_final' => 'Data Final',
-            'desconto' => 'Desconto',
+            'valor' => 'Valor',
         ];
     }
 

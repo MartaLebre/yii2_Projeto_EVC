@@ -78,7 +78,7 @@ class ModeloController extends Controller
                 $checkModelo = false;
                 if ($modelos != null) {
                     foreach ($modelos as $modelo) {
-                        if ($model->modelo == $modelo) {
+                        if ($model->nome == $modelo) {
                             $checkModelo = true;
 
                         }
@@ -109,7 +109,7 @@ class ModeloController extends Controller
 
         if ($modelos != null) {
             foreach ($modelos as $model) {
-                $modelos_all[] = $model->modelo;
+                $modelos_all[] = $model->nome;
             }
             return $modelos_all;
         }
