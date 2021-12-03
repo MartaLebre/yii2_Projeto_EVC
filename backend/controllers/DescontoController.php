@@ -64,12 +64,15 @@ class DescontoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id_modelo)
     {
         $model = new Desconto();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())) {
+                $model->id_modelo = $id_modelo;
+                $model->save();
+
                 return $this->redirect(['view', 'id_modelo' => $model->id_modelo]);
             }
         } else {
@@ -124,7 +127,7 @@ class DescontoController extends Controller
      */
     protected function findModel($id_modelo)
     {
-        if (($model = Desconto::findOne($id)) !== null) {
+        if (($model = Desconto::findOne($id_modelo)) !== null) {
             return $model;
         }
 

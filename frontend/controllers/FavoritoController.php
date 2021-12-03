@@ -37,13 +37,12 @@ class FavoritoController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new FavoritoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $favoritos = Favorito::find()->where(['id_user' => \Yii::$app->user->id])->all();
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+     return $this->render('index', [
+         'favoritos' => $favoritos,
+     ]);
+
     }
 
     /**

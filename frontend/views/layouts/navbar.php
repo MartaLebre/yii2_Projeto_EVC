@@ -78,7 +78,7 @@ use yii\helpers\Html;
                             <?= Html::a('<i class="fas fa-shopping-bag"></i>', ['#']) ?>
                         </li>
                         <li class="nav-item">
-                            <?= Html::a('<i class="fas fa-heart"></i>', ['#']) ?>
+                            <?= Html::a('<i class="fas fa-heart"></i>', ['favorito/index']) ?>
                         </li>
                         <li class="nav-item">
                             <?= Html::a('<i class="fas fa-user-edit"></i>', ['perfil/update', 'id' => Yii::$app->user->id]) ?>

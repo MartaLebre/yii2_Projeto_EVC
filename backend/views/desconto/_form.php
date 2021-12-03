@@ -12,8 +12,6 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_modelo')->textInput() ?>
-
     <?= $form->field($model, 'data_começo')->textInput() ?>
 
     <?= $form->field($model, 'data_final')->textInput() ?>

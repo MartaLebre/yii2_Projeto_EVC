@@ -41,6 +41,8 @@ $this->title = 'Lista de Modelos';
         <tr>
             <th>Modelo</th>
             <th></th>
+            <th>Adicionar Desconto</th>
+            <th></th>
         </tr>
         <?php foreach($modelo as $modeloProduto){ ?>
 
@@ -51,6 +53,13 @@ $this->title = 'Lista de Modelos';
                         <table class="unstyled-table">
                             <tr id="tbButtons">
                                     <td><?= Html::a('Adicionar Produto', ['/produto/create', 'id_modelo' => $modeloProduto->id], ['class'=>'btn btn-primary']) ?></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table class="unstyled-table">
+                            <tr id="tbButtons">
+                                <td><?= Html::a('Adicionar Desconto', ['/desconto/create', 'id_modelo' => $modeloProduto->id], ['class'=>'btn btn-primary']) ?></td>
                             </tr>
                         </table>
                     </td>
