@@ -21,7 +21,7 @@ Yii::$app->language = 'pt-PT';
                     <img class="card-img-top" src="img/clothing/teste1.jpg">
                     <hr>
                     <div class="card-body">
-                        <h6 class="card-text"><?= $favorito->codigoProduto->modelo->modelo . ' ' . $favorito->codigoProduto->nome .
+                        <h6 class="card-text"><?= $favorito->codigoProduto->modelo->nome . ' ' . $favorito->codigoProduto->nome .
                             ' (' . $favorito->codigoProduto->tamanho . ')' ?></h6>
                         <p class="card-text"><?= sprintf('%.2f', $favorito->codigoProduto->preco) ?>€</p>
                         <?= Html::a('Ver Produto', ['produto/view', 'codigo_produto' => $favorito->codigo_produto], ['class' => 'btn btn-dark btn-block']) ?>
