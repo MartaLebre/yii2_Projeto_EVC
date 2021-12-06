@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Favorito;
 use common\models\FavoritoSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -37,10 +38,12 @@ class FavoritoController extends Controller
      */
     public function actionIndex()
     {
-        $favoritos = Favorito::find()->where(['id_user' => \Yii::$app->user->id])->all();
+        $db_favoritos = Favorito::find()
+            ->where(['id_user' => Yii::$app->user->id])
+            ->all();
 
      return $this->render('index', [
-         'favoritos' => $favoritos,
+         'db_favoritos' => $db_favoritos,
      ]);
 
     }
@@ -51,13 +54,14 @@ class FavoritoController extends Controller
      * @return mixed
      */
     public function actionCreate($codigo_produto){
-        $modelFavorito = new Favorito();
-        
-        $modelFavorito->codigo_produto = $codigo_produto;
-        $modelFavorito->id_user = \Yii::$app->user->getId();
-        $modelFavorito->save();
+        $model_favorito = new Favorito();
     
-        return $this->redirect(\Yii::$app->request->referrer);
+        $model_favorito->codigo_produto = $codigo_produto;
+        $model_favorito->id_user = Yii::$app->user->getId();
+        $model_favorito->save();
+    
+        Yii::$app->session->setFlash('success', $model_favorito->produto->nome . ' foi adicionado à sua lista de favoritos.');
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
     /**
@@ -68,9 +72,11 @@ class FavoritoController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id){
-        $this->findModel($id)->delete();
+        $model_favorito = $this->findModel($id);
+        $model_favorito->delete();
     
-        return $this->redirect(\Yii::$app->request->referrer);
+        Yii::$app->session->setFlash('danger', $model_favorito->produto->nome . ' foi removido da sua lista de favoritos.');
+        return $this->redirect(Yii::$app->request->referrer);
     }
     
     /**

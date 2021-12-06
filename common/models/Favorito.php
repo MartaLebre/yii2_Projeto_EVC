@@ -13,6 +13,7 @@ use Yii;
  *
  * @property Produto $codigoProduto
  * @property User $user
+ * @property Produto[] $produto
  */
 class Favorito extends \yii\db\ActiveRecord
 {
@@ -51,11 +52,11 @@ class Favorito extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[CodigoProduto]].
+     * Gets query for [[Produto]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getCodigoProduto()
+    public function getProduto()
     {
         return $this->hasOne(Produto::className(), ['codigo_produto' => 'codigo_produto']);
     }

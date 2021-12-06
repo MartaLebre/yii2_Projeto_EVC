@@ -54,8 +54,15 @@ class ProdutoController extends Controller
      */
     public function actionView($codigo_produto)
     {
+        $model_produto = $this->findModel($codigo_produto);
+        $db_produtos = Produto::find()
+            ->where(['id_modelo' => $model_produto->id_modelo])
+            ->limit(4)
+            ->all();
+        
         return $this->render('view', [
-            'model_produto' => $this->findModel($codigo_produto),
+            'model_produto' => $model_produto,
+            'db_produtos' => $db_produtos,
         ]);
     }
 

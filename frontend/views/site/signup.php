@@ -8,7 +8,13 @@ use yii\bootstrap4\Html;
 
 $this->title = 'Signup';
 ?>
-<br>
+<style>
+    .card{
+        margin-top: 5%;
+        margin-bottom: 10%;
+    }
+</style>
+
 <div class="col-6 offset-3">
     <div class="card">
         <div class="card-body login-card-body">

@@ -1,99 +1,69 @@
 <?php
 
 /* @var $this yii\web\View */
+/* @var $model_produto common\models\Produto */
+/* @var $model_modelo common\models\Modelo */
 
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Carousel;
 
+$this->registerCssFile("@web/css/site.css");
+$this->registerCssFile("@web/css/card.css");
+
 $this->title = 'eVintageClothing';
 ?>
-<style>
-    .carousel-item{
-        height: 400px;
-    }
-    .carousel-indicators{
-        top: 0;
-        padding-top: 10px;
-    }
-    .site-footer{
-        padding: 45px 0 20px;
-        font-size: 14px;
-        line-height: 24px;
-    }
-    .site-footer hr{
-        border-top-color: #212529;
-        opacity: 0.5;
-    }
-    .site-footer h6{
-        font-size: 16px;
-        text-transform: uppercase;
-        margin-top: 5px;
-        letter-spacing: 2px;
-    }
-    .footer-links{
-        padding-left: 0;
-        list-style: none;
-    }
-    .footer-links li{
-        display: block;
-    }
-    .footer-links a{
-        color: #212529;
-    }
-    .footer-links a:active,.footer-links a:focus,.footer-links a:hover{
-        color: #3366cc;
-        text-decoration: none;
-    }
-    .footer-links.inline li{
-        display: inline-block;
-    }
-    .slideshow .btn{
-        text-transform: uppercase;
-        position: absolute;
-        top: 95%;
-        left: 44%;
-    }
-    .button-slideshow{
-        background-color: #222;
-        border-radius: 6px;
-        color: #fff;
-        display: inline-block;
-        font-size: 16px;
-        padding: 9px 20px 8px;
-        letter-spacing: 2px;
-    }
-    .button-slideshow:hover, .button-slideshow:focus{
-        color: #fff;
-        background-color: #151515;
-    }
-</style>
 
 <div class="site-index">
     <div class="card slideshow">
         <?= yii\bootstrap4\Carousel::widget(['items' => $slideshow]); ?>
         <?= Html::a('Novidades', ['produto/index'], ['class' => 'btn button-slideshow shadow']) ?>
     </div>
-</div>
 
-<footer class="site-footer">
+    <br>
     <hr>
-    <div class="container">
-        <div class="row">
-            <div class="col-9">
-                <h6>About</h6>
-                <p class="text-justify">A eVintageClothing é uma loja online em desenvolvimento criada por estudantes da ESTG, do curso de Programação de Sistemas de informação.
-                    Esta loja foi criada com o objetivo de realização de um projeto de final de curso e com o objetivo de conhecer e dar a conhecer mais sobre o mundo de roupa Vintage.
-                    <br>Seja bem vindo ao site e desfrute de todos os produtos, incluindo Mystery Boxes!</p>
+    <div class="row produtos-desconto">
+        <?php
+        foreach($db_produtos as $model_produto){
+            $model_modelo = $model_produto->modelo;
+            $model_desconto = $model_modelo->desconto;
+            ?>
+            <div class="col-3">
+                <div class="card">
+                    <img class="card-img-top" src="img/clothing/teste1.jpg">
+                    <?php if($model_desconto != null){ ?>
+                        <div class="img-overlay">
+                            <p class="btn btn-desconto shadow-sm">-25<i class="fa fa-percent icon-percentagem"></i></p>
+                        </div>
+                    <?php }?>
+                    <hr>
+                    <div class="card-body">
+                        <h6 class="card-text"><?= $model_modelo->nome . ' ' . $model_produto->nome .
+                            ' (' . $model_produto->tamanho . ')' ?></h6>
+                        <?php
+                        if($model_desconto != null){ ?>
+                            <p class="card-text"><?= '<span class="preco-semdesconto">' . sprintf('%.2f', $model_produto->preco) . '€</span>' .
+                                sprintf('%.2f', $model_produto->preco - ($model_produto->preco * ($model_desconto->valor / 100))) ?>€</h5></p>
+                        <?php }
+                        else{ ?>
+                            <p class="card-text"><?= sprintf('%.2f', $model_produto->preco) ?>€</p>
+                        <?php }?>
+                        <?= Html::a('Ver Produto', ['produto/view', 'codigo_produto' => $model_produto->codigo_produto], ['class' => 'btn btn-dark btn-block']) ?>
+                        <div class="row">
+                            <div class="col-9">
+                                <p class="card-text text-publicado">Publicado <?= Yii::$app->formatter->asRelativeTime($model_produto->data) ?></p>
+                            </div>
+                            <div class="col-3">
+                                <?php
+                                if(!Yii::$app->user->isGuest){
+                                    if($model_produto->favorito != null) echo Html::a('<i class="fa fa-heart icon-favorito"></i>', ['/favorito/delete', 'id' => $model_produto->favorito->id], ['data' => ['method' => 'post']]);
+                                    else echo Html::a('<i class="far fa-heart icon-favorito"></i>', ['/favorito/create', 'codigo_produto' => $model_produto->codigo_produto]);
+                                }
+                                else echo Html::a('<i class="far fa-heart icon-favorito"></i>', ['/site/login']); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="col-2 offset-1">
-                <h6>Quick Links</h6>
-                <ul class="footer-links text-uppercase">
-                    <li><a href="#">Novidades</a></li>
-                    <li><a href="#">Mystery Boxes</a></li>
-                    <li><a href="#">Descontos</a></li>
-                </ul>
-            </div>
-        </div>
+        <?php }?>
     </div>
-</footer>
+</div>
