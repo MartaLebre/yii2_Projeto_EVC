@@ -108,6 +108,7 @@ class UserController extends ActiveController
         if($user != null){
             $user->status = $statusDelete;
             $user->save(false);
+            return true;
         } else {
             throw new \yii\web\NotFoundHttpException("Utilizador não encontrado");
         }
