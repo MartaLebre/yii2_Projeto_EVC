@@ -7,10 +7,12 @@ use common\widgets\Alert;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $model_produto common\models\Produto */
 
-$db_produtos = $dataProvider->getModels();
+if($dataProvider != null){
+    $db_produtos = $dataProvider->getModels();
+}
 
 Yii::$app->language = 'pt-PT';
-$this->title = 'Produtos';
+$this->title = 'Descontos';
 ?>
 
 <div class="produto-index">
@@ -19,8 +21,13 @@ $this->title = 'Produtos';
 
     <div class="row">
         <?php
-        foreach($db_produtos as $model_produto){
-            echo $this->render('_form', ['model_produto' => $model_produto]);
-        }?>
+        if($dataProvider != null){
+            foreach($db_produtos as $model_produto){
+                echo $this->render('_form', ['model_produto' => $model_produto]);
+            }
+        }
+        else{ ?>
+            <p>teste</p>
+        <?php }?>
     </div>
 </div>

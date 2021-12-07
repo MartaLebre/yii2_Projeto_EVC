@@ -60,4 +60,15 @@ class Desconto extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Modelo::className(), ['id' => 'id_modelo']);
     }
+    
+    public function getDescontoActivo($id_modelo)
+    {
+        $model_desconto = Desconto::findOne($id_modelo);
+        
+        if($model_desconto->data_final >= date('Y-m-d')){
+            return true;
+        }
+        
+        return false;
+    }
 }

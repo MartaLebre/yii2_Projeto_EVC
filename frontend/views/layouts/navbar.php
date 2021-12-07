@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->registerCssFile("@web/css/navbar.css");
 ?>
@@ -8,7 +9,7 @@ $this->registerCssFile("@web/css/navbar.css");
 <nav class="navbar-expand navbar-light">
     <div class="row">
         <div class="col-2 offset-5">
-            <a href="<?=\yii\helpers\Url::home()?>" class="brand-link">
+            <a href="<?= Url::home()?>" class="brand-link">
                 <img src="<?=Yii::getAlias('@web'); ?>/img/logo.png" class="brand-image">
                 <span class="brand-text font-weight-light">eVintageClothing</span>
             </a>
@@ -48,7 +49,7 @@ $this->registerCssFile("@web/css/navbar.css");
 <nav class="navbar navbar-expand navbar-dark shadow">
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a href="<?=\yii\helpers\Url::home()?>" class="nav-link">Home</a>
+            <a href="<?= Url::home()?>" class="nav-link">Home</a>
         </li>
 
         <li class="nav-item">
@@ -78,7 +79,7 @@ $this->registerCssFile("@web/css/navbar.css");
         </li>
 
         <li class="nav-item">
-            <a href="#" class="nav-link">Descontos</a>
+            <?= Html::a('Descontos', ['produto/descontos'], ['class' => 'nav-link']) ?>
         </li>
     </ul>
 </nav>

@@ -91,6 +91,7 @@ class SiteController extends Controller
         foreach($db_descontos as $model_desconto){
             $db_produtos = Produto::find()
                 ->where(['id_modelo' => $model_desconto->modelo->id])
+                ->orderBy(['data' => SORT_DESC])
                 ->all();
         }
         

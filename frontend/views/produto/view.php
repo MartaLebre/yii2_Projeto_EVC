@@ -8,8 +8,6 @@ use yii\helpers\Html;
 /* @var $model_modelo common\models\Modelo */
 /* @var $model_desconto common\models\Desconto */
 /* @var $model_produto_sugestao common\models\Produto */
-/* @var $model_modelo_sugestao common\models\Modelo */
-/* @var $model_desconto_sugestao common\models\Desconto */
 
 $this->registerCssFile("@web/css/card.css");
 $this->registerCssFile("@web/css/view_produto.css");
@@ -20,12 +18,6 @@ $model_desconto = $model_modelo->desconto;
 Yii::$app->language = 'pt-PT';
 $this->title = $model_produto->nome;
 ?>
-<style>
-    .btn-desconto{
-        margin-bottom: 2px;
-        margin-left: 7px;
-    }
-</style>
 
 <div class="produto-view">
     <?= Alert::widget() ?>
@@ -85,45 +77,9 @@ $this->title = $model_produto->nome;
     <div class="row">
         <?php
         foreach($db_produtos as $model_produto_sugestao){
-            $model_modelo_sugestao = $model_produto_sugestao->modelo;
-            $model_desconto_sugestao = $model_modelo_sugestao->desconto;
-            ?>
-            <div class="col-3">
-                <div class="card">
-                    <img class="card-img-top" src="img/clothing/teste1.jpg">
-                    <?php if($model_desconto_sugestao != null){ ?>
-                        <div class="img-overlay">
-                            <p class="btn btn-desconto shadow-sm">-<?= $model_desconto->valor ?><i class="fa fa-percent icon-percentagem"></i></p>
-                        </div>
-                    <?php }?>
-                    <hr>
-                    <div class="card-body">
-                        <h6 class="card-text"><?= $model_modelo_sugestao->nome . ' ' . $model_produto_sugestao->nome .
-                            ' (' . $model_produto_sugestao->tamanho . ')' ?></h6>
-                        <?php if($model_desconto_sugestao != null){ ?>
-                            <p class="card-text"><?= '<span class="preco-semdesconto">' . sprintf('%.2f', $model_produto_sugestao->preco) . '€</span>' .
-                                sprintf('%.2f', $model_produto_sugestao->preco - ($model_produto_sugestao->preco * ($model_desconto_sugestao->valor / 100))) ?>€</h5></p>
-                        <?php }
-                        else{ ?>
-                            <p class="card-text"><?= sprintf('%.2f', $model_produto_sugestao->preco) ?>€</p>
-                        <?php }?>
-                        <?= Html::a('Ver Produto', ['produto/view', 'codigo_produto' => $model_produto_sugestao->codigo_produto], ['class' => 'btn btn-dark btn-block']) ?>
-                        <div class="row">
-                            <div class="col-9">
-                                <p class="card-text text-publicado">Publicado <?= Yii::$app->formatter->asRelativeTime($model_produto_sugestao->data) ?></p>
-                            </div>
-                            <div class="col-3">
-                                <?php
-                                if(!Yii::$app->user->isGuest){
-                                    if($model_produto_sugestao->favorito != null) echo Html::a('<i class="fa fa-heart icon-favorito"></i>', ['/favorito/delete', 'id' => $model_produto_sugestao->favorito->id], ['data' => ['method' => 'post']]);
-                                    else echo Html::a('<i class="far fa-heart icon-favorito"></i>', ['/favorito/create', 'codigo_produto' => $model_produto_sugestao->codigo_produto]);
-                                }
-                                else echo Html::a('<i class="far fa-heart icon-favorito"></i>', ['/site/login']); ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <?php }?>
+            if($model_produto_sugestao->codigo_produto != $model_produto->codigo_produto){
+                echo $this->render('_form', ['model_produto' => $model_produto_sugestao]);
+            }
+        }?>
     </div>
 </div>

@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Desconto;
 use common\models\Produto;
 use common\models\ProdutoSearch;
 use yii\web\Controller;
@@ -41,6 +42,32 @@ class ProdutoController extends Controller
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    
+    /**
+     * Lists all Produto models.
+     * @return mixed
+     */
+    public function actionDescontos()
+    {
+        $searchModel = new ProdutoSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+        
+        $db_descontos = Desconto::find()
+            ->where(['>=', 'data_final', date('Y-m-d')])
+            ->all();
+    
+        if($db_descontos != null){
+            foreach($db_descontos as $model_desconto){
+                $dataProvider->query->andWhere(['id_modelo' => $model_desconto->modelo->id]);
+            }
+        }
+        else $dataProvider = null;
+    
+        return $this->render('descontos', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

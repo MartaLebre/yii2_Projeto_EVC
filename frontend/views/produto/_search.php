@@ -9,10 +9,7 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="produto-search">
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
+    <?php $form = ActiveForm::begin(['method' => 'get']); ?>
 
     <div class="row">
         <div class="col-6 offset-3">
