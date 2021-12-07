@@ -54,7 +54,7 @@ $this->title = $model_produto->nome;
                 <br>
             </div>
             <div class="produto-btn">
-                <?= Html::a('Adicionar ao Carrinho', ['#'], ['class' => 'btn btn-dark btn-block shadow-sm']) ?>
+                <?= Html::a('Adicionar ao Carrinho', ['/encomenda/create', 'codigo_produto' => $model_produto->codigo_produto], ['class' => 'btn btn-dark btn-block shadow-sm']) ?>
                 <?php
                 if(!Yii::$app->user->isGuest){
                     if($model_produto->favorito != null) echo Html::a('<i class="fa fa-heart icon-favorito-view"></i><span>Remover</span>', ['/favorito/delete', 'id' => $model_produto->favorito->id], ['data' => ['method' => 'post']]);

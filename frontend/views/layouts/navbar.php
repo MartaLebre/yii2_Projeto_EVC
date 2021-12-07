@@ -28,7 +28,7 @@ $this->registerCssFile("@web/css/navbar.css");
                 <div class="navbar-icons-login">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <?= Html::a('<i class="fas fa-shopping-bag"></i>', ['#']) ?>
+                            <?= Html::a('<i class="fas fa-shopping-bag"></i>', ['itemcompra/index']) ?>
                         </li>
                         <li class="nav-item">
                             <?= Html::a('<i class="fas fa-heart"></i>', ['favorito/index']) ?>

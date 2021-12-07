@@ -48,7 +48,7 @@ return [
                         'POST registo' => 'registo',
                         'POST login' => 'login',
                         'PUT editar/{username}' => 'editar',
-                        'GET detalhes/{username}' => 'detalhes',
+                        'GET detalhes/{token}' => 'detalhes',
                         'PATCH apagar/{username}' => 'apagar',
                     ],
                     'tokens' =>
@@ -62,12 +62,11 @@ return [
                     'controller' => 'v1/produto',
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'GET pesquisa/{pesquisa}' => 'pesquisa'
-
-
+                        'GET pesquisa/{pesquisa}' => 'pesquisa',
                     ],
                     'tokens' =>
                         [
+                            '{pesquisa}' => '<pesquisa:.*?>',
                         ],
                 ],
             ],

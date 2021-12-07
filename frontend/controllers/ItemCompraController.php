@@ -9,9 +9,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ItemCompraController implements the CRUD actions for ItemCompra model.
+ * ItemcompraController implements the CRUD actions for ItemCompra model.
  */
-class ItemCompraController extends Controller
+class ItemcompraController extends Controller
 {
     /**
      * @inheritDoc
@@ -65,21 +65,19 @@ class ItemCompraController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id_encomenda, $codigo_produto)
     {
         $model = new ItemCompra();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'codigo_produto' => $model->codigo_produto, 'id_encomenda' => $model->id_encomenda]);
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        $model->codigo_produto = $codigo_produto;
+        $model->id_encomenda = $id_encomenda;
+        $model->quantidade = 1;
+        $model->preço_venda = $model->codigoProduto->preco;
+        $model->save();
+
+        return $this->redirect(['produto/index']);
+
     }
 
     /**
