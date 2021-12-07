@@ -1,7 +1,7 @@
 <?php
 
+use common\widgets\Alert;
 use yii\helpers\Html;
-use yii\bootstrap4\BootstrapAsset;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\ProdutoSearch */
@@ -11,32 +11,36 @@ use yii\bootstrap4\BootstrapAsset;
 
 $this->registerCssFile("@web/css/card.css");
 
-$model_produtos = $dataProvider->getModels();
+$db_produtos = $dataProvider->getModels();
 
 Yii::$app->language = 'pt-PT';
 $this->title = 'Produtos';
 ?>
 
 <div class="produto-index">
+    <?= Alert::widget() ?>
     <?= $this->render('_search', ['model' => $searchModel]) ?>
-    
+
     <div class="row">
-        <?php foreach($model_produtos as $model_produto){
+        <?php
+        foreach($db_produtos as $model_produto){
             $model_modelo = $model_produto->modelo;
-            $model_desconto = $model_modelo->desconto; ?>
+            $model_desconto = $model_modelo->desconto;
+            ?>
             <div class="col-3">
                 <div class="card">
                     <img class="card-img-top" src="img/clothing/teste1.jpg">
                     <?php if($model_desconto != null){ ?>
                         <div class="img-overlay">
-                            <p class="btn btn-desconto shadow-sm">-25<i class="fa fa-percent icon-percentagem"></i></p>
+                            <p class="btn btn-desconto shadow-sm">-<?= $model_desconto->valor ?><i class="fa fa-percent icon-percentagem"></i></p>
                         </div>
                     <?php }?>
                     <hr>
                     <div class="card-body">
                         <h6 class="card-text"><?= $model_modelo->nome . ' ' . $model_produto->nome .
                             ' (' . $model_produto->tamanho . ')' ?></h6>
-                        <?php if($model_desconto != null){ ?>
+                        <?php
+                        if($model_desconto != null){ ?>
                             <p class="card-text"><?= '<span class="preco-semdesconto">' . sprintf('%.2f', $model_produto->preco) . '€</span>' .
                                 sprintf('%.2f', $model_produto->preco - ($model_produto->preco * ($model_desconto->valor / 100))) ?>€</h5></p>
                         <?php }

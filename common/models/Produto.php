@@ -19,6 +19,7 @@ use Yii;
  * @property resource|null $foto
  *
  * @property Modelo $modelo
+ * @property Favorito $favorito
  */
 class Produto extends \yii\db\ActiveRecord
 {

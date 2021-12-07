@@ -9,7 +9,13 @@ use yii\bootstrap4\Html;
 
 $this->title = 'Login';
 ?>
-<br>
+<style>
+    .card{
+        margin-top: 5%;
+        margin-bottom: 39%;
+    }
+</style>
+
 <div class="col-6 offset-3">
     <div class="card">
         <div class="card-body login-card-body">
@@ -44,7 +50,4 @@ $this->title = 'Login';
             <?php \yii\bootstrap4\ActiveForm::end(); ?>
         </div>
     </div>
-</div>
-<!-- /.login-card-body -->
-</div>
 </div>

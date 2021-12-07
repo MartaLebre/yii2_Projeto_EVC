@@ -56,12 +56,12 @@
 .text-publicado{
     color: #6c757d;
     font-size: 14px;
-    padding-top: 12px;
+    padding-top: 10px;
     padding-left: 5px;
     text-align: left;
 }
 .icon-favorito{
     display: block;
     color: red;
-    padding: 14px 16px 8px 16px;
+    padding: 12px 16px 8px 16px;
 }

@@ -2,6 +2,8 @@
 
 namespace frontend\controllers;
 
+use common\models\Desconto;
+use common\models\Produto;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -83,7 +85,19 @@ class SiteController extends Controller
             '<img src="img/slideshow/slideshow_5.jpg"/>'
         ];
         
-        return $this->render('index', ['slideshow' => $slideshow]);
+        $db_descontos = Desconto::find()
+            ->all();
+    
+        foreach($db_descontos as $model_desconto){
+            $db_produtos = Produto::find()
+                ->where(['id_modelo' => $model_desconto->modelo->id])
+                ->all();
+        }
+        
+        return $this->render('index', [
+            'slideshow' => $slideshow,
+            'db_produtos' => $db_produtos,
+        ]);
     }
 
     /**

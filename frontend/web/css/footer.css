@@ -1,0 +1,33 @@
+.site-footer{
+    padding: 20px 0 20px 0;
+    font-size: 14px;
+    line-height: 24px;
+}
+.site-footer hr{
+    margin-top: 48px !important;
+    border-top-color: #212529;
+    opacity: 0.5;
+}
+.site-footer h6{
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-top: 5px;
+    letter-spacing: 2px;
+}
+.footer-links{
+    padding-left: 0;
+    list-style: none;
+}
+.footer-links li{
+    display: block;
+}
+.footer-links a{
+    color: #212529;
+}
+.footer-links a:active,.footer-links a:focus,.footer-links a:hover{
+    color: #3366cc;
+    text-decoration: none;
+}
+.footer-links.inline li{
+    display: inline-block;
+}

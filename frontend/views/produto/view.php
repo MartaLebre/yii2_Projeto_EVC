@@ -1,11 +1,15 @@
 <?php
 
+use common\widgets\Alert;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model_produto common\models\Produto */
 /* @var $model_modelo common\models\Modelo */
 /* @var $model_desconto common\models\Desconto */
+/* @var $model_produto_sugestao common\models\Produto */
+/* @var $model_modelo_sugestao common\models\Modelo */
+/* @var $model_desconto_sugestao common\models\Desconto */
 
 $this->registerCssFile("@web/css/card.css");
 $this->registerCssFile("@web/css/view_produto.css");
@@ -24,6 +28,8 @@ $this->title = $model_produto->nome;
 </style>
 
 <div class="produto-view">
+    <?= Alert::widget() ?>
+    
     <div class="row">
         <div class="col-6 offset-1">
             <img src="img/clothing/teste1.jpg">
@@ -57,43 +63,67 @@ $this->title = $model_produto->nome;
             </div>
             <div class="produto-btn">
                 <?= Html::a('Adicionar ao Carrinho', ['#'], ['class' => 'btn btn-dark btn-block shadow-sm']) ?>
-                <?php if(!Yii::$app->user->isGuest){
-                    if($model_produto->favorito != null) echo Html::a('<i class="fa fa-heart text-danger"></i><span>Remover dos favoritos</span>', ['/favorito/delete', 'id' => $model_produto->favorito->id], ['data' => ['method' => 'post']]);
-                    else echo Html::a('<i class="far fa-heart text-danger"></i><span>Adicionar aos favoritos</span>', ['/favorito/create', 'codigo_produto' => $model_produto->codigo_produto]);
+                <?php
+                if(!Yii::$app->user->isGuest){
+                    if($model_produto->favorito != null) echo Html::a('<i class="fa fa-heart icon-favorito-view"></i><span>Remover</span>', ['/favorito/delete', 'id' => $model_produto->favorito->id], ['data' => ['method' => 'post']]);
+                    else echo Html::a('<i class="far fa-heart icon-favorito-view"></i><span>Favoritos</span>', ['/favorito/create', 'codigo_produto' => $model_produto->codigo_produto]);
                 }
-                else echo Html::a('<i class="far fa-heart icon-favorito"></i><span>Adicionar aos favoritos</span>', ['/site/login']); ?>
+                else echo Html::a('<i class="far fa-heart icon-favorito-view"></i><span>Favoritos</span>', ['/site/login']); ?>
             </div>
+            
+            <?php /*
             <div class="qrcode">
                 <h6>Abre na nossa aplicação</h6>
                 <img src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=<?= $model_produto->codigo_produto ?>">
             </div>
+            */?>
         </div>
     </div>
     <hr>
     
     <h5 class="text-center" style="padding-top: 20px; padding-bottom: 20px">Tambem pode gostar</h5>
     <div class="row">
-        <div class="col-3">
-            <div class="card">
-                <img class="card-img-top" src="img/clothing/teste2.jpg">
-                <div class="img-overlay">
-                    <button class="btn btn-desconto">DESCONTO</button>
-                </div>
-                <hr>
-                <div class="card-body">
-                    <h6 class="card-text">Modelo Vintage Reebok Jacket (L)</h6>
-                    <p class="card-text"><span class="preco-desconto">57.55€</span>55.55€</p>
-                    <?= Html::a('Ver Produto', ['#'], ['class' => 'btn btn-dark btn-block']) ?>
-                    <div class="row">
-                        <div class="col-9">
-                            <p class="card-text text-published">Last updated 3 mins ago</p>
+        <?php
+        foreach($db_produtos as $model_produto_sugestao){
+            $model_modelo_sugestao = $model_produto_sugestao->modelo;
+            $model_desconto_sugestao = $model_modelo_sugestao->desconto;
+            ?>
+            <div class="col-3">
+                <div class="card">
+                    <img class="card-img-top" src="img/clothing/teste1.jpg">
+                    <?php if($model_desconto_sugestao != null){ ?>
+                        <div class="img-overlay">
+                            <p class="btn btn-desconto shadow-sm">-<?= $model_desconto->valor ?><i class="fa fa-percent icon-percentagem"></i></p>
                         </div>
-                        <div class="col-3">
-                            <?= Html::a('<i class="far fa-heart text-danger"></i>', ['#'], ['class' => 'nav-link']) ?>
+                    <?php }?>
+                    <hr>
+                    <div class="card-body">
+                        <h6 class="card-text"><?= $model_modelo_sugestao->nome . ' ' . $model_produto_sugestao->nome .
+                            ' (' . $model_produto_sugestao->tamanho . ')' ?></h6>
+                        <?php if($model_desconto_sugestao != null){ ?>
+                            <p class="card-text"><?= '<span class="preco-semdesconto">' . sprintf('%.2f', $model_produto_sugestao->preco) . '€</span>' .
+                                sprintf('%.2f', $model_produto_sugestao->preco - ($model_produto_sugestao->preco * ($model_desconto_sugestao->valor / 100))) ?>€</h5></p>
+                        <?php }
+                        else{ ?>
+                            <p class="card-text"><?= sprintf('%.2f', $model_produto_sugestao->preco) ?>€</p>
+                        <?php }?>
+                        <?= Html::a('Ver Produto', ['produto/view', 'codigo_produto' => $model_produto_sugestao->codigo_produto], ['class' => 'btn btn-dark btn-block']) ?>
+                        <div class="row">
+                            <div class="col-9">
+                                <p class="card-text text-publicado">Publicado <?= Yii::$app->formatter->asRelativeTime($model_produto_sugestao->data) ?></p>
+                            </div>
+                            <div class="col-3">
+                                <?php
+                                if(!Yii::$app->user->isGuest){
+                                    if($model_produto_sugestao->favorito != null) echo Html::a('<i class="fa fa-heart icon-favorito"></i>', ['/favorito/delete', 'id' => $model_produto_sugestao->favorito->id], ['data' => ['method' => 'post']]);
+                                    else echo Html::a('<i class="far fa-heart icon-favorito"></i>', ['/favorito/create', 'codigo_produto' => $model_produto_sugestao->codigo_produto]);
+                                }
+                                else echo Html::a('<i class="far fa-heart icon-favorito"></i>', ['/site/login']); ?>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        <?php }?>
     </div>
 </div>
