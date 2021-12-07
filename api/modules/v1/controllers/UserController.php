@@ -52,7 +52,7 @@ class UserController extends ActiveController
         if($modeluser['status'] == User::STATUS_ACTIVE && Yii::$app->authManager->getAssignment('cliente', $modeluser->id)){
             $model->login();
 
-            return true;
+            return $modeluser;
         } else {
             throw new \yii\web\NotFoundHttpException("Esta conta não pode ser acedida.");
         }
@@ -82,19 +82,19 @@ class UserController extends ActiveController
         return "Utilizador não encontrado/atualizado";
     }
 
-    public function actionDetalhes($username){
+    public function actionDetalhes($token){
 
-        $user = User::findOne(['username' => $username]);
+        $user = User::findOne(['verification_token' => $token]);
         $perfil = Perfil::findOne(['id_user' => $user->id]);
 
         if($user != null && $perfil != null){
-            return ['Utilizador' => [
-                'Username' => $user->username,
-                'Email' => $user->email,
-                'Primeiro Nome' => $perfil->primeiro_nome,
-                'Ultimo Nome' => $perfil->ultimo_nome,
-                'Telemovel' => $perfil->telemovel,
-            ]];
+            return [
+                'username' => $user->username,
+                'email' => $user->email,
+                'primeiro_nome' => $perfil->primeiro_nome,
+                'ultimo_nome' => $perfil->ultimo_nome,
+                'telemovel' => $perfil->telemovel,
+            ];
         } else {
             throw new \yii\web\NotFoundHttpException("O utilizador não foi encontrado");
         }
