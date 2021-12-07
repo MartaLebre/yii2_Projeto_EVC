@@ -4,6 +4,8 @@ namespace frontend\controllers;
 
 use common\models\Encomenda;
 use common\models\EncomendaSearch;
+use Yii;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -64,21 +66,29 @@ class EncomendaController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($codigo_produto)
     {
-        $model = new Encomenda();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+
+
+        $encomenda = Encomenda::find()->where(['estado' =>  'carrinho', 'id_user' => Yii::$app->user->id])->one();
+
+        //var_dump($encomenda);
+
+        if ($encomenda == null) {
+            $model_encomenda = new Encomenda();
+            $model_encomenda->estado = 'carrinho';
+            $model_encomenda->data = date('Y-m-d H:i:s');
+            $model_encomenda->id_user = Yii::$app->user->getId();
+            $model_encomenda->save();
+
+            return $this->redirect(['/itemcompra/create', 'id_encomenda' => $model_encomenda->id, 'codigo_produto' => $codigo_produto]);
+
         } else {
-            $model->loadDefaultValues();
+            return $this->redirect(['/itemcompra/create', 'id_encomenda' => $encomenda->id, 'codigo_produto' => $codigo_produto]);
+
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**

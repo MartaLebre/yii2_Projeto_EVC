@@ -32,7 +32,7 @@ class Encomenda extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'estado', 'data', 'id_user'], 'required'],
+            [['estado', 'data', 'id_user'], 'required'],
             [['id', 'id_user'], 'integer'],
             [['estado'], 'string'],
             [['data'], 'safe'],
