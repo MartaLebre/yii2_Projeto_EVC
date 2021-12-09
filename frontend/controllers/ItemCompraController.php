@@ -69,7 +69,6 @@ class ItemcompraController extends Controller
     {
         $model = new ItemCompra();
 
-
         $model->codigo_produto = $codigo_produto;
         $model->id_encomenda = $id_encomenda;
         $model->quantidade = 1;

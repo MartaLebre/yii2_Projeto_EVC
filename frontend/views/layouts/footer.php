@@ -18,9 +18,9 @@ $this->registerCssFile("@web/css/footer.css");
         <div class="col-2 offset-1">
             <h6>Quick Links</h6>
             <ul class="footer-links text-uppercase">
-                <li><a href="#">Novidades</a></li>
-                <li><a href="#">Mystery Boxes</a></li>
-                <li><a href="#">Descontos</a></li>
+                <li><?= Html::a('Novidades', ['produto/novidades'], ['class' => 'footer-links']) ?></li>
+                <li><?= Html::a('Mystery Boxes', ['produto/mysteryboxes'], ['class' => 'footer-links']) ?></li>
+                <li><?= Html::a('Descontos', ['produto/descontos'], ['class' => 'footer-links']) ?></li>
             </ul>
         </div>
     </div>

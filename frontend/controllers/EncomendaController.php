@@ -73,7 +73,6 @@ class EncomendaController extends Controller
 
         $encomenda = Encomenda::find()->where(['estado' =>  'carrinho', 'id_user' => Yii::$app->user->id])->one();
 
-        //var_dump($encomenda);
 
         if ($encomenda == null) {
             $model_encomenda = new Encomenda();

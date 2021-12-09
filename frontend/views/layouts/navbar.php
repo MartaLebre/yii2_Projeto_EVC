@@ -71,7 +71,7 @@ $this->registerCssFile("@web/css/navbar.css");
         </li>
 
         <li class="nav-item">
-            <a href="#" class="nav-link">Mystery Boxes</a>
+            <?= Html::a('Mystery Boxes', ['produto/mysteryboxes'], ['class' => 'nav-link']) ?>
         </li>
 
         <li class="nav-item">

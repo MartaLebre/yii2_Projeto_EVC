@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\Desconto;
+use common\models\Modelo;
 use common\models\Produto;
 use common\models\ProdutoSearch;
 use yii\web\Controller;
@@ -44,6 +45,29 @@ class ProdutoController extends Controller
         $dataProvider->pagination->setPageSize(8);
         
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Lists all Produto models.
+     * @return mixed
+     */
+    public function actionMysteryboxes()
+    {
+        $searchModel = new ProdutoSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        $db_mysteryBoxesModelo = Modelo::find()->where(['nome' => 'Mystery Boxes'])->one();
+
+        if($db_mysteryBoxesModelo != null){
+
+                $dataProvider->query->andWhere(['id_modelo' => $db_mysteryBoxesModelo->id]);
+        }
+        else $dataProvider = null;
+
+        return $this->render('mysteryboxes', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
