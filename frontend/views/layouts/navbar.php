@@ -53,7 +53,7 @@ $this->registerCssFile("@web/css/navbar.css");
         </li>
 
         <li class="nav-item">
-            <?= Html::a('Novidades', ['produto/index'], ['class' => 'nav-link']) ?>
+            <?= Html::a('Novidades', ['produto/novidades'], ['class' => 'nav-link']) ?>
         </li>
         
         <?php $modelos = \common\models\Modelo::find()->all(); ?>

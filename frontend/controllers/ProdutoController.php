@@ -40,7 +40,9 @@ class ProdutoController extends Controller
     {
         $searchModel = new ProdutoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-
+    
+        $dataProvider->pagination->setPageSize(8);
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -57,7 +59,8 @@ class ProdutoController extends Controller
         $dataProvider = $searchModel->search($this->request->queryParams);
         
         $db_descontos = Desconto::find()
-            ->where(['>=', 'data_final', date('Y-m-d')])
+            ->where(['<=', 'data_comeco', date('Y-m-d')])
+            ->andWhere(['>=', 'data_final', date('Y-m-d')])
             ->all();
     
         if($db_descontos != null){
@@ -82,6 +85,7 @@ class ProdutoController extends Controller
     public function actionView($codigo_produto)
     {
         $model_produto = $this->findModel($codigo_produto);
+        
         $db_produtos = Produto::find()
             ->where(['id_modelo' => $model_produto->id_modelo])
             ->limit(4)

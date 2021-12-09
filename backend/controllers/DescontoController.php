@@ -3,7 +3,6 @@
 namespace backend\controllers;
 
 use common\models\Desconto;
-use common\models\DescontoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -30,22 +29,7 @@ class DescontoController extends Controller
             ]
         );
     }
-
-    /**
-     * Lists all Desconto models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new DescontoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
+    
     /**
      * Displays a single Desconto model.
      * @param int $id_modelo Id Modelo

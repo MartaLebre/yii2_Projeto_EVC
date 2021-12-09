@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "desconto".
  *
  * @property int $id_modelo
- * @property string $data_começo
+ * @property string $data_comeco
  * @property string $data_final
  * @property int $valor
  *
@@ -30,9 +30,9 @@ class Desconto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_modelo', 'data_começo', 'data_final', 'valor'], 'required'],
+            [['id_modelo', 'data_comeco', 'data_final', 'valor'], 'required'],
             [['id_modelo', 'valor'], 'integer'],
-            [['data_começo', 'data_final'], 'safe'],
+            [['data_comeco', 'data_final'], 'safe'],
             [['id_modelo'], 'unique'],
             [['id_modelo'], 'exist', 'skipOnError' => true, 'targetClass' => Modelo::className(), 'targetAttribute' => ['id_modelo' => 'id']],
         ];
@@ -45,7 +45,7 @@ class Desconto extends \yii\db\ActiveRecord
     {
         return [
             'id_modelo' => 'Id Modelo',
-            'data_começo' => 'Data Começo',
+            'data_comeco' => 'Data Começo',
             'data_final' => 'Data Final',
             'valor' => 'Valor',
         ];
@@ -63,9 +63,13 @@ class Desconto extends \yii\db\ActiveRecord
     
     public function getDescontoActivo($id_modelo)
     {
-        $model_desconto = Desconto::findOne($id_modelo);
+        $db_descontos = Desconto::find()
+            ->where(['id_modelo' => $id_modelo])
+            ->andWhere(['<=', 'data_comeco', date('Y-m-d')])
+            ->andWhere(['>=', 'data_final', date('Y-m-d')])
+            ->one();
         
-        if($model_desconto->data_final >= date('Y-m-d')){
+        if($db_descontos != null){
             return true;
         }
         

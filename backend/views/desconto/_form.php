@@ -13,7 +13,7 @@ use nex\datepicker\DatePicker;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'data_começo')->widget(DatePicker::className(), ['clientOptions' => ['format' => 'Y-M-D']]) ?>
+    <?= $form->field($model, 'data_comeco')->widget(DatePicker::className(), ['clientOptions' => ['format' => 'Y-M-D']]) ?>
 
     <?= $form->field($model, 'data_final')->widget(DatePicker::className(), ['clientOptions' => ['format' => 'Y-M-D']])?>
 

@@ -30,13 +30,14 @@ $this->title = $model_produto->nome;
             <br>
             <div class="header">
                 <?php
-                if($model_desconto != null){ ?>
+                if($model_desconto != null && $model_desconto->getDescontoActivo($model_desconto->id_modelo)){ ?>
                     <h5><?= $model_modelo->nome . ' ' . $model_produto->descricao .
                         '<span class="btn btn-desconto shadow-sm">-' . $model_desconto->valor .
                         '<i class="fa fa-percent icon-percentagem"></i></span>'?></h5>
 
                     <h5><?= '<span class="preco-semdesconto">' . sprintf('%.2f', $model_produto->preco) . '€</span>' .
                         sprintf('%.2f', $model_produto->preco - ($model_produto->preco * ($model_desconto->valor / 100))) ?>€</h5>
+                    <p>Desconto acaba: <?= $model_desconto->data_final ?></p>
                 <?php }
                 else{ ?>
                     <h5><?= $model_modelo->nome . ' ' . $model_produto->descricao ?></h5>

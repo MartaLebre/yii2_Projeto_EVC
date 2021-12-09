@@ -86,14 +86,18 @@ class SiteController extends Controller
         ];
         
         $db_descontos = Desconto::find()
+            ->where(['>=', 'data_final', date('Y-m-d')])
             ->all();
     
-        foreach($db_descontos as $model_desconto){
-            $db_produtos = Produto::find()
-                ->where(['id_modelo' => $model_desconto->modelo->id])
-                ->orderBy(['data' => SORT_DESC])
-                ->all();
+        if($db_descontos != null){
+            foreach($db_descontos as $model_desconto){
+                $db_produtos = Produto::find()
+                    ->where(['id_modelo' => $model_desconto->modelo->id])
+                    ->orderBy(['data' => SORT_DESC])
+                    ->all();
+            }
         }
+        else $db_produtos = null;
         
         return $this->render('index', [
             'slideshow' => $slideshow,
