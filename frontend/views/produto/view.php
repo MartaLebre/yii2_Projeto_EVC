@@ -78,7 +78,7 @@ $this->title = $model_produto->nome;
     </div>
     <hr>
     
-    <h5 class="text-center" style="padding-top: 20px; padding-bottom: 20px">Tambem pode gostar</h5>
+    <h5 class="text-center" style="padding-top: 20px; padding-bottom: 20px">Produtos semelhantes</h5>
     <div class="row">
         <?php
         foreach($db_produtos as $model_produto_sugestao){
