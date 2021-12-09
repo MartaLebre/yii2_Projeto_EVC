@@ -8,6 +8,13 @@ use yii\helpers\Html;
 
 $this->title = 'Editar';
 ?>
+<style>
+    .card{
+        margin-top: 5%;
+        margin-bottom: 15%;
+    }
+</style>
+
 <br>
 <div class="perfil-update col-6 offset-3">
     <div class="card">

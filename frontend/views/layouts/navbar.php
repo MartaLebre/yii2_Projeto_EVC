@@ -49,10 +49,6 @@ $this->registerCssFile("@web/css/navbar.css");
 <nav class="navbar navbar-expand navbar-dark shadow">
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a href="<?= Url::home()?>" class="nav-link">Home</a>
-        </li>
-
-        <li class="nav-item">
             <?= Html::a('Novidades', ['produto/novidades'], ['class' => 'nav-link']) ?>
         </li>
         

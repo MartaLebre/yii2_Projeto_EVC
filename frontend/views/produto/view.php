@@ -37,7 +37,7 @@ $this->title = $model_produto->nome;
 
                     <h5><?= '<span class="preco-semdesconto">' . sprintf('%.2f', $model_produto->preco) . '€</span>' .
                         sprintf('%.2f', $model_produto->preco - ($model_produto->preco * ($model_desconto->valor / 100))) ?>€</h5>
-                    <p>Desconto acaba: <?= $model_desconto->data_final ?></p>
+                    <p>Desconto termina <?= Yii::$app->formatter->asRelativeTime($model_desconto->data_final) ?></p>
                 <?php }
                 else{ ?>
                     <h5><?= $model_modelo->nome . ' ' . $model_produto->descricao ?></h5>
@@ -55,13 +55,17 @@ $this->title = $model_produto->nome;
                 <br>
             </div>
             <div class="produto-btn">
-                <?= Html::a('Adicionar ao Carrinho', ['/encomenda/create', 'codigo_produto' => $model_produto->codigo_produto], ['class' => 'btn btn-dark btn-block shadow-sm']) ?>
                 <?php
                 if(!Yii::$app->user->isGuest){
+                    echo Html::a('Adicionar ao Carrinho', ['/encomenda/create', 'codigo_produto' => $model_produto->codigo_produto], ['class' => 'btn btn-dark btn-block shadow-sm']);
+                
                     if($model_produto->favorito != null) echo Html::a('<i class="fa fa-heart icon-favorito-view"></i><span>Remover</span>', ['/favorito/delete', 'id' => $model_produto->favorito->id], ['data' => ['method' => 'post']]);
                     else echo Html::a('<i class="far fa-heart icon-favorito-view"></i><span>Favoritos</span>', ['/favorito/create', 'codigo_produto' => $model_produto->codigo_produto]);
                 }
-                else echo Html::a('<i class="far fa-heart icon-favorito-view"></i><span>Favoritos</span>', ['/site/login']); ?>
+                else{
+                    echo Html::a('Adicionar ao Carrinho', ['/site/login'], ['class' => 'btn btn-dark btn-block shadow-sm']);
+                    echo Html::a('<i class="far fa-heart icon-favorito-view"></i><span>Favoritos</span>', ['/site/login']);
+                }?>
             </div>
             
             <?php /*

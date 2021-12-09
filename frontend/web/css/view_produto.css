@@ -1,12 +1,11 @@
-.header{
+.header h5{
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 .header p{
     margin-top: -7px;
-    margin-bottom: 8px !important;
-    font-size: 14px;
-    letter-spacing: 0;
+    margin-bottom: 6px !important;
+    font-size: 15px;
     color: #6c757d;
 }
 .info p{

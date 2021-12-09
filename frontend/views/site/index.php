@@ -15,17 +15,19 @@ $this->title = 'eVintageClothing';
 <div class="site-index">
     <div class="card slideshow">
         <?= yii\bootstrap4\Carousel::widget(['items' => $slideshow]); ?>
-        <?= Html::a('Novidades', ['produto/index'], ['class' => 'btn button-slideshow shadow']) ?>
+        <?= Html::a('Novidades', ['produto/novidades'], ['class' => 'btn button-slideshow shadow']) ?>
     </div>
-    
-    <?php
-    if($db_produtos != null){?>
-        <hr>
-        <div class="row produtos-desconto">
-            <?php
-            foreach($db_produtos as $model_produto){
-                echo $this->render('../produto/_form', ['model_produto' => $model_produto]);
-            }?>
-        </div>
-    <?php }?>
+
+    <div class="produtos-desconto">
+        <?php
+        if($db_produtos != null){?>
+            <hr>
+            <div class="row">
+                <?php
+                foreach($db_produtos as $model_produto){
+                    echo $this->render('../produto/_form', ['model_produto' => $model_produto]);
+                }?>
+            </div>
+        <?php }?>
+    </div>
 </div>
