@@ -5,24 +5,21 @@
 
 /* @var $model \common\models\LoginForm */
 
+use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Html;
+
+$this->registerCssFile("@web/css/user_form.css");
 
 $this->title = 'Login';
 ?>
-<style>
-    .card{
-        margin-top: 5%;
-        margin-bottom: 39%;
-    }
-</style>
 
 <div class="col-6 offset-3">
-    <div class="card">
+    <div class="card login-form">
         <div class="card-body login-card-body">
             <h4 class="card-text">Iniciar sessão</h4>
             <p class="card-text">Por favor preencha os seguintes campos</p>
 
-            <?php $form = \yii\bootstrap4\ActiveForm::begin(['id' => 'login-form']) ?>
+            <?php $form = ActiveForm::begin(['id' => 'login-form']) ?>
 
             <?= $form->field($model, 'username', [
                 'options' => ['class' => 'form-group has-feedback'],
@@ -47,7 +44,7 @@ $this->title = 'Login';
                 </div>
             </div>
 
-            <?php \yii\bootstrap4\ActiveForm::end(); ?>
+            <?php ActiveForm::end(); ?>
         </div>
     </div>
 </div>

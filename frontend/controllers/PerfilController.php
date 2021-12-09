@@ -41,19 +41,19 @@ class PerfilController extends Controller
      */
     public function actionUpdate($id)
     {
-        $modelUser = $this->findModel($id);
-        $modelPerfil = $modelUser->perfil;
+        $model_user = $this->findModel($id);
+        $model_perfil = $model_user->perfil;
     
-        if($this->request->isPost && $modelUser->load($this->request->post()) && $modelPerfil->load($this->request->post())){
-            $modelUser->update();
-            $modelPerfil->update();
+        if($this->request->isPost && $model_user->load($this->request->post()) && $model_perfil->load($this->request->post())){
+            $model_user->update();
+            $model_perfil->update();
             Yii::$app->session->setFlash('success', 'Dados atualizados com sucesso.');
-            return $this->redirect(['update', 'id' => $modelUser->id]);
+            return $this->redirect(['update', 'id' => $model_user->id]);
         }
     
         return $this->render('update', [
-            'modelUser' => $modelUser,
-            'modelPerfil' => $modelPerfil,
+            'model_user' => $model_user,
+            'model_perfil' => $model_perfil,
     
         ]);
     }

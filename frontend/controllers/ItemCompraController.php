@@ -3,7 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\ItemCompra;
-use common\models\ItemCompraSearch;
+use yii\rbac\Item;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -37,26 +37,10 @@ class ItemcompraController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ItemCompraSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $db_carrinho = ItemCompra::find()->all();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays a single ItemCompra model.
-     * @param int $codigo_produto Codigo Produto
-     * @param int $id_encomenda Id Encomenda
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($codigo_produto, $id_encomenda)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($codigo_produto, $id_encomenda),
+            'db_carrinho' => $db_carrinho,
         ]);
     }
 
@@ -72,7 +56,7 @@ class ItemcompraController extends Controller
         $model->codigo_produto = $codigo_produto;
         $model->id_encomenda = $id_encomenda;
         $model->quantidade = 1;
-        $model->preço_venda = $model->codigoProduto->preco;
+        $model->preco_venda = $model->codigoProduto->preco;
         $model->save();
 
         return $this->redirect(['produto/index']);

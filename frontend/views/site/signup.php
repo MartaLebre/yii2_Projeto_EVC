@@ -4,24 +4,21 @@
 /* @var $form yii\bootstrap4\ActiveForm */
 /* @var $model \frontend\models\SignupForm */
 
+use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Html;
+
+$this->registerCssFile("@web/css/user_form.css");
 
 $this->title = 'Signup';
 ?>
-<style>
-    .card{
-        margin-top: 5%;
-        margin-bottom: 10%;
-    }
-</style>
 
 <div class="col-6 offset-3">
-    <div class="card">
+    <div class="card signup-form">
         <div class="card-body login-card-body">
             <h4 class="card-text">Registo</h4>
             <p class="card-text">Por favor preencha os seguintes campos</p>
             
-            <?php $form = \yii\bootstrap4\ActiveForm::begin(['id' => 'form-signup']) ?>
+            <?php $form = ActiveForm::begin(['id' => 'form-signup']) ?>
             
             <?= $form->field($model,'username', [
                 'options' => ['class' => 'form-group has-feedback'],
@@ -76,7 +73,7 @@ $this->title = 'Signup';
                 </div>
             </div>
             
-            <?php \yii\bootstrap4\ActiveForm::end(); ?>
+            <?php ActiveForm::end(); ?>
         </div>
     </div>
 </div>

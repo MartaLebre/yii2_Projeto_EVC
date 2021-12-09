@@ -31,14 +31,14 @@ class UserForm extends Model
         return [
             ['username', 'trim'],
             ['username', 'required', 'message' => 'Necessário introduzir um username.'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Este username já está registado.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
             
             ['email', 'trim'],
             ['email', 'required', 'message' => 'Necessário introduzir um email.'],
-            ['email', 'email'],
+            ['email', 'email', 'message' => 'Email incorreto.'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Este email já está registado.'],
             
             ['password', 'required', 'message' => 'Necessário introduzir uma password.'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
@@ -54,16 +54,16 @@ class UserForm extends Model
             
             ['primeiro_nome', 'required', 'message' => 'Necessário introduzir um primeiro nome.'],
             [
-                'primeiro_nome', 'string', 'min' => 2, 'max' => 50,
+                'primeiro_nome', 'string', 'min' => 2, 'max' => 45,
                 'tooShort' => 'O nome tem que ter no mínimo 2 digitos.',
-                'tooLong' => 'O nome não pode exceder os 50 digitos.'
+                'tooLong' => 'O nome não pode exceder os 45 digitos.'
             ],
             
             ['ultimo_nome', 'required', 'message' => 'Necessário introduzir um apelido.'],
             [
-                'ultimo_nome', 'string', 'min' => 2, 'max' => 50,
+                'ultimo_nome', 'string', 'min' => 2, 'max' => 45,
                 'tooShort' => 'O apelido tem que ter no mínimo 2 digitos.',
-                'tooLong' => 'O apelido não pode exceder os 50 digitos.'
+                'tooLong' => 'O apelido não pode exceder os 45 digitos.'
             ],
         ];
     }

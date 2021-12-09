@@ -10,9 +10,9 @@ use Yii;
  * @property int $codigo_produto
  * @property int $id_encomenda
  * @property int $quantidade
- * @property float $preço_venda
+ * @property float $preco_venda
  *
- * @property Produto $codigoProduto
+ * @property Produto $produto
  * @property Encomenda $encomenda
  */
 class ItemCompra extends \yii\db\ActiveRecord
@@ -31,9 +31,9 @@ class ItemCompra extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['codigo_produto', 'id_encomenda', 'quantidade', 'preço_venda'], 'required'],
+            [['codigo_produto', 'id_encomenda', 'quantidade', 'preco_venda'], 'required'],
             [['codigo_produto', 'id_encomenda', 'quantidade'], 'integer'],
-            [['preço_venda'], 'number'],
+            [['preco_venda'], 'number'],
             [['codigo_produto', 'id_encomenda'], 'unique', 'targetAttribute' => ['codigo_produto', 'id_encomenda']],
             [['id_encomenda'], 'exist', 'skipOnError' => true, 'targetClass' => Encomenda::className(), 'targetAttribute' => ['id_encomenda' => 'id']],
             [['codigo_produto'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::className(), 'targetAttribute' => ['codigo_produto' => 'codigo_produto']],
@@ -49,7 +49,7 @@ class ItemCompra extends \yii\db\ActiveRecord
             'codigo_produto' => 'Codigo Produto',
             'id_encomenda' => 'Id Encomenda',
             'quantidade' => 'Quantidade',
-            'preço_venda' => 'Preço Venda',
+            'preco_venda' => 'Preço Venda',
         ];
     }
 
@@ -58,7 +58,7 @@ class ItemCompra extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getCodigoProduto()
+    public function getProduto()
     {
         return $this->hasOne(Produto::className(), ['codigo_produto' => 'codigo_produto']);
     }

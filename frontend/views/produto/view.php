@@ -76,15 +76,17 @@ $this->title = $model_produto->nome;
             */?>
         </div>
     </div>
-    <hr>
-    
-    <h5 class="text-center" style="padding-top: 20px; padding-bottom: 20px">Produtos semelhantes</h5>
-    <div class="row">
-        <?php
-        foreach($db_produtos as $model_produto_sugestao){
-            if($model_produto_sugestao->codigo_produto != $model_produto->codigo_produto){
-                echo $this->render('_form', ['model_produto' => $model_produto_sugestao]);
-            }
-        }?>
+
+    <div class="produtos-sugestao">
+        <hr>
+        <h5>Produtos semelhantes</h5>
+        <div class="row">
+            <?php
+            foreach($db_produtos as $model_produto_sugestao){
+                if($model_produto_sugestao->codigo_produto != $model_produto->codigo_produto){
+                    echo $this->render('_form', ['model_produto' => $model_produto_sugestao]);
+                }
+            }?>
+        </div>
     </div>
 </div>

@@ -4,22 +4,35 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\ItemCompraSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-$db_produtosCarrinho = $dataProvider->getModels();
+/* @var $model_itemcompra common\models\ItemCompra */
+/* @var $model_produto common\models\Produto */
 
-$this->title = 'Item Compras';
-$this->params['breadcrumbs'][] = $this->title;
+Yii::$app->language = 'pt-PT';
+$this->title = 'Carrinho';
 ?>
-<div class="item-compra-index">
+<style>
+    .produtos-null h5{
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding-bottom: 83%;
+        margin-top: -5px;
+    }
+</style>
 
+<div class="item-compra-index">
     <div class="row">
         <?php
-        foreach($db_produtosCarrinho as $model_carrinho){
-            $model_produto = $model_carrinho->codigoProduto;
-            echo $this->render('/produto/_form', ['model_produto' => $model_produto]);
-        }?>
+        if($db_carrinho != null){
+            foreach($db_carrinho as $model_itemcompra){
+                $model_produto = $model_itemcompra->produto;
+                echo $this->render('/produto/_form', ['model_produto' => $model_produto]);
+            }
+        }
+        else{ ?>
+            <div class="produtos-null offset-4">
+                <h5>Não existem produtos no carrinho</h5>
+            </div>
+        <?php }?>
     </div>
-
-
 </div>

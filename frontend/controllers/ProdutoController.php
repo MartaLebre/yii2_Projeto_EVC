@@ -41,12 +41,25 @@ class ProdutoController extends Controller
     {
         $searchModel = new ProdutoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'title' => 'Produtos',
+        ]);
+    }
     
+    public function actionNovidades()
+    {
+        $searchModel = new ProdutoSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+        
         $dataProvider->pagination->setPageSize(8);
         
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'title' => 'Novidades',
         ]);
     }
 
@@ -59,17 +72,17 @@ class ProdutoController extends Controller
         $searchModel = new ProdutoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
-        $db_mysteryBoxesModelo = Modelo::find()->where(['nome' => 'Mystery Boxes'])->one();
+        $modelo_mysteryBoxes = Modelo::find()->where(['nome' => 'Mystery Boxes'])->one();
 
-        if($db_mysteryBoxesModelo != null){
-
-                $dataProvider->query->andWhere(['id_modelo' => $db_mysteryBoxesModelo->id]);
+        if($modelo_mysteryBoxes != null){
+            $dataProvider->query->andWhere(['id_modelo' => $modelo_mysteryBoxes->id]);
         }
         else $dataProvider = null;
 
-        return $this->render('mysteryboxes', [
+        return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'title' => 'Mystery Boxes',
         ]);
     }
     
@@ -94,9 +107,10 @@ class ProdutoController extends Controller
         }
         else $dataProvider = null;
     
-        return $this->render('descontos', [
+        return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'title' => 'Descontos',
         ]);
     }
 

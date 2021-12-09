@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 $this->registerCssFile("@web/css/navbar.css");
+$db_modelos = \common\models\Modelo::find()->all();
 ?>
 
 <nav class="navbar-expand navbar-light">
@@ -52,13 +53,11 @@ $this->registerCssFile("@web/css/navbar.css");
             <?= Html::a('Novidades', ['produto/novidades'], ['class' => 'nav-link']) ?>
         </li>
         
-        <?php $modelos = \common\models\Modelo::find()->all(); ?>
-        
         <li class="nav-item dropdown">
             <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link">Homem</a>
             <ul aria-labelledby="dropdownSubMenu" class="dropdown-menu border-0 shadow">
-                <?php foreach($modelos as $modelo){ ?>
-                    <li><?= Html::a($modelo->nome, ['#'], ['class' => 'dropdown-item']) ?></li>
+                <?php foreach($db_modelos as $model_modelo){ ?>
+                    <li><?= Html::a($model_modelo->nome, ['#'], ['class' => 'dropdown-item']) ?></li>
                 <?php }?>
             </ul>
         </li>
