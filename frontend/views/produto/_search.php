@@ -7,20 +7,24 @@ use yii\widgets\ActiveForm;
 /* @var $model common\models\ProdutoSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<style>
+    .produto-search{
+        padding-bottom: 15px !important;
+    }
+</style>
 
 <div class="produto-search">
     <?php $form = ActiveForm::begin(['method' => 'get']); ?>
 
     <div class="row">
-        <div class="col-6 offset-3">
+        <div class="col-4 offset-4">
             <?= $form->field($model, 'searchstring',
-                ['template' => '<div class="input-group">{input}<span class="input-group-append">' .
-                    Html::submitButton('Search', ['class' => 'btn btn-default']) .
-                    '</span></div>',])->textInput(['placeholder' => 'Search']);
+                ['template' => '<div class="input-group shadow-sm">{input}<span class="input-group-append">' .
+                    Html::submitButton('<i class="fa fa-search"></i>', ['class' => 'btn btn-default']) .
+                    '</span></div>',])->textInput(['placeholder' => 'Pesquisa aqui']);
             ?>
         </div>
     </div>
-    <hr>
     
     <?php ActiveForm::end(); ?>
 </div>

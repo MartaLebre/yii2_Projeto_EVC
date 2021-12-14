@@ -18,22 +18,21 @@ $model_desconto = $model_modelo->desconto;
         <img class="card-img-top" src="img/clothing/teste1.jpg">
         <?php if($model_desconto != null && $model_desconto->getDescontoActivo($model_desconto->id_modelo)){ ?>
             <div class="img-overlay">
-                <p class="btn btn-desconto shadow-sm">-<?= $model_desconto->valor ?><i class="fa fa-percent icon-percentagem"></i></p>
+                <p class="btn btn-desconto shadow-sm">-<?= $model_desconto->valor ?>%</p>
             </div>
         <?php }?>
         <hr>
         <div class="card-body">
-            <h6 class="card-text"><?= $model_modelo->nome . ' ' . $model_produto->nome .
-                ' (' . $model_produto->tamanho . ')' ?></h6>
+            <h5 class="card-text"><?= $model_modelo->nome . ' ' . $model_produto->nome?></h5>
             <?php
             if($model_desconto != null && $model_desconto->getDescontoActivo($model_desconto->id_modelo)){ ?>
-                <p class="card-text"><?= '<span class="preco-semdesconto">' . sprintf('%.2f', $model_produto->preco) . '€</span>' .
-                    sprintf('%.2f', $model_produto->preco - ($model_produto->preco * ($model_desconto->valor / 100))) ?>€</h5></p>
+                <h6 class="card-text"><?= sprintf('%.2f', $model_produto->preco - ($model_produto->preco * ($model_desconto->valor / 100))) . '€' .
+                    '<span class="preco-semdesconto">' . sprintf('%.2f', $model_produto->preco) . '€</span>'?></h5></h6>
             <?php }
             else{ ?>
-                <p class="card-text"><?= sprintf('%.2f', $model_produto->preco) ?>€</p>
+                <h6 class="card-text"><?= sprintf('%.2f', $model_produto->preco) ?>€</h6>
             <?php }?>
-            <?= Html::a('Ver Produto', ['produto/view', 'codigo_produto' => $model_produto->codigo_produto], ['class' => 'btn btn-dark btn-block']) ?>
+            <?= Html::a('Ver Produto', ['produto/view', 'codigo_produto' => $model_produto->codigo_produto], ['class' => 'btn btn-dark btn-block shadow-sm']) ?>
             <div class="row">
                 <div class="col-9">
                     <p class="card-text text-publicado">Publicado <?= Yii::$app->formatter->asRelativeTime($model_produto->data) ?></p>

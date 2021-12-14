@@ -1,5 +1,4 @@
 .header h5{
-    text-transform: uppercase;
     letter-spacing: 1px;
 }
 .header p{
@@ -13,24 +12,24 @@
     margin-bottom: 5px;
 }
 .produto-btn{
+    margin-top: -10px !important;
     text-transform: uppercase;
-    width: 90%;
-    padding-left: 10%;
 }
 .icon-favorito-view{
     display: block;
     color: red;
-    padding: 10px 4px 0 10px;
+    font-size: 18px !important;
+    padding: 8px 10px;
 }
 .produto-btn a span{
     padding-left: 7px;
 }
 .btn-desconto{
      margin-bottom: 2px;
-     margin-left: 7px;
- }
+     margin-left: 10px;
+}
 
-.produtos-sugestao h5{
+.titulo-sugestao{
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 1px;

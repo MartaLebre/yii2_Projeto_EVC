@@ -2,11 +2,11 @@
     padding: 20px 0 20px 0;
     font-size: 14px;
     line-height: 24px;
+    color: #212529;
 }
 .site-footer hr{
     margin-top: 48px !important;
-    border-top-color: #212529;
-    opacity: 0.5;
+    border-top: 1px solid rgba(0,0,0,.4) !important;
 }
 .site-footer h6{
     font-size: 16px;
@@ -25,7 +25,7 @@
     color: #212529;
 }
 .footer-links a:active,.footer-links a:focus,.footer-links a:hover{
-    color: #3366cc;
+    color: black;
     text-decoration: none;
 }
 .footer-links.inline li{

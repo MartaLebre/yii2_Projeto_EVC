@@ -2,6 +2,10 @@
     cursor: default;
     min-height: 95%;
     max-height: 95%;
+    transition: transform .2s;
+}
+.card:hover{
+    transform: scale(1.05);
 }
 .card hr{
     margin-top: 0;
@@ -10,11 +14,11 @@
 .card-body{
     text-align: center;
 }
-.card-img-top{
+.card img{
     object-fit: cover;
     opacity: .75;
 }
-.card-img-top:hover{
+.card img:hover{
     opacity: 1;
 }
 .img-overlay{
@@ -34,18 +38,26 @@
 .btn-desconto:hover, .btn-desconto:focus{
     color: #fff !important;
 }
-.icon-percentagem{
-    font-size: 12px;
+.card-body h5{
+    margin-top: -7px !important;
+    font-size: 17px !important;
+    padding-bottom: 5px !important;
+}
+.card-body h6{
+    margin-top: -5px !important;
+    font-size: 17px !important;
+    padding-bottom: 5px !important;
 }
 .preco-semdesconto{
-    color: grey;
-    opacity: .7;
+    font-size: 15px !important;
+    color: #6c757d !important;
+    opacity: .6;
     text-decoration: line-through;
-    margin-right: 10px
+    margin-left: 10px
 }
 .btn-dark{
     background-color: #222 !important;
-    font-size: 14px;
+    font-size: 14px !important;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
@@ -61,7 +73,8 @@
     text-align: left;
 }
 .icon-favorito{
+    font-size: 18px !important;
     display: block;
     color: red;
-    padding: 12px 16px 8px 16px;
+    padding: 10px;
 }

@@ -7,13 +7,12 @@ use yii\bootstrap4\Html;
 use yii\bootstrap4\Carousel;
 
 $this->registerCssFile("@web/css/site.css");
-$this->registerCssFile("@web/css/card.css");
 
 $this->title = 'eVintageClothing';
 ?>
 
 <div class="site-index">
-    <div class="card slideshow">
+    <div class="slideshow">
         <?= yii\bootstrap4\Carousel::widget(['items' => $slideshow]); ?>
         <?= Html::a('Novidades', ['produto/novidades'], ['class' => 'btn button-slideshow shadow']) ?>
     </div>
@@ -21,7 +20,7 @@ $this->title = 'eVintageClothing';
     <div class="produtos-desconto">
         <?php
         if($db_produtos != null){?>
-            <hr>
+            <hr class="hr-descontos">
             <div class="row">
                 <?php
                 foreach($db_produtos as $model_produto){

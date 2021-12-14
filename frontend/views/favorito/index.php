@@ -33,7 +33,7 @@ $this->title = 'Favoritos';
         }
         else{ ?>
             <div class="favoritos-null offset-4">
-                <h5>Não existem favoritos disponíveis</h5>
+                <h5>A tua lista de favoritos está vazia</h5>
             </div>
         <?php }?>
     </div>

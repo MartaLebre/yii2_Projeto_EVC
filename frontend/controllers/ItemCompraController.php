@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\ItemCompra;
+use Yii;
 use yii\rbac\Item;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -40,7 +41,7 @@ class ItemcompraController extends Controller
         $db_carrinho = ItemCompra::find()->all();
 
         return $this->render('index', [
-            'db_carrinho' => $db_carrinho,
+            'db_carrinho' => $db_carrinho
         ]);
     }
 
@@ -56,9 +57,10 @@ class ItemcompraController extends Controller
         $model->codigo_produto = $codigo_produto;
         $model->id_encomenda = $id_encomenda;
         $model->quantidade = 1;
-        $model->preco_venda = $model->codigoProduto->preco;
+        $model->preco_venda = $model->produto->preco;
         $model->save();
-
+        
+        Yii::$app->session->setFlash('success', $model->produto->nome . ' foi adicionado ao seu carrinho.');
         return $this->redirect(['produto/index']);
 
     }

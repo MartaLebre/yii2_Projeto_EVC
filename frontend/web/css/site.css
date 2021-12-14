@@ -8,8 +8,7 @@
 .slideshow .btn{
     text-transform: uppercase;
     position: absolute;
-    top: 95%;
-    left: 44%;
+    left: 46%;
 }
 .button-slideshow{
     background-color: #222 !important;
@@ -19,12 +18,14 @@
     font-size: 16px;
     padding: 9px 20px 8px;
     letter-spacing: 2px;
+    margin-top: -20px !important;
 }
 .button-slideshow:hover, .button-slideshow:focus{
     color: #fff;
     background-color: #151515 !important;
 }
 
-.produtos-desconto hr{
+.hr-descontos{
     margin-top: 48px !important;
+    padding-bottom: 10px !important;
 }
