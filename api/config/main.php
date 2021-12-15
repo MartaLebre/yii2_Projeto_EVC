@@ -63,10 +63,12 @@ return [
                     'pluralize' => false,
                     'extraPatterns' => [
                         'GET pesquisa/{pesquisa}' => 'pesquisa',
+                        'GET detalhes/{codigo_produto}' => 'detalhes'
                     ],
                     'tokens' =>
                         [
                             '{pesquisa}' => '<pesquisa:.*?>',
+                            '{codigo_produto}' => '<codigo_produto:.*?>',
                         ],
                 ],
             ],
