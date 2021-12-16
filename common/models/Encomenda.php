@@ -83,4 +83,28 @@ class Encomenda extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'id_user']);
     }
+
+    public static function getUpdateStatusEncomenda($id_encomenda)
+    {
+        $encomenda = Encomenda::find()->where(['id' => $id_encomenda])->one();
+
+        switch ($encomenda->estado) {
+            case "carrinho":
+                $encomenda->estado = "pendente";
+                break;
+            case "pendente":
+                $encomenda->estado = "em processamento";
+                break;
+            case "em processamento":
+                $encomenda->estado = "enviado";
+                break;
+            case "enviado":
+                $encomenda->estado = "entregue";
+                break;
+        }
+
+        $encomenda->update();
+    }
+
+
 }

@@ -40,6 +40,8 @@ use common\models\User;
                         ['label' => 'Gestão de Produtos', 'header' => true],
                         ['label' => 'Adicionar Produtos', 'iconClass' => 'nav-icon far fa-circle text-success', 'url' => ['modelo/index']],
                         ['label' => 'Gerir Produtos', 'iconClass' => 'nav-icon far fa-circle text-warning', 'url' => ['produto/index']],
+                        ['label' => 'Gestão de Encomendas', 'header' => true],
+                        ['label' => 'Encomendas', 'iconClass' => 'nav-icon far fa-circle text-warning', 'url' => ['encomenda/index']],
                     ],
                 ]);
             }

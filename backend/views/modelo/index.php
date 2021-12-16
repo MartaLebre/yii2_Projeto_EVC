@@ -40,7 +40,7 @@ $this->title = 'Lista de Modelos';
     <table class="styled-table">
         <tr>
             <th>Modelo</th>
-            <th></th>
+            <th>Adicionar Produto</th>
             <th>Adicionar Desconto</th>
             <th></th>
         </tr>

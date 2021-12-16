@@ -233,6 +233,13 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasOne(Perfil::className(), ['id_user' => 'id']);
     }
+
+
+    public function getEncomenda()
+    {
+        return $this->hasOne(Encomenda::className(), ['id_user' => 'id', 'estado' => 'carrinho']);
+    }
+
     
     /**
      * Gets query for [[User]].
