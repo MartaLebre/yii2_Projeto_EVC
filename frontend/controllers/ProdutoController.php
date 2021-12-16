@@ -94,19 +94,13 @@ class ProdutoController extends Controller
     {
         $searchModel = new ProdutoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-        
-        $db_descontos = Desconto::find()
-            ->where(['<=', 'data_comeco', date('Y-m-d')])
-            ->andWhere(['>=', 'data_final', date('Y-m-d')])
+    
+        $dataProvider->query
+            ->leftJoin('desconto', 'desconto.id_modelo = produto.id_modelo')
+            ->where(['<=', 'desconto.data_comeco', date('Y-m-d')])
+            ->andWhere(['>=', 'desconto.data_final', date('Y-m-d')])
             ->all();
-    
-        if($db_descontos != null){
-            foreach($db_descontos as $model_desconto){
-                $dataProvider->query->andWhere(['id_modelo' => $model_desconto->modelo->id]);
-            }
-        }
-        else $dataProvider = null;
-    
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

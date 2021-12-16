@@ -15,8 +15,8 @@ $this->title = 'Editar';
 <br>
 <div class="perfil-update col-6 offset-3">
     <div class="card update-form">
-        <div class="card-body login-card-body">
-            <h4>Editar: <?= $model_perfil->primeiro_nome ?> <?= $model_perfil->ultimo_nome ?></h4>
+        <div class="card-body">
+            <h4>Perfil</h4>
             <p>Por favor preencha os seguintes campos</p>
             
             <?php $form = ActiveForm::begin(['id' => 'form-signup']) ?>
@@ -62,8 +62,11 @@ $this->title = 'Editar';
                 ->textInput(['placeholder' => $model_user->getAttributeLabel('email')]) ?>
 
             <div class="row">
-                <div class="col-3 offset-9">
-                    <?= Html::submitButton('Atualizar', ['class' => 'btn btn-primary btn-block', 'name' => 'update-button']) ?>
+                <div class="col-5 offset-4">
+                    <?= Html::a('Minhas Encomendas', ['encomenda/index'], ['class' => 'btn btn-dark btn-block shadow-sm']) ?>
+                </div>
+                <div class="col-3">
+                    <?= Html::submitButton('Atualizar', ['class' => 'btn btn-dark btn-block shadow-sm', 'name' => 'update-button']) ?>
                 </div>
             </div>
             

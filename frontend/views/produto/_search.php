@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'searchstring',
                 ['template' => '<div class="input-group shadow-sm">{input}<span class="input-group-append">' .
                     Html::submitButton('<i class="fa fa-search"></i>', ['class' => 'btn btn-default']) .
-                    '</span></div>',])->textInput(['placeholder' => 'Pesquisa aqui']);
+                    '</span></div>',])->textInput(['placeholder' => 'Pesquisa']);
             ?>
         </div>
     </div>

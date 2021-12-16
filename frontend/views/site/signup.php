@@ -14,7 +14,7 @@ $this->title = 'Signup';
 
 <div class="col-6 offset-3">
     <div class="card signup-form">
-        <div class="card-body login-card-body">
+        <div class="card-body">
             <h4 class="card-text">Registo</h4>
             <p class="card-text">Por favor preencha os seguintes campos</p>
             
@@ -69,7 +69,7 @@ $this->title = 'Signup';
 
             <div class="row">
                 <div class="col-3 offset-9">
-                    <?= Html::submitButton('Registar', ['class' => 'btn btn-primary btn-block', 'name' => 'signup-button']) ?>
+                    <?= Html::submitButton('Registar', ['class' => 'btn btn-dark btn-block shadow-sm', 'name' => 'signup-button']) ?>
                 </div>
             </div>
             

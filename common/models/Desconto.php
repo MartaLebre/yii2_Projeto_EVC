@@ -75,4 +75,21 @@ class Desconto extends \yii\db\ActiveRecord
         
         return false;
     }
+    
+    public static function getDescontoMAX()
+    {
+        $model_desconto = new Desconto();
+        
+        $model_desconto->valor = Desconto::find()
+            ->where(['<=', 'data_comeco', date('Y-m-d')])
+            ->andWhere(['>=', 'data_final', date('Y-m-d')])
+            ->max('valor');
+    
+        $model_desconto->data_final = Desconto::find()
+            ->where(['<=', 'data_comeco', date('Y-m-d')])
+            ->andWhere(['>=', 'data_final', date('Y-m-d')])
+            ->max('data_final');
+        
+        return $model_desconto;
+    }
 }

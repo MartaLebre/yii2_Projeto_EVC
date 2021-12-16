@@ -78,20 +78,14 @@ class SiteController extends Controller
             '<img src="img/slideshow/slideshow_4.jpg"/>',
             '<img src="img/slideshow/slideshow_5.jpg"/>'
         ];
-        
-        $db_descontos = Desconto::find()
-            ->where(['>=', 'data_final', date('Y-m-d')])
-            ->all();
     
-        if($db_descontos != null){
-            foreach($db_descontos as $model_desconto){
-                $db_produtos = Produto::find()
-                    ->where(['id_modelo' => $model_desconto->modelo->id])
-                    ->orderBy(['data' => SORT_DESC])
-                    ->all();
-            }
-        }
-        else $db_produtos = null;
+        $db_produtos = Produto::find()
+            ->orderBy(['data' => SORT_DESC])
+            ->where(['<=', 'desconto.data_comeco', date('Y-m-d')])
+            ->andWhere(['>=', 'desconto.data_final', date('Y-m-d')])
+            ->leftJoin('desconto', 'desconto.id_modelo = produto.id_modelo')
+            ->limit(4)
+            ->all();
         
         return $this->render('index', [
             'slideshow' => $slideshow,

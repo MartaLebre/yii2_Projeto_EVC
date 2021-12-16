@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Desconto;
 use common\widgets\Alert;
 
 /* @var $this yii\web\View */
@@ -11,33 +12,34 @@ if($dataProvider != null){
     $db_produtos = $dataProvider->getModels();
 }
 
+$this->registerCssFile("@web/css/index_produto.css");
+
 Yii::$app->language = 'pt-PT';
 $this->title = $title;
 ?>
-<style>
-    .produtos-null h5{
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        padding-bottom: 40%;
-        margin-top: -5px;
-    }
-</style>
 
 <div class="produto-index">
     <?php
     if($dataProvider != null){ ?>
         <?= Alert::widget() ?>
         <?= $this->render('_search', ['model' => $searchModel]) ?>
+        
+        <?php if($title == 'Descontos'){?>
+            <div class="header-descontos">
+                <h5>Promoções até -<?= Desconto::getDescontoMAX()->valor ?>%</h5>
+                <h6>Promoções terminam a <?= date('d/m/Y', (strtotime(Desconto::getDescontoMAX()->data_final))) ?></h6>
+                <br>
+            </div>
+        <?php }?>
 
         <div class="row">
-            <?php
-            foreach($db_produtos as $model_produto){
+            <?php foreach($db_produtos as $model_produto){
                 echo $this->render('_form', ['model_produto' => $model_produto]);
             }?>
         </div>
     <?php }
     else{ ?>
-        <div class="produtos-null offset-4">
+        <div class="produtos-null">
             <h5>Não existem <?= $title ?> disponíveis</h5>
         </div>
     <?php }?>

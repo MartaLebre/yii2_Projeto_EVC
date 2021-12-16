@@ -15,7 +15,7 @@ $this->title = 'Login';
 
 <div class="col-6 offset-3">
     <div class="card login-form">
-        <div class="card-body login-card-body">
+        <div class="card-body">
             <h4 class="card-text">Iniciar sessão</h4>
             <p class="card-text">Por favor preencha os seguintes campos</p>
 
@@ -40,7 +40,7 @@ $this->title = 'Login';
                     <p>Não tem uma conta? <?= Html::a('Registe-se', ['/site/signup'], ['name' => 'signin-button']) ?></p>
                 </div>
                 <div class="col-3 offset-3">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary btn-block', 'name' => 'login-button']) ?>
+                    <?= Html::submitButton('Login', ['class' => 'btn btn-dark btn-block shadow-sm', 'name' => 'login-button']) ?>
                 </div>
             </div>
 

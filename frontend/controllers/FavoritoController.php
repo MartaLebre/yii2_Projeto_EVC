@@ -41,11 +41,10 @@ class FavoritoController extends Controller
         $db_favoritos = Favorito::find()
             ->where(['id_user' => Yii::$app->user->id])
             ->all();
-
-     return $this->render('index', [
-         'db_favoritos' => $db_favoritos,
-     ]);
-
+    
+        return $this->render('index', [
+            'db_favoritos' => $db_favoritos,
+        ]);
     }
 
     /**
@@ -53,14 +52,15 @@ class FavoritoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($codigo_produto){
+    public function actionCreate($codigo_produto)
+    {
         $model_favorito = new Favorito();
     
         $model_favorito->codigo_produto = $codigo_produto;
         $model_favorito->id_user = Yii::$app->user->getId();
         $model_favorito->save();
     
-        Yii::$app->session->setFlash('success', $model_favorito->produto->nome . ' foi adicionado à sua lista de favoritos.');
+        Yii::$app->session->setFlash('success', $model_favorito->produto->modelo->nome . ' ' . $model_favorito->produto->nome . ' foi adicionado à sua lista de favoritos.');
         return $this->redirect(Yii::$app->request->referrer);
     }
 
@@ -71,11 +71,12 @@ class FavoritoController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id){
+    public function actionDelete($id)
+    {
         $model_favorito = $this->findModel($id);
         $model_favorito->delete();
     
-        Yii::$app->session->setFlash('danger', $model_favorito->produto->nome . ' foi removido da sua lista de favoritos.');
+        Yii::$app->session->setFlash('danger', $model_favorito->produto->modelo->nome . ' ' . $model_favorito->produto->nome . ' foi removido da sua lista de favoritos.');
         return $this->redirect(Yii::$app->request->referrer);
     }
     

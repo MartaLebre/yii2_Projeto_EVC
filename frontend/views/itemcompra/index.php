@@ -12,54 +12,48 @@ $this->registerCssFile("@web/css/index_itemcompra.css");
 Yii::$app->language = 'pt-PT';
 $this->title = 'Carrinho';
 ?>
-<style>
-    .produtos-null h5{
-        text-align: center;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        padding-bottom: 83%;
-        margin-top: -5px;
-    }
-</style>
 
 <div class="item-compra-index">
     <?php
     if($db_carrinho != null){?>
         <div class="row">
-            <div class="col-6 offset-2">
+            <div class="col-5 offset-3">
                 <?php
-                foreach($db_carrinho as $model_itemcompra){
-                    $model_produto = $model_itemcompra->produto; ?>
-                    <div class="row" style="padding-bottom: 10px">
-                        <?= $this->render('_form', ['model_produto' => $model_produto]); ?>
+                foreach($db_carrinho as $model_itemcompra){ ?>
+                    <div class="row row-form">
+                        <?= $this->render('_form', ['model_itemcompra' => $model_itemcompra]); ?>
                     </div>
                 <?php }?>
             </div>
-            <div class="col-1">
+            <div class="col-1 col-hr">
                 <div class="vr-index"></div>
             </div>
             <div class="col-2">
                 <div class="checkout">
-                    <p>Resumo</p>
-                    <?php $total_encomenda = 0;
-                     foreach($db_carrinho as $model_itemcompra) {
-                         $model_produto = $model_itemcompra->produto;
-                         $model_desconto = $model_produto->modelo->desconto;
-                    if($model_desconto != null && $model_desconto->getDescontoActivo($model_desconto->id_modelo)){
-                         $total_encomenda += $model_produto->preco - ($model_produto->preco * ($model_desconto->valor / 100)) ?>
-                    <?php } else {
-                         $total_encomenda += $model_produto->preco ?>
-                    <?php }}?>
-                    <p>Taxa <span>(Iva): </span><?=  sprintf('%.2f', $total_encomenda - ($total_encomenda * 0.81295)) .  '€'?> </p>
+                    <h5>Resumo</h5>
+                    <?php
+                    $total_encomenda = 0;
+                    foreach($db_carrinho as $model_itemcompra) {
+                        $model_produto = $model_itemcompra->produto;
+                        $model_desconto = $model_produto->modelo->desconto
+                        ;
+                        if($model_desconto != null && $model_desconto->getDescontoActivo($model_desconto->id_modelo)){
+                            $total_encomenda += $model_produto->preco - ($model_produto->preco * ($model_desconto->valor / 100)) ?>
+                        <?php }
+                        else {
+                            $total_encomenda += $model_produto->preco ?>
+                        <?php }
+                    }?>
+                    <h6 class="taxa-iva">Taxa (Iva): <?= sprintf('%.2f', $total_encomenda - ($total_encomenda * 0.81295)) .  '€'?> </h6>
 
-                    <h6>Total <span class="total-iva">Encomenda: </span><?=   sprintf('%.2f', $total_encomenda. '€') ?></h6>
+                        <h6>Total Encomenda: <?= sprintf('%.2f', $total_encomenda) ?>€</h6>
                 </div>
                     <?= Html::a('Finalizar Compra', ['faturacao/create'], ['class' => 'btn btn-dark btn-block shadow-sm']) ?>
             </div>
         </div>
     <?php }
     else{ ?>
-        <div class="produtos-null offset-0">
+        <div class="produtos-null">
             <h5>Não existem produtos no carrinho</h5>
         </div>
     <?php }?>

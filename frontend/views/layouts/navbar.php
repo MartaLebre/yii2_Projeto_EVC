@@ -74,7 +74,7 @@ $db_modelos = \common\models\Modelo::find()->all();
         </li>
 
         <li class="nav-item">
-            <?= Html::a('Descontos', ['produto/descontos'], ['class' => 'nav-link']) ?>
+            <?= Html::a('Promoções', ['produto/descontos'], ['class' => 'nav-link']) ?>
         </li>
     </ul>
 </nav>
