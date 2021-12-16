@@ -41,16 +41,25 @@ $this->title = 'Carrinho';
             <div class="col-2">
                 <div class="checkout">
                     <p>Resumo</p>
-                    
-                    <p>Nome <span>preco</span></p>
-                    
-                    <h6>Total <span class="total-iva">(IVA incluído)</span></h6>
+                    <?php $total_encomenda = 0;
+                     foreach($db_carrinho as $model_itemcompra) {
+                         $model_produto = $model_itemcompra->produto;
+                         $model_desconto = $model_produto->modelo->desconto;
+                    if($model_desconto != null && $model_desconto->getDescontoActivo($model_desconto->id_modelo)){
+                         $total_encomenda += $model_produto->preco - ($model_produto->preco * ($model_desconto->valor / 100)) ?>
+                    <?php } else {
+                         $total_encomenda += $model_produto->preco ?>
+                    <?php }}?>
+                    <p>Taxa <span>(Iva): </span><?=  sprintf('%.2f', $total_encomenda - ($total_encomenda * 0.81295)) .  '€'?> </p>
+
+                    <h6>Total <span class="total-iva">Encomenda: </span><?=   sprintf('%.2f', $total_encomenda. '€') ?></h6>
                 </div>
+                    <?= Html::a('Finalizar Compra', ['faturacao/create'], ['class' => 'btn btn-dark btn-block shadow-sm']) ?>
             </div>
         </div>
     <?php }
     else{ ?>
-        <div class="produtos-null offset-4">
+        <div class="produtos-null offset-0">
             <h5>Não existem produtos no carrinho</h5>
         </div>
     <?php }?>

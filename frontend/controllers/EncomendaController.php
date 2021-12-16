@@ -69,10 +69,7 @@ class EncomendaController extends Controller
     public function actionCreate($codigo_produto)
     {
 
-
-
         $encomenda = Encomenda::find()->where(['estado' =>  'carrinho', 'id_user' => Yii::$app->user->id])->one();
-
 
         if ($encomenda == null) {
             $model_encomenda = new Encomenda();
