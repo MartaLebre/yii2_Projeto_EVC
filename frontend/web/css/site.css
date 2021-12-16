@@ -8,24 +8,29 @@
 .slideshow .btn{
     text-transform: uppercase;
     position: absolute;
-    left: 46%;
+    left: 45%;
 }
-.button-slideshow{
-    background-color: #222 !important;
-    border-radius: 6px;
+.btn-slideshow{
+    width: 10% !important;
     color: #fff !important;
-    display: inline-block;
-    font-size: 16px;
-    padding: 9px 20px 8px;
+    background-color: #222 !important;
+    text-transform: uppercase;
     letter-spacing: 2px;
     margin-top: -20px !important;
 }
-.button-slideshow:hover, .button-slideshow:focus{
+.btn-slideshow:hover, .btn-slideshow:focus{
     color: #fff;
     background-color: #151515 !important;
 }
 
-.hr-descontos{
+.header-descontos hr{
     margin-top: 48px !important;
     padding-bottom: 10px !important;
+}
+.header-descontos{
+    text-align: center;
+}
+.header-descontos h6{
+    font-size: 18px !important;
+    font-weight: lighter !important;
 }

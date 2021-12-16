@@ -1,5 +1,21 @@
+.row-form{
+    padding-bottom: 10px !important;
+}
+.col-hr{
+    max-width: 2% !important;
+    margin-bottom: 0 !important;
+}
 .vr-index{
-    height: 98% !important;
+    height: 100% !important;
+    margin-bottom: -20px !important;
     margin-left: 10px !important;
     border-left: 1px solid rgba(0,0,0,.1) !important;
+}
+.produtos-null h5{
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: lighter !important;
+    letter-spacing: 1px;
+    padding-bottom: 28% !important;
+    margin-top: -5px;
 }

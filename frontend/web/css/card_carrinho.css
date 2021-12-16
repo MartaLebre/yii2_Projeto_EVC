@@ -9,7 +9,7 @@
 }
 .card-body{
     text-align: left;
-    margin-left: -60px !important;
+    margin-left: -70px !important;
 }
 .card img{
     width: 89.8% !important;
@@ -25,26 +25,28 @@
 }
 .vr-card{
     height: 100% !important;
-    margin-left: -28px !important;
+    margin-left: -30px !important;
     border-left:1px solid rgba(0,0,0,.1) !important;
 }
 .card-body h5{
+    color: #333 !important;
+    margin-top: -5px !important;
     font-size: 18px !important;
 }
 .card-body h6{
-    margin-top: -5px !important;
+    color: #333 !important;
     font-size: 17px !important;
 }
 .btn-desconto{
     margin-bottom: 4px;
     margin-left: 10px;
     cursor: default !important;
-    color: #fff !important;
-    background-color: red !important;
+    color: black !important;
+    background-color: #fecb01 !important;
     font-size: 15px !important;
     letter-spacing: 1px;
     text-transform: uppercase;
-    padding: 0 6px 0 6px !important;
+    padding: 0 8px 0 8px !important;
 }
 .btn-desconto:hover, .btn-desconto:focus{
     color: #fff !important;
@@ -62,10 +64,11 @@
 }
 .update-quantidade{
     text-align: center;
-    width: 30% !important;
-}
-.subrow{
     padding-top: 10px !important;
+    width: 40% !important;
+}
+.row-btn{
+    padding-top: 20px !important;
     margin-bottom: -10px !important;
 }
 .btn-dark{
@@ -83,11 +86,13 @@
     display: block;
     color: red;
     font-size: 18px !important;
-    padding: 8px 10px;
+    padding-top: 9px;
+    padding-left: 6px;
 }
 .icon-delete{
     display: block;
     color: #151515;
     font-size: 18px !important;
-    padding: 8px 105px;
+    padding-top: 9px;
+    padding-left: 55px;
 }
