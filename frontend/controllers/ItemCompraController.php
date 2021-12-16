@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Encomenda;
 use common\models\ItemCompra;
 use Yii;
 use yii\rbac\Item;
@@ -38,8 +39,14 @@ class ItemcompraController extends Controller
      */
     public function actionIndex()
     {
-        $db_carrinho = ItemCompra::find()->all();
+        $encomenda = Encomenda::find()->where(['estado' =>  'carrinho', 'id_user' => Yii::$app->user->id])->one();
 
+        if($encomenda != null){
+            $db_carrinho = ItemCompra::find()->where(['id_encomenda' => $encomenda->id])->all();
+        }
+        else {
+            $db_carrinho = null;
+        }
         return $this->render('index', [
             'db_carrinho' => $db_carrinho
         ]);

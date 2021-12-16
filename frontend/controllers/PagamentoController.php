@@ -2,8 +2,10 @@
 
 namespace frontend\controllers;
 
+use common\models\Encomenda;
 use common\models\Pagamento;
 use common\models\PagamentoSearch;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -69,12 +71,22 @@ class PagamentoController extends Controller
         $model = new Pagamento();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_user' => $model->id_user]);
+            if ($model->load($this->request->post())) {
+                $model->id_user = \Yii::$app->user->id;
+                $model->save();
+
+               $encomenda = Encomenda::find()->where(['id_user' =>  $model->id_user, 'estado' => 'carrinho'])->one();
+               Encomenda::getUpdateStatusEncomenda($encomenda->id);
+
+                return $this->redirect(Url::home());
+
             }
         } else {
             $model->loadDefaultValues();
         }
+
+
+
 
         return $this->render('create', [
             'model' => $model,
