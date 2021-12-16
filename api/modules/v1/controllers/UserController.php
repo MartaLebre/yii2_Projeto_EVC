@@ -3,7 +3,6 @@
 namespace api\modules\v1\controllers;
 
 use common\models\LoginForm;
-use frontend\models\SignupForm;
 use Yii;
 use yii\rest\ActiveController;
 use common\models\User;
