@@ -2,13 +2,29 @@
     margin-top: 5% !important;
     margin-bottom: 15% !important;
 }
-
+.update-form h4 span{
+    text-transform: capitalize;
+    margin-left: 60% !important;
+}
 .login-form{
     margin-top: 5% !important;
     margin-bottom: 39% !important;
 }
-
 .signup-form{
     margin-top: 5% !important;
     margin-bottom: 10% !important;
+}
+.login-form p, .signup-form p, .update-form p{
+    font-size: 18px !important;
+    font-weight: lighter !important;
+}
+.btn-dark{
+     background-color: #222 !important;
+     font-size: 14px !important;
+     text-transform: uppercase;
+     letter-spacing: 1px;
+ }
+.btn-dark:hover, .btn-dark:focus{
+    color: #fff;
+    background-color: #151515 !important;
 }

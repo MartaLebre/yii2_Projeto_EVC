@@ -1,0 +1,15 @@
+.header-descontos{
+    text-align: center;
+}
+.header-descontos h6{
+    font-size: 18px !important;
+    font-weight: lighter !important;
+}
+.produtos-null h5{
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: lighter !important;
+    letter-spacing: 1px;
+    padding-bottom: 28% !important;
+    margin-top: -5px;
+}

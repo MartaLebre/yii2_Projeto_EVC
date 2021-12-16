@@ -28,12 +28,12 @@
 }
 .btn-desconto{
     cursor: default !important;
-    color: #fff !important;
-    background-color: red !important;
+    color: black !important;
+    background-color: #fecb01 !important;
     font-size: 16px !important;
     letter-spacing: 1px;
     text-transform: uppercase;
-    padding: 0 6px 0 6px !important;
+    padding: 0 8px 0 8px !important;
 }
 .btn-desconto:hover, .btn-desconto:focus{
     color: #fff !important;
@@ -53,7 +53,7 @@
     color: #6c757d !important;
     opacity: .6;
     text-decoration: line-through;
-    margin-left: 10px
+    margin-left: 10px;
 }
 .btn-dark{
     background-color: #222 !important;
@@ -67,10 +67,11 @@
 }
 .text-publicado{
     color: #6c757d;
-    font-size: 14px;
-    padding-top: 10px;
+    font-size: 15px;
+    padding-top: 9px;
     padding-left: 5px;
     text-align: left;
+    font-weight: lighter !important;
 }
 .icon-favorito{
     font-size: 18px !important;
