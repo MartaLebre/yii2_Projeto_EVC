@@ -2,9 +2,7 @@
 
 namespace api\modules\v1\controllers;
 
-use common\models\Perfil;
 use common\models\Produto;
-use common\models\User;
 use yii\rest\ActiveController;
 
 class ProdutoController extends ActiveController

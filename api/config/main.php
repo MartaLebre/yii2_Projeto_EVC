@@ -71,6 +71,17 @@ return [
                             '{codigo_produto}' => '<codigo_produto:.*?>',
                         ],
                 ],
+                ['class' => 'yii\rest\UrlRule',
+                    'controller' => 'v1/favorito',
+                    'pluralize' => false,
+                    'extraPatterns' => [
+
+                    ],
+                    'tokens' =>
+                        [
+
+                        ],
+                ],
             ],
         ],
         'urlManagerBackend' => [
