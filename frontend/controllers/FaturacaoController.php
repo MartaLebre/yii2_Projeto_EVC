@@ -69,8 +69,11 @@ class FaturacaoController extends Controller
         $model = new Faturacao();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_user' => $model->id_user]);
+            if ($model->load($this->request->post())) {
+
+                $model->id_user = \Yii::$app->user->id;
+                $model->save();
+                return $this->redirect(['pagamento/create']);
             }
         } else {
             $model->loadDefaultValues();
