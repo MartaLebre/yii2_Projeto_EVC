@@ -68,29 +68,37 @@ class PagamentoController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Pagamento();
+        $model = $this->findModel(\Yii::$app->user->id);
+        if ($model == null) {
+            $model = new Pagamento();
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post())) {
+                    $model->id_user = \Yii::$app->user->id;
+                    $model->save();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post())) {
-                $model->id_user = \Yii::$app->user->id;
-                $model->save();
+                    $encomenda = Encomenda::find()->where(['id_user' => $model->id_user, 'estado' => 'carrinho'])->one();
+                    Encomenda::getUpdateStatusEncomenda($encomenda->id);
 
-               $encomenda = Encomenda::find()->where(['id_user' =>  $model->id_user, 'estado' => 'carrinho'])->one();
-               Encomenda::getUpdateStatusEncomenda($encomenda->id);
+                    return $this->redirect(Url::home());
 
-                return $this->redirect(Url::home());
-
+                }
+            } else {
+                $model->loadDefaultValues();
             }
         } else {
-            $model->loadDefaultValues();
+            if ($this->request->isPost && $model->load($this->request->post())) {
+                $model->update();
+                $encomenda = Encomenda::find()->where(['id_user' => $model->id_user, 'estado' => 'carrinho'])->one();
+                Encomenda::getUpdateStatusEncomenda($encomenda->id);
+                return $this->redirect(Url::home());
+            }
         }
-
-
-
 
         return $this->render('create', [
             'model' => $model,
         ]);
+
+
     }
 
     /**
@@ -136,10 +144,11 @@ class PagamentoController extends Controller
      */
     protected function findModel($id_user)
     {
-        if (($model = Pagamento::findOne($id)) !== null) {
+        if (($model = Pagamento::findOne($id_user)) !== null) {
             return $model;
         }
+        return null;
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        //throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

@@ -33,11 +33,11 @@ $this->registerCssFile("@web/css/user_form.css");
                         ->textInput(['placeholder' => $model->getAttributeLabel('data_validade')]) ?>
                 </div>
                 <div class="col-6">
-                    <?= $form->field($model,'codigo_segurança', [
+                    <?= $form->field($model,'codigo_seguranca', [
                         'options' => ['class' => 'form-group has-feedback'],
                         'template' => '{input}{error}'])
                         ->label(false)
-                        ->textInput(['placeholder' => $model->getAttributeLabel('codigo_segurança')]) ?>
+                        ->textInput(['placeholder' => $model->getAttributeLabel('codigo_seguranca')]) ?>
                 </div>
 
                     <div class="col-3 offset-9">
