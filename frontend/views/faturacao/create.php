@@ -1,7 +1,8 @@
 <?php
 
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
+
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Faturacao */
@@ -9,6 +10,8 @@ use yii\helpers\Html;
 $this->title = 'Faturação';
 $this->params['breadcrumbs'][] = ['label' => 'Faturacaos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerCssFile("@web/css/user_form.css");
 ?>
 <div class="faturacao-create">
     <div class="col-6 offset-3">
@@ -17,11 +20,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 <h4>Faturação:</h4>
                 <p>Por favor preencha os seguintes campos:</p>
                 
-                <?php $form = ActiveForm::begin(); ?>
+                <?php $form = ActiveForm::begin(['id' => 'form-faturacao']); ?>
     
                 <?= $form->field($model,'localidade', [
                     'options' => ['class' => 'form-group has-feedback'],
-                    'template' => '{input}{error}'])
+                    'inputTemplate' => '{input}',
+                    'template' => '{beginWrapper}{input}{error}{endWrapper}'])
                     ->label(false)
                     ->textInput(['placeholder' => $model->getAttributeLabel('localidade')]) ?>
 

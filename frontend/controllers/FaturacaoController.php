@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Faturacao;
 use common\models\FaturacaoSearch;
+use common\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -66,23 +67,33 @@ class FaturacaoController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Faturacao();
+        $model = $this->findModel(\Yii::$app->user->id);
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post())) {
+        if ($model == null) {
+            $model = new Faturacao();
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post())) {
 
-                $model->id_user = \Yii::$app->user->id;
-                $model->save();
-                return $this->redirect(['pagamento/create']);
+                    $model->id_user = \Yii::$app->user->id;
+                    $model->save();
+
+                    return $this->redirect(['pagamento/create']);
+                }
+            } else {
+                $model->loadDefaultValues();
             }
         } else {
-            $model->loadDefaultValues();
+            if ($this->request->isPost && $model->load($this->request->post())) {
+                $model->update();
+                return $this->redirect(['pagamento/create']);
+            }
         }
-
         return $this->render('create', [
             'model' => $model,
         ]);
+
     }
+
 
     /**
      * Updates an existing Faturacao model.
@@ -127,10 +138,10 @@ class FaturacaoController extends Controller
      */
     protected function findModel($id_user)
     {
-        if (($model = Faturacao::findOne($id)) !== null) {
+        if (($model = Faturacao::findOne($id_user)) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        return null;
     }
 }

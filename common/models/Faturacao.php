@@ -68,4 +68,9 @@ class Faturacao extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'id_user']);
     }
+
+    public function getPerfil()
+    {
+        return $this->hasOne(Perfil::className(), ['id_user' => 'id_user']);
+    }
 }
