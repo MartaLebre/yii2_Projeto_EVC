@@ -4,6 +4,7 @@ namespace backend\tests\functional;
 
 use backend\tests\FunctionalTester;
 use common\fixtures\UserFixture;
+use yii\helpers\Url;
 
 /**
  * Class LoginCest
@@ -26,19 +27,33 @@ class LoginCest
             ]
         ];
     }
+
+
     
     /**
      * @param FunctionalTester $I
      */
-    public function loginUser(FunctionalTester $I)
+    public function loginUserAdmin(FunctionalTester $I)
     {
-        $I->amOnPage('/site/login');
-        $I->fillField('Username', 'erau');
-        $I->fillField('Password', 'password_0');
-        $I->click('login-button');
+        $I->amOnPage(Url::toRoute('/site/login'));
+        $I->fillField('LoginForm[username]', 'admin');
+        $I->fillField('LoginForm[password]', 'admin123');
+        $I->click('Login');
 
-        $I->see('Logout (erau)', 'form button[type=submit]');
+        $I->see('Gestão de Utilizadores');
         $I->dontSeeLink('Login');
-        $I->dontSeeLink('Signup');
+    }
+
+    public function loginUserGestor(FunctionalTester $I)
+    {
+        $I->amOnPage(Url::toRoute('/site/login'));
+        $I->fillField('LoginForm[username]', 'gestor');
+        $I->fillField('LoginForm[password]', 'gestor123');
+        $I->click('Login');
+
+        $I->see('Gestão de Produtos');
+        $I->see('Gestão de Encomendas');
+        $I->dontSeeLink('Login');
+        $I->see('LOGOUT');
     }
 }
