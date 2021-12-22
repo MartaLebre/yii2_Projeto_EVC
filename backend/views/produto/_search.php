@@ -9,23 +9,16 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="produto-search">
-
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <div class="row">
-        <div class="col-6 offset-3">
-            <?= $form->field($model, 'searchstring',
-                ['template' => '<div class="input-group">{input}<span class="input-group-append">' .
-                    Html::submitButton('Search', ['class' => 'btn btn-default']) .
-                    '</span></div>',])->textInput(['placeholder' => 'Search']);
-            ?>
-        </div>
-    </div>
-    <hr>
+    <?= $form->field($model, 'searchstring',
+        ['template' => '<div class="input-group">{input}<span class="input-group-append">' .
+            Html::submitButton('<i class="fa fa-search"></i>', ['class' => 'btn btn-default']) .
+            '</span></div>',])->textInput(['placeholder' => 'Pesquisa']);
+    ?>
 
     <?php ActiveForm::end(); ?>
-
 </div>

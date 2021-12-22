@@ -30,11 +30,19 @@ class Desconto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_modelo', 'data_comeco', 'data_final', 'valor'], 'required'],
-            [['id_modelo', 'valor'], 'integer'],
-            [['data_comeco', 'data_final'], 'safe'],
-            [['id_modelo'], 'unique'],
+            ['id_modelo', 'required'],
+            ['id_modelo', 'unique'],
+            ['id_modelo', 'integer'],
             [['id_modelo'], 'exist', 'skipOnError' => true, 'targetClass' => Modelo::className(), 'targetAttribute' => ['id_modelo' => 'id']],
+    
+            ['data_comeco', 'required', 'message' => 'Necessário introduzir uma data.'],
+            ['data_comeco', 'safe', 'message' => 'Data incorreta.'],
+            
+            ['data_final', 'required', 'message' => 'Necessário introduzir uma data.'],
+            ['data_final', 'safe', 'message' => 'Data incorreta.'],
+    
+            ['valor', 'required', 'message' => 'Necessário introduzir um valor.'],
+            ['valor', 'integer', 'message' => 'Valor incorreto.'],
         ];
     }
 

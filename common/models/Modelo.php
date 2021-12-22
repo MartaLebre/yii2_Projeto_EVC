@@ -29,8 +29,8 @@ class Modelo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome'], 'required'],
-            [['nome'], 'string', 'max' => 45],
+            ['nome', 'required', 'message' => 'Necessário introduzir um nome.'],
+            ['nome', 'string', 'max' => 45],
         ];
     }
 

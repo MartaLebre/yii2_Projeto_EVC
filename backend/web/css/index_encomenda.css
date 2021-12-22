@@ -1,0 +1,34 @@
+.card{
+    margin-top: 5% !important;
+}
+thead th{
+    padding: 6px 12px 6px 12px !important;
+}
+tbody th, tbody td{
+    padding: 9px 12px 9px 12px !important;
+}
+.card-title{
+    padding-top: 3px !important;
+}
+.card-body{
+    text-transform: capitalize !important;
+}
+.btn-dark{
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    background-color: #222 !important;
+    font-size: 13px !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.btn-dark:hover, .btn-dark:focus{
+    color: #fff;
+    background-color: #151515 !important;
+}
+.encomendas-null h5{
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: lighter !important;
+    letter-spacing: 1px;
+    padding: 12px;
+}

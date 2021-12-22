@@ -19,7 +19,8 @@
         "yiisoft/yii2-bootstrap4": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
         "hail812/yii2-adminlte3": "~1.1",
-        "nex/yii2-datepicker": "dev-master"
+        "nex/yii2-datepicker": "dev-master",
+        "kartik-v/yii2-widget-datepicker": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

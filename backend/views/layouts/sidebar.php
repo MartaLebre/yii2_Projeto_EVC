@@ -1,6 +1,7 @@
 <?php
 
 use common\models\User;
+use hail812\adminlte\widgets\Menu;
 
 ?>
 <style>
@@ -16,17 +17,17 @@ use common\models\User;
     }
 </style>
 
-<aside class="main-sidebar sidebar-dark-primary shadow">
+<aside class="main-sidebar sidebar-dark-secondary" style="background-color: #222">
     <a href="<?= \yii\helpers\Url::home() ?>" class="brand-link">
         <img src="<?= Yii::$app->request->baseUrl ?>/img/logo.png" class="brand-image">
         <span class="brand-text font-weight-light">eVintageClothing</span>
     </a>
 
-    <div class="sidebar">
+    <div class="sidebar text-uppercase">
         <nav>
-
-            <?php  if(User::isAdmin(Yii::$app->user->id)) {
-                echo \hail812\adminlte\widgets\Menu::widget([
+            <?php
+            if(User::isAdmin(Yii::$app->user->id)) {
+                echo Menu::widget([
                     'items' => [
                         ['label' => 'Gestão de Utilizadores', 'header' => true],
                         ['label' => 'Adicionar Gestor de Stock', 'iconClass' => 'nav-icon far fa-circle text-success', 'url' => ['user/create']],
@@ -35,13 +36,14 @@ use common\models\User;
                 ]);
             }
             else {
-                echo \hail812\adminlte\widgets\Menu::widget([
+                echo Menu::widget([
                     'items' => [
                         ['label' => 'Gestão de Produtos', 'header' => true],
-                        ['label' => 'Adicionar Produtos', 'iconClass' => 'nav-icon far fa-circle text-success', 'url' => ['modelo/index']],
-                        ['label' => 'Gerir Produtos', 'iconClass' => 'nav-icon far fa-circle text-warning', 'url' => ['produto/index']],
+                        ['label' => 'Modelos', 'iconClass' => 'nav-icon fas fa-plus', 'url' => ['modelo/index']],
+                        ['label' => 'Produtos', 'iconClass' => 'nav-icon fas fa-plus', 'url' => ['produto/index']],
                         ['label' => 'Gestão de Encomendas', 'header' => true],
-                        ['label' => 'Encomendas', 'iconClass' => 'nav-icon far fa-circle text-warning', 'url' => ['encomenda/index']],
+                        ['label' => 'Encomendas', 'iconClass' => 'nav-icon far fa-circle', 'url' => ['encomenda/index']],
+                        ['label' => 'Logout', 'iconClass' => 'nav-icon far fa-circle', 'url' => ['site/logout'], 'template'=>'<a href="{url}" data-method="post">{label}</a>'],
                     ],
                 ]);
             }

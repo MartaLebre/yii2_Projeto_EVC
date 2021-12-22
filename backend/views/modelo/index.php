@@ -2,71 +2,62 @@
 
 use common\widgets\Alert;
 use yii\helpers\Html;
-use common\models\User;
 
 /* @var $this yii\web\View */
 
+$this->registerCssFile("@web/css/index_modelo.css");
+
 $this->title = 'Lista de Modelos';
-
 ?>
-<style>
-    table{
-        width: 100%;
-    }
-    .styled-table{
-        margin: 25px 0;
-        font-family: sans-serif;
-    }
-    .styled-table th{
-        background-color: #dddddd;
-    }
-    .styled-table tr{
-        border-bottom: 1px solid #dddddd;
-    }
-    .styled-table tr:nth-of-type(even){
-        background-color: #f3f3f3;
-    }
-    .unstyled-table #tbButtons{
-        border-bottom: 0px;
-    }
-</style>
-
 <?= Alert::widget() ?>
 
-<div class="user-index">
-    <p>
-        <?= Html::a('Criar Modelo', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-    <table class="styled-table">
-        <tr>
-            <th>Modelo</th>
-            <th>Adicionar Produto</th>
-            <th>Adicionar Desconto</th>
-            <th></th>
-        </tr>
-        <?php foreach($modelo as $modeloProduto){ ?>
+<div class="modelo-index">
+    <div class="row">
+        <div class="col-7 offset-2">
+            <div class="card">
+                <div class="card-header">
+                    <p class="card-title"><?= $this->title ?></p>
 
-                <tr>
-                    <td><?= $modeloProduto->nome ?></td>
+                    <div class="card-tools">
+                        <?= Html::a('Criar Modelo', ['create'],
+                            ['class' => 'btn btn-modelo btn-block shadow-sm']) ?>
+                    </div>
+                </div>
+                <?php if($modelo != null){ ?>
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Modelo</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
 
-                    <td>
-                        <table class="unstyled-table">
-                            <tr id="tbButtons">
-                                    <td><?= Html::a('Adicionar Produto', ['/produto/create', 'id_modelo' => $modeloProduto->id], ['class'=>'btn btn-primary']) ?></td>
+                        <tbody>
+                        <?php foreach($modelo as $modeloProduto){ ?>
+                            <tr>
+                                <th scope="row" ><?= $modeloProduto->id ?></th>
+                                <td><?= $modeloProduto->nome ?></td>
+                                <td class="td-btn text-right">
+                                    <?= Html::a('Adicionar Desconto', ['/desconto/create', 'id_modelo' => $modeloProduto->id],
+                                        ['class'=>'btn btn-dark shadow-sm btn-desconto']) ?>
+                                    <?= Html::a('Adicionar Produto', ['/produto/create', 'id_modelo' => $modeloProduto->id],
+                                        ['class'=>'btn btn-dark shadow-sm']) ?>
+                                </td>
                             </tr>
-                        </table>
-                    </td>
-                    <td>
-                        <table class="unstyled-table">
-                            <tr id="tbButtons">
-                                <td><?= Html::a('Adicionar Desconto', ['/desconto/create', 'id_modelo' => $modeloProduto->id], ['class'=>'btn btn-primary']) ?></td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-
-       <?php }?>
-    </table>
-
+                        <?php }?>
+                        </tbody>
+                    </table>
+                    <?php }
+                    else{ ?>
+                        <div class="modelos-null">
+                            <h5>Não existem modelos disponíveis</h5>
+                        </div>
+                    <?php }?>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 

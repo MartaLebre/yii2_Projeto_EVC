@@ -1,0 +1,26 @@
+.card{
+    margin-top: 20% !important;
+}
+.card-header{
+    padding-top: 16px !important;
+    padding-bottom: 0 !important;
+}
+.card-header h4{
+    margin-bottom: 4px !important;
+}
+.card-header p{
+    font-size: 18px !important;
+    font-weight: lighter !important;
+}
+.btn-dark{
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    background-color: #222 !important;
+    font-size: 14px !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.btn-dark:hover, .btn-dark:focus{
+    color: #fff;
+    background-color: #151515 !important;
+}

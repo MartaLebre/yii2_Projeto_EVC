@@ -1,0 +1,25 @@
+.card{
+    margin-top: 5% !important;
+}
+thead th{
+    padding: 6px 12px 6px 12px !important;
+}
+tbody th, tbody td{
+    padding: 9px 12px 9px 12px !important;
+}
+.card-header{
+    padding-bottom: 0 !important;
+}
+.card-body{
+    text-transform: capitalize !important;
+}
+.card-title{
+    padding-top: 3px !important;
+}
+.produtos-null h5{
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: lighter !important;
+    letter-spacing: 1px;
+    padding: 12px;
+}

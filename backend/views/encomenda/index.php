@@ -1,68 +1,61 @@
 <?php
 
+use common\models\Encomenda;
 use yii\helpers\Html;
-use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\EncomendaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $encomendas Encomenda */
 
-$this->title = 'Encomendas';
-$this->params['breadcrumbs'][] = $this->title;
+$this->registerCssFile("@web/css/index_encomenda.css");
+
+$this->title = 'Lista de Encomendas';
 ?>
-<style>
-    table{
-        width: 100%;
-    }
-    .styled-table{
-        margin: 25px 0;
-        font-family: sans-serif;
-    }
-    .styled-table th{
-        background-color: #dddddd;
-    }
-    .styled-table tr{
-        border-bottom: 1px solid #dddddd;
-    }
-    .styled-table tr:nth-of-type(even){
-        background-color: #f3f3f3;
-    }
-    .unstyled-table #tbButtons{
-        border-bottom: 0px;
-    }
-</style>
 
+<div class="encomenda-index">
+    <div class="row">
+        <div class="col-8 offset-2">
+            <div class="card">
+                <div class="card-header">
+                    <p class="card-title"><?= $this->title ?></p>
+                </div>
+                <?php if($encomendas != null){ ?>
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Atualizar Estado</th>
+                        </tr>
+                        </thead>
 
-<div class="produto-index">
-
-    <table class="styled-table">
-        <tr>
-            <th>Utilizador</th>
-            <th>Estado</th>
-            <th>Data</th>
-            <th>Atualizar Estado Encomenda</th>
-
-            <th></th>
-        </tr>
-
-
-        <?php foreach($encomendas as $encomenda)
-        {?>
-                <tr>
-                    <td><?= $encomenda->user->perfil->primeiro_nome . ' ' . $encomenda->user->perfil->ultimo_nome ?></td>
-                    <td><?= $encomenda->estado ?></td>
-                    <td><?= $encomenda->data ?></td>
-                    <td>
-                        <table class="unstyled-table">
-                            <tr id="tbButtons">
-                                <td><?= Html::a('Atualizar Estado Encomenda', ['/encomenda/update', 'id_encomenda' => $encomenda->id], ['class'=>'btn btn-primary']) ?></td>
+                        <tbody>
+                        <?php foreach($encomendas as $encomenda){?>
+                            <tr>
+                                <th scope="row" ><?= $encomenda->id ?></th>
+                                <td><?= $encomenda->user->perfil->primeiro_nome . ' ' . $encomenda->user->perfil->ultimo_nome ?></td>
+                                <td><?= $encomenda->estado ?></td>
+                                <td><?= $encomenda->data ?></td>
+                                <td class="td-btn">
+                                    <?= Html::a('Atualizar', ['encomenda/update', 'id_encomenda' => $encomenda->id],
+                                        ['class'=>'btn btn-dark']) ?>
+                                </td>
                             </tr>
-                        </table>
-                    </td>
-                </tr>
-        <?php }?>
-
-    </table>
-
+                        <?php }?>
+                        </tbody>
+                    </table>
+                    <?php }
+                    else{ ?>
+                        <div class="encomendas-null">
+                            <h5>Não existem encomendas disponíveis</h5>
+                        </div>
+                    <?php }?>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
