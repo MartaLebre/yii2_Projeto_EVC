@@ -38,11 +38,13 @@ $this->title = 'Carrinho';
                         $model_desconto = $model_produto->modelo->desconto
                         ;
                         if($model_desconto != null && $model_desconto->getDescontoActivo($model_desconto->id_modelo)){
-                            $total_encomenda += $model_produto->preco - ($model_produto->preco * ($model_desconto->valor / 100)) ?>
+                            $total_encomenda += (($model_produto->preco * $model_itemcompra->quantidade) - ($model_produto->preco * ($model_desconto->valor / 100))) ?>
                         <?php }
                         else {
-                            $total_encomenda += $model_produto->preco ?>
+                            $total_encomenda += ($model_produto->preco *  $model_itemcompra->quantidade)?>
                         <?php }
+
+
                     }?>
                     <h6 class="taxa-iva">Taxa (Iva): <?= sprintf('%.2f', $total_encomenda - ($total_encomenda * 0.81295)) .  '€'?> </h6>
 
@@ -52,9 +54,9 @@ $this->title = 'Carrinho';
             </div>
         </div>
     <?php }
-    else{ ?>
+    else { ?>
         <div class="produtos-null">
             <h5>Não existem produtos no carrinho</h5>
         </div>
-    <?php }?>
+    <?php } ?>
 </div>
