@@ -60,7 +60,7 @@ class EncomendaTest extends \Codeception\Test\Unit
         $encomenda = new Encomenda();
 
         //insert na base de dados
-        $user->id = 1;
+        $user->id = 90;
         $user->username = 'abilio';
         $user->auth_key = '2t7jC06i3xBxyqsgpBsjHcsQ2LHYsDHF';
         $user->password_hash = '$2y$13$v79XQb6wxfliv5a7rY8MzO9idYm3QnW8c5ulA.N.RKBafWl44lJTK';
