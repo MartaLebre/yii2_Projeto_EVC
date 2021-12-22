@@ -9,7 +9,6 @@ use kartik\date\DatePicker;
 /* @var $form yii\bootstrap4\ActiveForm */
 
 $this->registerCssFile("@web/css/create_form.css");
-Yii::$app->params['bsVersion'] = '4.x';
 
 $this->title = 'Create Desconto';
 ?>
