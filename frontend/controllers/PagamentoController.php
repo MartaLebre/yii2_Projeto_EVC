@@ -3,8 +3,10 @@
 namespace frontend\controllers;
 
 use common\models\Encomenda;
+use common\models\ItemCompra;
 use common\models\Pagamento;
 use common\models\PagamentoSearch;
+use common\models\Produto;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -77,7 +79,18 @@ class PagamentoController extends Controller
                     $model->save();
 
                     $encomenda = Encomenda::find()->where(['id_user' => $model->id_user, 'estado' => 'carrinho'])->one();
+
+                    $itemcompras = ItemCompra::find()->where(['id_encomenda' => $encomenda->id])->all();
+
+                    foreach ($itemcompras as $itemcompra){
+                        $itemcomprass =  Produto::find()->where(['codigo_produto' => $itemcompra->codigo_produto ])->one()->updateAttributes(['quantidade' => 'produto.quantidade' - $itemcompra->quantidade ]);
+                    }
+
+                    var_dump($itemcomprass);
+                    die();
+
                     Encomenda::getUpdateStatusEncomenda($encomenda->id);
+
 
                     return $this->redirect(Url::home());
 
@@ -89,6 +102,15 @@ class PagamentoController extends Controller
             if ($this->request->isPost && $model->load($this->request->post())) {
                 $model->update();
                 $encomenda = Encomenda::find()->where(['id_user' => $model->id_user, 'estado' => 'carrinho'])->one();
+                $itemcompras = ItemCompra::find()->where(['id_encomenda' => $encomenda->id])->all();
+
+                foreach ($itemcompras as $itemcompra){
+                    $itemcomprass =  Produto::find()->where(['codigo_produto' => $itemcompra->codigo_produto ])->one();
+
+                    $itemcomprass->updateAttributes(['quantidade' => $itemcomprass->quantidade - $itemcompra->quantidade ]);
+                }
+                var_dump($itemcomprass);
+                die();
                 Encomenda::getUpdateStatusEncomenda($encomenda->id);
                 return $this->redirect(Url::home());
             }
