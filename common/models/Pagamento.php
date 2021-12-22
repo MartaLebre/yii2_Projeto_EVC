@@ -10,7 +10,7 @@ use Yii;
  * @property int $id_user
  * @property int $numero_cartao
  * @property string $data_validade
- * @property int $codigo_segurança
+ * @property int $codigo_seguranca
  *
  * @property User $user
  */
@@ -65,7 +65,7 @@ class Pagamento extends \yii\db\ActiveRecord
             'id_user' => 'Id User',
             'numero_cartao' => 'Numero Cartao',
             'data_validade' => 'Data Validade',
-            'codigo_segurança' => 'Codigo Segurança',
+            'codigo_seguranca' => 'Codigo Segurança',
         ];
     }
 
