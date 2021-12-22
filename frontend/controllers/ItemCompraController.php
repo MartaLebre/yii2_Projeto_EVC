@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\Encomenda;
 use common\models\ItemCompra;
 use common\models\Produto;
+use common\models\ProdutoSearch;
 use Yii;
 use yii\rbac\Item;
 use yii\web\Controller;
@@ -40,12 +41,11 @@ class ItemcompraController extends Controller
      */
     public function actionIndex()
     {
-        $encomenda = Encomenda::find()->where(['estado' =>  'carrinho', 'id_user' => Yii::$app->user->id])->one();
+        $encomenda = Encomenda::find()->where(['estado' => 'carrinho', 'id_user' => Yii::$app->user->id])->one();
 
-        if($encomenda != null){
+        if ($encomenda != null) {
             $db_carrinho = ItemCompra::find()->where(['id_encomenda' => $encomenda->id])->all();
-        }
-        else {
+        } else {
             $db_carrinho = null;
         }
         return $this->render('index', [
@@ -64,101 +64,113 @@ class ItemcompraController extends Controller
             ->where(['codigo_produto' => $codigo_produto])
             ->andWhere(['id_encomenda' => $id_encomenda])
             ->one();
-        
-        if($checkItemcompra != null){
+
+        if ($checkItemcompra != null) {
             Yii::$app->session->setFlash('info', $checkItemcompra->produto->modelo->nome . ' ' . $checkItemcompra->produto->nome . ' já foi adicionado ao seu carrinho.');
             return $this->redirect(['produto/index']);
-        }
-        else{
+        } else {
             $model_itemcompra = new ItemCompra();
-    
+
             $model_itemcompra->codigo_produto = $codigo_produto;
             $model_itemcompra->id_encomenda = $id_encomenda;
             $model_itemcompra->quantidade = 1;
-            $model_itemcompra->preco_venda = $model_itemcompra->produto->preco;//preco com desconto
+
+            $model_modelo = $model_itemcompra->produto->modelo;
+            $model_desconto = $model_modelo->desconto;
+            if ($model_desconto != null && $model_desconto->getDescontoActivo($model_desconto->id_modelo)) {
+                $model_itemcompra->preco_venda = $model_itemcompra->produto->preco - ($model_itemcompra->produto->preco * ($model_desconto->valor / 100));
+            } else {
+
+                $model_itemcompra->preco_venda = $model_itemcompra->produto->preco;
+            }
             $model_itemcompra->save();
-    
+
             Yii::$app->session->setFlash('success', $model_itemcompra->produto->modelo->nome . ' ' . $model_itemcompra->produto->nome . ' foi adicionado ao seu carrinho.');
             return $this->redirect(['produto/index']);
         }
     }
 
-    /**
-     * Updates an existing ItemCompra model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $codigo_produto Codigo Produto
-     * @param int $id_encomenda Id Encomenda
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($codigo_produto, $id_encomenda)
-    {
-        $model = $this->findModel($codigo_produto, $id_encomenda);
+            /**
+             * Updates an existing ItemCompra model.
+             * If update is successful, the browser will be redirected to the 'view' page.
+             * @param int $codigo_produto Codigo Produto
+             * @param int $id_encomenda Id Encomenda
+             * @return mixed
+             * @throws NotFoundHttpException if the model cannot be found
+             */
+            public
+            function actionUpdate($codigo_produto, $id_encomenda)
+            {
+                $model = $this->findModel($codigo_produto, $id_encomenda);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'codigo_produto' => $model->codigo_produto, 'id_encomenda' => $model->id_encomenda]);
+                if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'codigo_produto' => $model->codigo_produto, 'id_encomenda' => $model->id_encomenda]);
+                }
+
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
+
+            public
+            function actionQuantidade_add($codigo_produto, $id_encomenda)
+            {
+                $model_itemcompra = $this->findModel($codigo_produto, $id_encomenda);
+
+                if ($model_itemcompra->quantidade < $model_itemcompra->produto->quantidade) {
+                    $model_itemcompra->quantidade += 1;
+                    $model_itemcompra->update();
+                }
+
+                return $this->redirect(Yii::$app->request->referrer);
+            }
+
+            public
+            function actionQuantidade_sub($codigo_produto, $id_encomenda)
+            {
+                $model_itemcompra = $this->findModel($codigo_produto, $id_encomenda);
+
+                if ($model_itemcompra->quantidade > 1) {
+                    $model_itemcompra->quantidade -= 1;
+                    $model_itemcompra->update();
+                }
+
+                return $this->redirect(Yii::$app->request->referrer);
+            }
+
+            /**
+             * Deletes an existing ItemCompra model.
+             * If deletion is successful, the browser will be redirected to the 'index' page.
+             * @param int $codigo_produto Codigo Produto
+             * @param int $id_encomenda Id Encomenda
+             * @return mixed
+             * @throws NotFoundHttpException if the model cannot be found
+             */
+            public
+            function actionDelete($codigo_produto, $id_encomenda)
+            {
+                $this->findModel($codigo_produto, $id_encomenda)->delete();
+                $model_produto = Produto::findOne($codigo_produto);
+
+                Yii::$app->session->setFlash('danger', $model_produto->modelo->nome . ' ' . $model_produto->nome . ' foi removido do seu carrinho de compras.');
+                return $this->redirect(Yii::$app->request->referrer);
+            }
+
+            /**
+             * Finds the ItemCompra model based on its primary key value.
+             * If the model is not found, a 404 HTTP exception will be thrown.
+             * @param int $codigo_produto Codigo Produto
+             * @param int $id_encomenda Id Encomenda
+             * @return ItemCompra the loaded model
+             * @throws NotFoundHttpException if the model cannot be found
+             */
+            protected
+            function findModel($codigo_produto, $id_encomenda)
+            {
+                if (($model = ItemCompra::findOne(['codigo_produto' => $codigo_produto, 'id_encomenda' => $id_encomenda])) !== null) {
+                    return $model;
+                }
+
+                throw new NotFoundHttpException('The requested page does not exist.');
+            }
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-    
-    public function actionQuantidade_add($codigo_produto, $id_encomenda)
-    {
-        $model_itemcompra = $this->findModel($codigo_produto, $id_encomenda);
-    
-        if($model_itemcompra->quantidade < $model_itemcompra->produto->quantidade){
-            $model_itemcompra->quantidade += 1;
-            $model_itemcompra->update();
-        }
-    
-        return $this->redirect(Yii::$app->request->referrer);
-    }
-    
-    public function actionQuantidade_sub($codigo_produto, $id_encomenda)
-    {
-        $model_itemcompra = $this->findModel($codigo_produto, $id_encomenda);
-    
-        if($model_itemcompra->quantidade > 1){
-            $model_itemcompra->quantidade -= 1;
-            $model_itemcompra->update();
-        }
-        
-        return $this->redirect(Yii::$app->request->referrer);
-    }
-
-    /**
-     * Deletes an existing ItemCompra model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $codigo_produto Codigo Produto
-     * @param int $id_encomenda Id Encomenda
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($codigo_produto, $id_encomenda)
-    {
-        $this->findModel($codigo_produto, $id_encomenda)->delete();
-        $model_produto = Produto::findOne($codigo_produto);
-        
-        Yii::$app->session->setFlash('danger', $model_produto->modelo->nome . ' ' . $model_produto->nome . ' foi removido do seu carrinho de compras.');
-        return $this->redirect(Yii::$app->request->referrer);
-    }
-
-    /**
-     * Finds the ItemCompra model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $codigo_produto Codigo Produto
-     * @param int $id_encomenda Id Encomenda
-     * @return ItemCompra the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($codigo_produto, $id_encomenda)
-    {
-        if (($model = ItemCompra::findOne(['codigo_produto' => $codigo_produto, 'id_encomenda' => $id_encomenda])) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
-    }
-}
