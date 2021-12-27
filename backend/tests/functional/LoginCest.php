@@ -28,11 +28,29 @@ class LoginCest
         ];
     }
 
-
-    
     /**
      * @param FunctionalTester $I
      */
+
+    /*public function checkEmpty(FunctionalTester $I)
+    {
+        $I->amOnPage(Url::toRoute('/site/login'));
+        $I->fillField('LoginForm[username]', '');
+        $I->fillField('LoginForm[password]', '');
+        $I->click('Login');
+        $I->see('Necessário introduzir um username.', '.invalid-feedback');
+        $I->see('Necessário introduzir uma password.', '.invalid-feedback');
+    }*/
+
+    public function checkWrongPassword(FunctionalTester $I)
+    {
+        $I->amOnPage(Url::toRoute('/site/login'));
+        $I->fillField('LoginForm[username]', 'admin');
+        $I->fillField('LoginForm[password]', 'wrong');
+        $I->click('Login');
+        $I->dontsee('Incorrect username or password.', '.invalid-feedback');
+    }
+
     public function loginUserAdmin(FunctionalTester $I)
     {
         $I->amOnPage(Url::toRoute('/site/login'));

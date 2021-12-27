@@ -5,7 +5,7 @@ namespace frontend\tests\acceptance;
 use frontend\tests\AcceptanceTester;
 use yii\helpers\Url;
 
-class HomeCest
+class CarrinhoComprasCest
 {
     public function checkHome(AcceptanceTester $I)
     {

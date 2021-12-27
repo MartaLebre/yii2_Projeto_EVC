@@ -4,6 +4,7 @@ namespace frontend\tests\functional;
 
 use frontend\tests\FunctionalTester;
 use common\fixtures\UserFixture;
+use yii\helpers\Url;
 
 class LoginCest
 {
@@ -26,7 +27,7 @@ class LoginCest
 
     public function _before(FunctionalTester $I)
     {
-        $I->amOnRoute('site/login');
+        $I->amOnPage(Url::toRoute('/site/login'));
     }
 
     protected function formParams($login, $password)
@@ -39,27 +40,34 @@ class LoginCest
 
     public function checkEmpty(FunctionalTester $I)
     {
-        $I->submitForm('#login-form', $this->formParams('', ''));
-        $I->seeValidationError('Username cannot be blank.');
-        $I->seeValidationError('Password cannot be blank.');
+        $I->fillField('LoginForm[username]', '');
+        $I->fillField('LoginForm[password]', '');
+        $I->click('Login');
+        $I->seeValidationError('Necessário introduzir um username.');
+        $I->seeValidationError('Necessário introduzir uma password.');
     }
 
     public function checkWrongPassword(FunctionalTester $I)
     {
-        $I->submitForm('#login-form', $this->formParams('admin', 'wrong'));
+        $I->fillField('LoginForm[username]', 'admin');
+        $I->fillField('LoginForm[password]', 'wrong');
+        $I->click('Login');
         $I->seeValidationError('Incorrect username or password.');
     }
 
     public function checkInactiveAccount(FunctionalTester $I)
     {
-        $I->submitForm('#login-form', $this->formParams('test.test', 'Test1234'));
+        $I->fillField('LoginForm[username]', 'test.test');
+        $I->fillField('LoginForm[password]', 'Test1234');
+        $I->click('Login');
         $I->seeValidationError('Incorrect username or password');
     }
 
     public function checkValidLogin(FunctionalTester $I)
     {
-        $I->submitForm('#login-form', $this->formParams('erau', 'password_0'));
-        $I->see('Logout (erau)', 'form button[type=submit]');
+        $I->fillField('LoginForm[username]', 'erau');
+        $I->fillField('LoginForm[password]', 'password_0');
+        $I->click('Login');
         $I->dontSeeLink('Login');
         $I->dontSeeLink('Signup');
     }
