@@ -9,7 +9,7 @@ use yii\bootstrap4\ActiveForm;
 
 $this->registerCssFile("@web/css/create_form.css");
 
-$this->title = 'Create Modelo';
+$this->title = 'Adicionar Modelo';
 ?>
 
 <div class="modelo-create">
@@ -28,11 +28,9 @@ $this->title = 'Create Modelo';
                     'template' => '{beginWrapper}{input}{error}{endWrapper}'])
                     ->label(false)
                     ->textInput(['maxlength' => true, 'placeholder' => $model->getAttributeLabel('nome')]) ?>
-    
-                <div class="row">
-                    <div class="col-6 offset-7">
-                        <?= Html::submitButton('Criar modelo', ['class' => 'btn btn-dark shadow-sm']) ?>
-                    </div>
+                
+                <div class="text-right">
+                    <?= Html::submitButton('Criar modelo', ['class' => 'btn btn-dark shadow-sm']) ?>
                 </div>
                 <?php ActiveForm::end(); ?>
             </div>

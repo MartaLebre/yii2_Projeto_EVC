@@ -10,7 +10,7 @@ use kartik\date\DatePicker;
 
 $this->registerCssFile("@web/css/create_form.css");
 
-$this->title = 'Create Desconto';
+$this->title = 'Adicionar Desconto';
 ?>
 <div class="desconto-create">
     <div class="col-4 offset-4">
@@ -29,8 +29,11 @@ $this->title = 'Create Desconto';
                     'template' => '{beginWrapper}{input}{error}{endWrapper}'])
                     ->label(false)
                     ->widget(DatePicker::classname(), [
-                        'options' => ['placeholder' => $model->getAttributeLabel('data_comeco')],
-                        'type' => DatePicker::TYPE_COMPONENT_APPEND,
+                        'options' => [
+                            'autocomplete' => 'off',
+                            'placeholder' => $model->getAttributeLabel('data_comeco')
+                        ],
+                        'type' => DatePicker::TYPE_INPUT,
                         'language' => 'pt',
                         'removeButton' => false,
                         'pluginOptions' => [
@@ -44,8 +47,11 @@ $this->title = 'Create Desconto';
                     'template' => '{beginWrapper}{input}{error}{endWrapper}'])
                     ->label(false)
                     ->widget(DatePicker::classname(), [
-                        'options' => ['placeholder' => $model->getAttributeLabel('data_final')],
-                        'type' => DatePicker::TYPE_COMPONENT_APPEND,
+                        'options' => [
+                            'autocomplete' => 'off',
+                            'placeholder' => $model->getAttributeLabel('data_final')
+                        ],
+                        'type' => DatePicker::TYPE_INPUT,
                         'language' => 'pt',
                         'removeButton' => false,
                         'pluginOptions' => [
@@ -60,10 +66,8 @@ $this->title = 'Create Desconto';
                     ->label(false)
                     ->textInput(['placeholder' => $model->getAttributeLabel('valor')]) ?>
 
-                <div class="row">
-                    <div class="col-6 offset-6">
-                        <?= Html::submitButton('Criar desconto', ['class' => 'btn btn-dark btn-block shadow-sm']) ?>
-                    </div>
+                <div class="text-right">
+                    <?= Html::submitButton('Criar desconto', ['class' => 'btn btn-dark shadow-sm']) ?>
                 </div>
                 
                 <?php ActiveForm::end(); ?>

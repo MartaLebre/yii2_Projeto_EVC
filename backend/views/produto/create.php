@@ -9,7 +9,7 @@ use yii\bootstrap4\ActiveForm;
 
 $this->registerCssFile("@web/css/create_form.css");
 
-$this->title = 'Criar Produto';
+$this->title = 'Adicionar Produto';
 ?>
 
 <div class="produto-create">
@@ -75,10 +75,8 @@ $this->title = 'Criar Produto';
                     </div>
                 </div>
                 
-                <div class="row">
-                    <div class="col-5 offset-7">
-                        <?= Html::submitButton('Criar produto', ['class' => 'btn btn-dark btn-block shadow-sm']) ?>
-                    </div>
+                <div class="text-right">
+                    <?= Html::submitButton('Criar produto', ['class' => 'btn btn-dark shadow-sm']) ?>
                 </div>
                 <?php ActiveForm::end(); ?>
             </div>

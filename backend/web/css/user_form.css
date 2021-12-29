@@ -1,0 +1,23 @@
+.login-form{
+    margin-top: 5% !important;
+}
+.login-form p{
+    font-size: 18px !important;
+    font-weight: lighter !important;
+}
+.card-header{
+    padding-top: 16px !important;
+    padding-bottom: 0 !important;
+}
+.btn-dark{
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+     background-color: #222 !important;
+     font-size: 14px !important;
+     text-transform: uppercase;
+     letter-spacing: 1px;
+ }
+.btn-dark:hover, .btn-dark:focus{
+    color: #fff;
+    background-color: #151515 !important;
+}

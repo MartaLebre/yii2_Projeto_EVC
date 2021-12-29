@@ -3,6 +3,12 @@
 
 use yii\bootstrap4\Breadcrumbs;
 ?>
+<style>
+    .content-wrapper{
+        background-color: #fff;
+    }
+</style>
+
 <div class="content-wrapper">
     <!-- Main content -->
     <br>
