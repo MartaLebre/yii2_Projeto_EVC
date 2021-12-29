@@ -69,6 +69,18 @@ class User extends ActiveRecord implements IdentityInterface
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Este email já está registado.'],
         ];
     }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'Username',
+            'password' => 'Password',
+            'email' => 'Email',
+        ];
+    }
 
     /**
      * {@inheritdoc}

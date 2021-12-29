@@ -70,12 +70,10 @@ class Perfil extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
             'primeiro_nome' => 'Primeiro Nome',
-            'ultimo_nome' => 'Ultimo Nome',
-            'telemovel' => 'Telemovel',
+            'ultimo_nome' => 'Último Nome',
+            'telemovel' => 'Telemóvel',
             'morada' => 'Morada',
-            'id_user' => 'Id User',
         ];
     }
 

@@ -2,10 +2,10 @@
 
 namespace backend\models;
 
-use common\models\Perfil;
 use Yii;
 use yii\base\Model;
 use common\models\User;
+use common\models\Perfil;
 
 /**
  * Signup form
@@ -65,6 +65,22 @@ class UserForm extends Model
                 'tooShort' => 'O apelido tem que ter no mínimo 2 digitos.',
                 'tooLong' => 'O apelido não pode exceder os 45 digitos.'
             ],
+        ];
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'Username',
+            'password' => 'Password',
+            'email' => 'Email',
+            'primeiro_nome' => 'Primeiro Nome',
+            'ultimo_nome' => 'Último Nome',
+            'telemovel' => 'Telemóvel',
+            'morada' => 'Morada',
         ];
     }
     

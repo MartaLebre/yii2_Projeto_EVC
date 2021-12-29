@@ -13,18 +13,6 @@ tbody th, tbody td{
 .card-body{
     text-transform: capitalize !important;
 }
-.btn-modelo{
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-    color: black !important;
-    background-color: #fecb01 !important;
-    font-size: 14px !important;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-.btn-modelo:hover, .btn-modelo:focus{
-    filter: brightness(103%) !important;
-}
 .btn-dark{
     padding-left: 20px !important;
     padding-right: 20px !important;

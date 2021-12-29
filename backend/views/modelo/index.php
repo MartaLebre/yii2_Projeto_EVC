@@ -20,7 +20,7 @@ $this->title = 'Lista de Modelos';
 
                     <div class="card-tools">
                         <?= Html::a('Criar Modelo', ['create'],
-                            ['class' => 'btn btn-modelo btn-block shadow-sm']) ?>
+                            ['class' => 'btn btn-dark btn-block shadow-sm']) ?>
                     </div>
                 </div>
                 <?php if($modelo != null){ ?>
