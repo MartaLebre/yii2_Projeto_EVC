@@ -20,7 +20,7 @@ $this->title = 'Criar Produto';
                 <p>Por favor preencha os seguintes campos</p>
             </div>
             <div class="card-body">
-                <?php $form = ActiveForm::begin(['id' => 'produto-form']) ?>
+                <?php $form = ActiveForm::begin(['id' => 'produto-form'], ['options' => ['enctype' => 'multipart/form-data']]) ?>
     
                 <?= $form->field($model, 'nome', [
                     'options' => ['class' => 'form-group has-feedback'],
@@ -73,6 +73,11 @@ $this->title = 'Criar Produto';
                             ->label(false)
                             ->textInput(['placeholder' => $model->getAttributeLabel('quantidade')]) ?>
                     </div>
+
+                    <div class="col-6">
+                        <?= $form->field($modelUpload, 'imageFile')->fileInput()->label(false); ?>
+                    </div>
+
                 </div>
                 
                 <div class="row">

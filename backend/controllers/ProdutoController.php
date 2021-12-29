@@ -2,12 +2,14 @@
 
 namespace backend\controllers;
 
+use backend\models\UploadFormProduto;
 use common\models\Produto;
 use common\models\ProdutoSearch;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ProdutoController implements the CRUD actions for Produto model.
@@ -66,54 +68,64 @@ class ProdutoController extends Controller
      * @return mixed
      */
     public function actionCreate($id_modelo){
-        $model = new Produto();
-        $codigoProdutos = $this->getCodigoProdutos();
-        
-        if($this->request->isPost && $model->load($this->request->post())){
-            
-            $codigo_random = rand(100, 1000);
-            
-            if($codigoProdutos != null){
-                
-                $checkDisponivel['tentativas'] = 0;
-                
-                do{
-                    $codigo_random = rand(100, 1000);
-                    $checkDisponivel['indisponivel'] = false;
-                    
-                    foreach($codigoProdutos as $codigo_produto){
-                        if($codigo_random == $codigo_produto){
-                            $checkDisponivel['indisponivel'] = true;
-                            break;
+
+        if (Yii::$app->user->can('criarProduto')) {
+
+            $model = new Produto();
+            $modelUpload = new UploadFormProduto();
+            $codigoProdutos = $this->getCodigoProdutos();
+
+            if ($this->request->isPost && $model->load($this->request->post()) && $modelUpload->load(Yii::$app->request->post())) {
+
+                $codigo_random = rand(100, 1000);
+
+                if ($codigoProdutos != null) {
+
+                    $checkDisponivel['tentativas'] = 0;
+
+                    do {
+                        $codigo_random = rand(100, 1000);
+                        $checkDisponivel['indisponivel'] = false;
+
+                        foreach ($codigoProdutos as $codigo_produto) {
+                            if ($codigo_random == $codigo_produto) {
+                                $checkDisponivel['indisponivel'] = true;
+                                break;
+                            }
                         }
-                    }
-    
-                    $checkDisponivel['tentativas'] += 1;
-                    
-                    if($checkDisponivel['tentativas'] >= 5){
-                        
-                        Yii::$app->session->setFlash('error', 'ERRO! Tente novamente.');
-                        return $this->render('create', [
-                            'model' => $model,
-                        ]);
-                    }
-                }while($checkDisponivel['indisponivel'] == true);
+
+                        $checkDisponivel['tentativas'] += 1;
+
+                        if ($checkDisponivel['tentativas'] >= 5) {
+
+                            Yii::$app->session->setFlash('error', 'ERRO! Tente novamente.');
+                            return $this->render('create', [
+                                'model' => $model,
+                            ]);
+                        }
+                    } while ($checkDisponivel['indisponivel'] == true);
+                }
+
+                $model->codigo_produto = $codigo_random;
+                $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
+                $model->foto = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
+                $modelUpload->upload();
+                $model->data = date('Y-m-d H:i:s');
+                $model->id_modelo = $id_modelo;
+                $model->save();
+
+                return $this->redirect(['index']);
+            } else {
+                $model->loadDefaultValues();
             }
-            
-            $model->codigo_produto = $codigo_random;
-            $model->data = date('Y-m-d H:i:s');
-            $model->id_modelo = $id_modelo;
-            $model->save();
-    
-            return $this->redirect(['index']);
+
+            return $this->render('create', [
+                'model' => $model,
+                'modelUpload' => $modelUpload,
+            ]);
+        }  else {
+
         }
-        else{
-            $model->loadDefaultValues();
-        }
-        
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
     
     public static function getCodigoProdutos(){

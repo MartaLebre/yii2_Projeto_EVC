@@ -38,7 +38,7 @@ $this->title = 'Carrinho';
                         $model_desconto = $model_produto->modelo->desconto
                         ;
                         if($model_desconto != null && $model_desconto->getDescontoActivo($model_desconto->id_modelo)){
-                            $total_encomenda += (($model_produto->preco * $model_itemcompra->quantidade) - ($model_produto->preco * ($model_desconto->valor / 100))) ?>
+                            $total_encomenda += (($model_produto->preco  - ($model_produto->preco * ($model_desconto->valor / 100))) * $model_itemcompra->quantidade) ?>
                         <?php }
                         else {
                             $total_encomenda += ($model_produto->preco *  $model_itemcompra->quantidade)?>
