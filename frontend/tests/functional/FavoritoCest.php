@@ -44,7 +44,31 @@ class FavoritoCest
         $I->see('Novidades');
         $I->click('Novidades');
         $I->see('hoodie teste');
-        $I->click('.far fa-heart icon-favorito');
+        $I->click('#fav2');
         $I->see('Iniciar sessão');
+    }
+
+    public function checkFavComLogin(FunctionalTester $I)
+    {
+        $I->amOnPage(Url::toRoute('/site/login'));
+        $I->fillField('LoginForm[username]', 'erau');
+        $I->fillField('LoginForm[password]', 'password_0');
+        $I->click('Login');
+
+        //adicionar favorito
+        $I->see('Novidades');
+        $I->click('Novidades');
+        $I->see('hoodie teste');
+        $I->click('#fav');
+        $I->see('hoodie teste foi adicionado à sua lista de favoritos.');
+
+        //ver index de favoritos
+        $I->click('#favindex');
+        $I->see('hoodie teste');
+
+        //remover favorito
+        /*$I->see('hoodie teste');
+        $I->click('Favorito');
+        $I->see('hoodie teste foi removido da sua lista de favoritos.');*/
     }
 }

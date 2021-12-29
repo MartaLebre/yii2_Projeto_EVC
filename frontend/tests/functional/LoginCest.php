@@ -30,14 +30,6 @@ class LoginCest
         $I->amOnPage(Url::toRoute('/site/login'));
     }
 
-    protected function formParams($login, $password)
-    {
-        return [
-            'LoginForm[username]' => $login,
-            'LoginForm[password]' => $password,
-        ];
-    }
-
     public function checkEmpty(FunctionalTester $I)
     {
         $I->fillField('LoginForm[username]', '');

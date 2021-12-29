@@ -32,7 +32,7 @@ $db_modelos = \common\models\Modelo::find()->all();
                             <?= Html::a('<i class="fas fa-shopping-bag"></i>', ['itemcompra/index']) ?>
                         </li>
                         <li class="nav-item">
-                            <?= Html::a('<i class="fas fa-heart"></i>', ['favorito/index']) ?>
+                            <?= Html::a('<i class="fas fa-heart"></i>', ['favorito/index'], ['id' => 'favindex']) ?>
                         </li>
                         <li class="nav-item">
                             <?= Html::a('<i class="fas fa-user-edit"></i>', ['perfil/update', 'id' => Yii::$app->user->id]) ?>
