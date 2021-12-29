@@ -7,6 +7,7 @@ use common\models\ItemCompra;
 use common\models\Pagamento;
 use common\models\PagamentoSearch;
 use common\models\Produto;
+use Yii;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -68,56 +69,72 @@ class PagamentoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
-        $model = $this->findModel(\Yii::$app->user->id);
-        if ($model == null) {
-            $model = new Pagamento();
-            if ($this->request->isPost) {
-                if ($model->load($this->request->post())) {
-                    $model->id_user = \Yii::$app->user->id;
-                    $model->save();
+    public function actionCreate(){
+        $model_pagamento = $this->findModel(Yii::$app->user->id);
+        
+        if($model_pagamento == null){
+            $model_pagamento = new Pagamento();
+            
+            if($this->request->isPost){
+                if($model_pagamento->load($this->request->post())){
+                    $model_pagamento->id_user = Yii::$app->user->id;
+                    $model_pagamento->save();
 
-                    $encomenda = Encomenda::find()->where(['id_user' => $model->id_user, 'estado' => 'carrinho'])->one();
+                    $model_encomenda = Encomenda::find()
+                        ->where(['id_user' => $model_pagamento->id_user, 'estado' => 'carrinho'])
+                        ->one();
 
-                    $itemcompras = ItemCompra::find()->where(['id_encomenda' => $encomenda->id])->all();
-
-                    foreach ($itemcompras as $itemcompra){
-                        $itemcomprass =  Produto::find()->where(['codigo_produto' => $itemcompra->codigo_produto ])->one()->updateAttributes(['quantidade' => 'produto.quantidade' - $itemcompra->quantidade ]);
+                    $models_itemcompra = ItemCompra::find()
+                        ->where(['id_encomenda' => $model_encomenda->id])
+                        ->all();
+    
+                    foreach ($models_itemcompra as $model_itemcompra){
+                        $model_produto =  Produto::find()
+                            ->where(['codigo_produto' => $model_itemcompra->codigo_produto ])
+                            ->one();
+    
+                        $model_produto->updateAttributes(['quantidade' => $model_produto->quantidade - $model_itemcompra->quantidade]);
                     }
 
-                    var_dump($itemcomprass);
-                    die();
-
-                    Encomenda::getUpdateStatusEncomenda($encomenda->id);
-
-
+                    Encomenda::getUpdateStatusEncomenda($model_encomenda->id);
+    
+                    Yii::$app->session->setFlash('success', 'Obrigado pela sua compra! Para mais informações sobre o estado da sua encomenda aceda à área "Minhas Encomendas"! ');
                     return $this->redirect(Url::home());
-
                 }
-            } else {
-                $model->loadDefaultValues();
             }
-        } else {
-            if ($this->request->isPost && $model->load($this->request->post())) {
-                $model->update();
-                $encomenda = Encomenda::find()->where(['id_user' => $model->id_user, 'estado' => 'carrinho'])->one();
-                $itemcompras = ItemCompra::find()->where(['id_encomenda' => $encomenda->id])->all();
+            else{
+                $model_pagamento->loadDefaultValues();
+            }
+        }
+        else{
+            if($this->request->isPost && $model_pagamento->load($this->request->post())){
+                $model_pagamento->update();
+                
+                $model_encomenda = Encomenda::find()
+                    ->where(['id_user' => $model_pagamento->id_user, 'estado' => 'carrinho'])
+                    ->one();
+                
+                $models_itemcompra = ItemCompra::find()
+                    ->where(['id_encomenda' => $model_encomenda->id])
+                    ->all();
 
-                foreach ($itemcompras as $itemcompra){
-                    $itemcomprass =  Produto::find()->where(['codigo_produto' => $itemcompra->codigo_produto ])->one();
+                foreach ($models_itemcompra as $model_itemcompra){
+                    $model_produto =  Produto::find()
+                        ->where(['codigo_produto' => $model_itemcompra->codigo_produto ])
+                        ->one();
 
-                    $itemcomprass->updateAttributes(['quantidade' => $itemcomprass->quantidade - $itemcompra->quantidade ]);
+                    $model_produto->updateAttributes(['quantidade' => $model_produto->quantidade - $model_itemcompra->quantidade]);
                 }
-                var_dump($itemcomprass);
-                die();
-                Encomenda::getUpdateStatusEncomenda($encomenda->id);
+                
+                Encomenda::getUpdateStatusEncomenda($model_encomenda->id);
+    
+                Yii::$app->session->setFlash('success', 'Obrigado pela sua compra! Para mais informações sobre o estado da sua encomenda aceda à área "Minhas Encomendas"!');
                 return $this->redirect(Url::home());
             }
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'model' => $model_pagamento,
         ]);
 
 
