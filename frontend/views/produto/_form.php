@@ -48,9 +48,9 @@ $model_desconto = $model_modelo->desconto;
                         if($model_produto->favorito != null) echo Html::a('<i class="fa fa-heart icon-favorito"></i>',
                             ['favorito/delete', 'id' => $model_produto->favorito->id], ['data-method' => 'post']);
                         else echo Html::a('<i class="far fa-heart icon-favorito"></i>',
-                            ['favorito/create', 'codigo_produto' => $model_produto->codigo_produto]);
+                            ['favorito/create', 'codigo_produto' => $model_produto->codigo_produto], ['id' => 'fav']);
                     }
-                    else echo Html::a('<i class="far fa-heart icon-favorito"></i>', ['site/login']); ?>
+                    else echo Html::a('<i class="far fa-heart icon-favorito"></i>', ['site/login'], ['id' => 'fav2']); ?>
                 </div>
             </div>
         </div>

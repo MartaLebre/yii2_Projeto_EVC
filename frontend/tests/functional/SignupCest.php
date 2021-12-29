@@ -7,9 +7,6 @@ use yii\helpers\Url;
 
 class SignupCest
 {
-    protected $formId = '#form-signup';
-
-
     public function _before(FunctionalTester $I)
     {
         $I->amOnPage(Url::toRoute('/site/signup'));

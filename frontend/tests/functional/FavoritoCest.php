@@ -36,25 +36,14 @@ class FavoritoCest
 
     public function _before(FunctionalTester $I)
     {
-        $I->amOnPage(Url::toRoute('/site/index'));
-    }
-
-    public function checkFavSemLogin(FunctionalTester $I)
-    {
-        $I->see('Novidades');
-        $I->click('Novidades');
-        $I->see('hoodie teste');
-        $I->click('#fav2');
-        $I->see('Iniciar sessão');
-    }
-
-    public function checkFavComLogin(FunctionalTester $I)
-    {
         $I->amOnPage(Url::toRoute('/site/login'));
         $I->fillField('LoginForm[username]', 'erau');
         $I->fillField('LoginForm[password]', 'password_0');
         $I->click('Login');
+    }
 
+    public function checkFav(FunctionalTester $I)
+    {
         //adicionar favorito
         $I->see('Novidades');
         $I->click('Novidades');

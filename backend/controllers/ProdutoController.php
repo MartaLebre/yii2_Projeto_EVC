@@ -69,7 +69,7 @@ class ProdutoController extends Controller
      */
     public function actionCreate($id_modelo){
 
-        if (Yii::$app->user->can('criarProduto')) {
+        //if (Yii::$app->user->can('criarProduto')) {
 
             $model = new Produto();
             $modelUpload = new UploadFormProduto();
@@ -123,10 +123,9 @@ class ProdutoController extends Controller
                 'model' => $model,
                 'modelUpload' => $modelUpload,
             ]);
-        }  else {
+        }  //else {
 
-        }
-    }
+        //}
     
     public static function getCodigoProdutos(){
         

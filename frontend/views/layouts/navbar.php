@@ -29,7 +29,7 @@ $db_modelos = \common\models\Modelo::find()->all();
                 <div class="navbar-icons-login">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <?= Html::a('<i class="fas fa-shopping-bag"></i>', ['itemcompra/index']) ?>
+                            <?= Html::a('<i class="fas fa-shopping-bag"></i>', ['itemcompra/index'], ['id' => 'carrinhoindex']) ?>
                         </li>
                         <li class="nav-item">
                             <?= Html::a('<i class="fas fa-heart"></i>', ['favorito/index'], ['id' => 'favindex']) ?>

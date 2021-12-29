@@ -38,8 +38,9 @@ class LoginCest
         $I->fillField('LoginForm[username]', '');
         $I->fillField('LoginForm[password]', '');
         $I->click('Login');
-        $I->see('Necessário introduzir um username.', '.invalid-feedback');
-        $I->see('Necessário introduzir uma password.', '.invalid-feedback');
+        $I->see('Iniciar Sessão');
+        $I->see('Necessário introduzir um username.');
+        $I->see('Necessário introduzir uma password.');
     }*/
 
     public function checkWrongPassword(FunctionalTester $I)
@@ -60,6 +61,7 @@ class LoginCest
 
         $I->see('Gestão de Utilizadores');
         $I->dontSeeLink('Login');
+        $I->see('LOGOUT');
     }
 
     public function loginUserGestor(FunctionalTester $I)

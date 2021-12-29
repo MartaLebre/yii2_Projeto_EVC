@@ -25,7 +25,8 @@ class RegistoGestorCest
         $I->fillField('LoginForm[password]', 'admin123');
         $I->click('Login');
         $I->see('Gestão de utilizadores');
-        $I->click('Adicionar Gestor de Stock');
+        $I->click('Adicionar Gestor');
+        $I->see('Adicionar Gestor de Stock');
     }
 
     // tests
@@ -38,12 +39,12 @@ class RegistoGestorCest
         $I->fillField('UserForm[email]', '');
         $I->fillField('UserForm[password]', '');
         $I->click('Registar');
-        $I->seeValidationError('Necessário introduzir um username.');
-        $I->seeValidationError('Necessário introduzir um primeiro nome.');
-        $I->seeValidationError('Necessário introduzir um apelido.');
-        $I->seeValidationError('Necessário introduzir um número de telemóvel.');
-        $I->seeValidationError('Necessário introduzir um email.');
-        $I->seeValidationError('Necessário introduzir uma password.');
+        $I->see('Necessário introduzir um username.');
+        $I->see('Necessário introduzir um primeiro nome.');
+        $I->see('Necessário introduzir um apelido.');
+        $I->see('Necessário introduzir um número de telemóvel.');
+        $I->see('Necessário introduzir um email.');
+        $I->see('Necessário introduzir uma password.');
     }
 
     public function checkWrongEmail(FunctionalTester $I)
@@ -63,7 +64,7 @@ class RegistoGestorCest
         $I->see('Email incorreto.', '.invalid-feedback');
     }
 
-    public function signupWithWrongTelemovel(\frontend\tests\FunctionalTester $I)
+    public function checkWrongTelemovel(FunctionalTester $I)
     {
         $I->fillField('UserForm[username]', 'teste');
         $I->fillField('UserForm[primeiro_nome]', 'teste');
@@ -79,4 +80,40 @@ class RegistoGestorCest
         $I->dontSee('Necessário introduzir uma password.', '.invalid-feedback');
         $I->see('O número de telemóvel tem que ter 9 dígitos.', '.invalid-feedback');
     }
+
+    public function checkWrongPassword(FunctionalTester $I)
+    {
+        $I->fillField('UserForm[username]', 'teste');
+        $I->fillField('UserForm[primeiro_nome]', 'teste');
+        $I->fillField('UserForm[ultimo_nome]', 'teste');
+        $I->fillField('UserForm[telemovel]', '988988988');
+        $I->fillField('UserForm[email]', 'teste');
+        $I->fillField('UserForm[password]', '123456');
+        $I->click('Registar');
+        $I->dontSee('Necessário introduzir um username.', '.invalid-feedback');
+        $I->dontSee('Necessário introduzir um primeiro nome.', '.invalid-feedback');
+        $I->dontSee('Necessário introduzir um apelido.', '.invalid-feedback');
+        $I->dontSee('Necessário introduzir um email.', '.invalid-feedback');
+        $I->dontSee('Necessário introduzir um número de telemóvel.', '.invalid-feedback');
+        $I->see('Password should contain at least 8 characters.', '.invalid-feedback');
+    }
+
+    /*public function registoSuccessfully(FunctionalTester $I)
+    {
+        $I->fillField('UserForm[username]', 'teste');
+        $I->fillField('UserForm[primeiro_nome]', 'teste');
+        $I->fillField('UserForm[ultimo_nome]', 'teste');
+        $I->fillField('UserForm[telemovel]', '988988988');
+        $I->fillField('UserForm[email]', 'teste@mail.com');
+        $I->fillField('UserForm[password]', '123456789');
+        $I->click('Registar');
+
+        $I->seeRecord('common\models\User', [
+            'username' => 'teste',
+            'email' => 'teste@mail.com',
+            'status' => \common\models\User::STATUS_ACTIVE
+        ]);
+
+        $I->see('teste');
+    }*/
 }

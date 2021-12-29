@@ -11,16 +11,6 @@ return [
         'email' => 'admin@mail.com',
     ],
     [
-        'username' => 'cliente',
-        'auth_key' => 'p-IgO7t2_71bgY47V7aeyl2bHww8xgPt',
-        // cliente123
-        'password_hash' => '$2y$13$EMlmNmKAy5IxpKH6DNzWO.KqxhYVtke.bcBbQk2K9VCu2uOpZKvjO',
-        'password_reset_token' => null,
-        'created_at' => '1637771797',
-        'updated_at' => '1638891935',
-        'email' => 'jtobias@mail.com',
-    ],
-    [
         'username' => 'gestor',
         'auth_key' => 'XfiQSMHI3xXBY-vVkfSiqP5MRrSR13yw',
         // gestor123
