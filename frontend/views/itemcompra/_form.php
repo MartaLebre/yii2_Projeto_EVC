@@ -46,7 +46,7 @@ $model_desconto = $model_modelo->desconto;
                     </div>
                     <p class="form-control"><?= $model_itemcompra->quantidade ?></p>
                     <div class="input-group-append">
-                        <?= Html::a('+', ['quantidade_add', 'codigo_produto' => $model_produto->codigo_produto, 'id_encomenda' => $model_itemcompra->encomenda->id], ['class' => 'btn btn-default']) ?>
+                        <?= Html::a('+', ['quantidade_add', 'codigo_produto' => $model_produto->codigo_produto, 'id_encomenda' => $model_itemcompra->encomenda->id], ['class' => 'btn btn-default', 'id' => 'add']) ?>
                     </div>
                 </div>
 
