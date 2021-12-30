@@ -6,6 +6,8 @@
 /* @var $model_desconto common\models\Desconto */
 /* @var $model_produto_sugestao common\models\Produto */
 
+use yii\helpers\Html;
+
 $this->registerCssFile("@web/css/view_produto.css");
 
 $model_modelo = $model_produto->modelo;
@@ -20,7 +22,7 @@ $this->title = $model_produto->nome;
 
     <div class="row">
         <div class="col-5 offset-1">
-            <img src="img/clothing/teste1.jpg">
+            <?= Html::img(Yii::$app->urlManagerBackend->baseUrl . '/' . $model_produto->foto, ['class' => 'card-img-top']); ?>
         </div>
         <div class="col-5">
             <br>
