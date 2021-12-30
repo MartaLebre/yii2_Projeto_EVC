@@ -50,10 +50,6 @@ class DescontoController extends Controller
      */
     public function actionCreate($id_modelo)
     {
-        $desconto = Desconto::find()->where(['id_modelo' => $id_modelo])->one();
-        if($desconto != null){
-            $desconto->delete();
-        }
         $model = new Desconto();
 
         if ($this->request->isPost) {
