@@ -57,7 +57,7 @@ class DescontoTest extends \Codeception\Test\Unit
         $desconto = new Desconto();
 
         //insert na base de dados
-        $modelo->id = 1;
+        $modelo->id = 90;
         $modelo->nome = 'modelo teste';
         $modelo->save();
         $desconto->id_modelo = $modelo->id;
