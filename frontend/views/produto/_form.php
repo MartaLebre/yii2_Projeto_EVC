@@ -15,7 +15,7 @@ $model_desconto = $model_modelo->desconto;
 <div class="col-3" xmlns="http://www.w3.org/1999/html">
     <div class="card">
         <?php if($model_produto->foto != null) { ?>
-            <?=Html::img(Yii::$app->urlManagerBackend->baseUrl . '/' . $model_produto->foto, ['class' => 'card-img-top']); ?>
+            <?=Html::img(Yii::$app->urlManagerFrontend->baseUrl . '/' . $model_produto->foto, ['class' => 'card-img-top']); ?>
         <?php } else { ?>
            <img src="img/clothing/teste1.jpg">
 

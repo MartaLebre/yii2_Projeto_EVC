@@ -24,7 +24,7 @@ $this->title = $model_produto->nome;
     
     <div class="row">
         <div class="col-6 offset-1">
-           <?= Html::img(Yii::$app->urlManagerBackend->baseUrl . '/' . $model_produto->foto, ['class' => 'card-img-top']); ?>
+           <?= Html::img(Yii::$app->urlManagerFrontend->baseUrl . '/' . $model_produto->foto, ['class' => 'card-img-top']); ?>
         </div>
         <div class="col-5">
             <br>
