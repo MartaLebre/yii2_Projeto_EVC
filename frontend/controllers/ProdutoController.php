@@ -63,6 +63,39 @@ class ProdutoController extends Controller
         ]);
     }
 
+    public function actionHomem()
+    {
+        $searchModel = new ProdutoSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        $dataProvider->query->andWhere(['genero' => 'masculino']);
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'modelos' => Modelo::getModelos(),
+            'title' => 'Homem',
+        ]);
+    }
+
+    public function actionMulher()
+    {
+        $searchModel = new ProdutoSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        $dataProvider->query->andWhere(['genero' => 'feminino']);
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'modelos' => Modelo::getModelos(),
+            'title' => 'Homem',
+        ]);
+
+    }
+
+
+
+
+
     /**
      * Lists all Produto models.
      * @return mixed

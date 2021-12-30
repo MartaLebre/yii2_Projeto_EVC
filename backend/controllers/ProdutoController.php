@@ -140,19 +140,6 @@ class ProdutoController extends Controller
         
     }
 
-
-    public function actionHomem($codigo_produto)
-    {
-
-    }
-
-    public function actionMulher($codigo_produto)
-    {
-
-    }
-
-
-
     /**
      * Updates an existing Produto model.
      * If update is successful, the browser will be redirected to the 'view' page.

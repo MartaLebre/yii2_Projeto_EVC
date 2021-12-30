@@ -49,10 +49,10 @@ $db_modelos = \common\models\Modelo::find()->all();
             <?= Html::a('Novidades', ['produto/novidades'], ['class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
-            <?= Html::a('Homem', ['#'], ['class' => 'nav-link']) ?>
+            <?= Html::a('Homem', ['produto/homem'], ['class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
-            <?= Html::a('Mulher', ['#'], ['class' => 'nav-link']) ?>
+            <?= Html::a('Mulher', ['produto/mulher'], ['class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
             <?= Html::a('Mystery Boxes', ['produto/mysteryboxes'], ['class' => 'nav-link']) ?>
