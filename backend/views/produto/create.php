@@ -5,6 +5,7 @@ use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Produto */
+/* @var $modelUpload backend\models\UploadFormProduto */
 /* @var $form yii\bootstrap4\ActiveForm */
 
 $this->registerCssFile("@web/css/create_form.css");
@@ -20,7 +21,7 @@ $this->title = 'Adicionar Produto';
                 <p>Por favor preencha os seguintes campos</p>
             </div>
             <div class="card-body">
-                <?php $form = ActiveForm::begin(['id' => 'produto-form'], ['options' => ['enctype' => 'multipart/form-data']]) ?>
+                <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
     
                 <?= $form->field($model, 'nome', [
                     'options' => ['class' => 'form-group has-feedback'],
@@ -73,12 +74,12 @@ $this->title = 'Adicionar Produto';
                             ->label(false)
                             ->textInput(['placeholder' => $model->getAttributeLabel('quantidade')]) ?>
                     </div>
-
-                    <div class="col-6">
-                        <?= $form->field($modelUpload, 'imageFile')->fileInput()->label(false); ?>
-                    </div>
-
                 </div>
+                
+                    <?= $form->field($modelUpload, 'imageFile', [
+                        'options' => ['class' => 'custom-file form-group has-feedback']])
+                        ->label('Foto', ['class' => 'custom-file-label'])
+                        ->fileInput(['class' => 'custom-file-input']) ?>
                 
                 <div class="text-right">
                     <?= Html::submitButton('Criar produto', ['class' => 'btn btn-dark shadow-sm']) ?>

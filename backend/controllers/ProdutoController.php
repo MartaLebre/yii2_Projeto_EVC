@@ -123,9 +123,9 @@ class ProdutoController extends Controller
                 'model' => $model,
                 'modelUpload' => $modelUpload,
             ]);
-        }  //else {
+        //}  else {
 
-        //}
+        }
     
     public static function getCodigoProdutos(){
         

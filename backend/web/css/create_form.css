@@ -24,3 +24,9 @@
     color: #fff;
     background-color: #151515 !important;
 }
+.custom-file{
+    margin-bottom: 16px !important;
+}
+.custom-file-label{
+    content: 'teste' !important;
+}

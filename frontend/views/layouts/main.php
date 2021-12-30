@@ -28,6 +28,7 @@ $this->registerCssFile('https://fonts.googleapis.com/css?family=Source+Sans+Pro:
 <main role="main">
     <br>
     <div class="container">
+        <br>
         <?= Alert::widget() ?>
         <?= $content ?>
     </div>

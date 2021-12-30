@@ -15,10 +15,11 @@ $this->title = 'Login';
 
 <div class="col-6 offset-3">
     <div class="card login-form">
+        <div class="card-header">
+            <h4><?= $this->title ?></h4>
+            <p>Por favor preencha os seguintes campos</p>
+        </div>
         <div class="card-body">
-            <h4 class="card-text">Iniciar sessão</h4>
-            <p class="card-text">Por favor preencha os seguintes campos</p>
-
             <?php $form = ActiveForm::begin(['id' => 'login-form']) ?>
 
             <?= $form->field($model, 'username', [
@@ -35,13 +36,10 @@ $this->title = 'Login';
                 ->label(false)
                 ->passwordInput(['placeholder' => $model->getAttributeLabel('password')]) ?>
 
-            <div class="row">
-                <div class="col-6">
-                    <p>Não tem uma conta? <?= Html::a('Registe-se', ['/site/signup'], ['name' => 'signin-button']) ?></p>
-                </div>
-                <div class="col-3 offset-3">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-dark btn-block shadow-sm', 'name' => 'login-button']) ?>
-                </div>
+            <p>Não tem uma conta? <?= Html::a('Registe-se', ['/site/signup'], ['name' => 'signin-button']) ?></p>
+
+            <div class="text-right">
+                <?= Html::submitButton('Login', ['class' => 'btn btn-dark shadow-sm', 'name' => 'login-button']) ?>
             </div>
 
             <?php ActiveForm::end(); ?>

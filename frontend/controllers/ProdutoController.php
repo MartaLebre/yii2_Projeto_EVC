@@ -77,7 +77,6 @@ class ProdutoController extends Controller
         if($modelo_mysteryBoxes != null){
             $dataProvider->query->andWhere(['id_modelo' => $modelo_mysteryBoxes->id]);
         }
-        else $dataProvider = null;
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -104,7 +103,7 @@ class ProdutoController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'title' => 'Descontos',
+            'title' => 'Promoções',
         ]);
     }
 

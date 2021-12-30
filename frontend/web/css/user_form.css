@@ -7,7 +7,7 @@
     margin-left: 60% !important;
 }
 .login-form{
-    margin-top: 5% !important;
+    margin-top: 15% !important;
     margin-bottom: 39% !important;
 }
 .signup-form{
@@ -18,11 +18,20 @@
     font-size: 18px !important;
     font-weight: lighter !important;
 }
+.card-header{
+    padding-top: 16px !important;
+    padding-bottom: 0 !important;
+}
+.login-form .text-right{
+    margin-top: -46px !important;
+}
 .btn-dark{
-     background-color: #222 !important;
-     font-size: 14px !important;
-     text-transform: uppercase;
-     letter-spacing: 1px;
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+    background-color: #222 !important;
+    font-size: 14px !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
  }
 .btn-dark:hover, .btn-dark:focus{
     color: #fff;

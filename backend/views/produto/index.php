@@ -46,24 +46,22 @@ $this->title = 'Lista de Produtos';
                         </thead>
 
                         <tbody>
-                        <?php foreach($model_produtos as $model_produto){
-                            if($model_produto->quantidade != 0){ ?>
-                                <tr>
-                                    <th scope="row" ><?= $model_produto->codigo_produto ?></th>
-                                    <td><?= $model_produto->nome ?></td>
-                                    <td><?= $model_produto->genero ?></td>
-                                    <td><?= $model_produto->tamanho?></td>
-                                    <td><?= $model_produto->preco ?></td>
-                                    <td><?= $model_produto->quantidade ?></td>
-                                    <td><?= $model_produto->data ?></td>
-                                    <td><?= $model_produto->modelo->nome ?></td>
-                                    <td>
-                                        <?= Html::a('<i class="fas fa-info"></i>', ['produto/view', 'codigo_produto' => $model_produto->codigo_produto],
-                                            ['class'=>'btn']) ?>
-                                    </td>
-                                </tr>
-                            <?php }
-                        }?>
+                        <?php foreach($model_produtos as $model_produto){?>
+                            <tr>
+                                <th scope="row" ><?= $model_produto->codigo_produto ?></th>
+                                <td><?= $model_produto->nome ?></td>
+                                <td><?= $model_produto->genero ?></td>
+                                <td><?= $model_produto->tamanho?></td>
+                                <td><?= $model_produto->preco ?></td>
+                                <td><?= $model_produto->quantidade ?></td>
+                                <td><?= $model_produto->data ?></td>
+                                <td><?= $model_produto->modelo->nome ?></td>
+                                <td>
+                                    <?= Html::a('<i class="fas fa-info"></i>', ['produto/view', 'codigo_produto' => $model_produto->codigo_produto],
+                                        ['class'=>'btn']) ?>
+                                </td>
+                            </tr>
+                        <?php }?>
                         </tbody>
                     </table>
                     <?php }

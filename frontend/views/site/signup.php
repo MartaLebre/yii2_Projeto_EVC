@@ -14,10 +14,11 @@ $this->title = 'Signup';
 
 <div class="col-6 offset-3">
     <div class="card signup-form">
+        <div class="card-header">
+            <h4><?= $this->title ?></h4>
+            <p>Por favor preencha os seguintes campos</p>
+        </div>
         <div class="card-body">
-            <h4 class="card-text">Registo</h4>
-            <p class="card-text">Por favor preencha os seguintes campos</p>
-            
             <?php $form = ActiveForm::begin(['id' => 'form-signup']) ?>
             
             <?= $form->field($model,'username', [
@@ -66,11 +67,9 @@ $this->title = 'Signup';
                 'template' => '{beginWrapper}{input}{error}{endWrapper}'])
                 ->label(false)
                 ->passwordInput(['placeholder' => $model->getAttributeLabel('password')]) ?>
-
-            <div class="row">
-                <div class="col-3 offset-9">
-                    <?= Html::submitButton('Registar', ['class' => 'btn btn-dark btn-block shadow-sm', 'name' => 'signup-button']) ?>
-                </div>
+            
+            <div class="text-right">
+                <?= Html::submitButton('Registar', ['class' => 'btn btn-dark shadow-sm', 'name' => 'signup-button']) ?>
             </div>
             
             <?php ActiveForm::end(); ?>

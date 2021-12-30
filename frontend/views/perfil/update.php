@@ -9,16 +9,17 @@ use yii\helpers\Html;
 
 $this->registerCssFile("@web/css/user_form.css");
 
-$this->title = 'Editar';
+$this->title = 'Perfil';
 ?>
 
 <br>
 <div class="perfil-update col-6 offset-3">
     <div class="card update-form">
-        <div class="card-body">
-            <h4>Perfil</h4>
+        <div class="card-header">
+            <h4><?= $this->title ?></h4>
             <p>Por favor preencha os seguintes campos</p>
-            
+        </div>
+        <div class="card-body">
             <?php $form = ActiveForm::begin(['id' => 'form-signup']) ?>
             
             <?= $form->field($model_user,'username', [
@@ -61,13 +62,8 @@ $this->title = 'Editar';
                 ->label(false)
                 ->textInput(['placeholder' => $model_user->getAttributeLabel('email')]) ?>
 
-            <div class="row">
-                <div class="col-5 offset-4">
-                    <?= Html::a('Minhas Encomendas', ['encomenda/index'], ['class' => 'btn btn-dark btn-block shadow-sm']) ?>
-                </div>
-                <div class="col-3">
-                    <?= Html::submitButton('Atualizar', ['class' => 'btn btn-dark btn-block shadow-sm', 'name' => 'update-button']) ?>
-                </div>
+            <div class="text-right">
+                <?= Html::submitButton('Atualizar', ['class' => 'btn btn-dark shadow-sm', 'name' => 'update-button']) ?>
             </div>
             
             <?php ActiveForm::end(); ?>

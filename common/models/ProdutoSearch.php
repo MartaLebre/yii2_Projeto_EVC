@@ -43,7 +43,9 @@ class ProdutoSearch extends Produto
      */
     public function search($params)
     {
-        $query = Produto::find()->orderBy(['data' => SORT_DESC]);
+        $query = Produto::find()
+            ->where(['<>', 'quantidade', 0])
+            ->orderBy(['data' => SORT_DESC]);
 
         // add conditions that should always apply here
 

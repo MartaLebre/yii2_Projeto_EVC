@@ -8,7 +8,7 @@ use common\widgets\Alert;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $model_produto common\models\Produto */
 
-if($dataProvider != null){
+if($dataProvider->totalCount != null){
     $db_produtos = $dataProvider->getModels();
 }
 
@@ -20,11 +20,11 @@ $this->title = $title;
 
 <div class="produto-index">
     <?php
-    if($dataProvider != null){ ?>
+    if($dataProvider->totalCount != null){ ?>
         <?= Alert::widget() ?>
         <?= $this->render('_search', ['model' => $searchModel]) ?>
         
-        <?php if($title == 'Descontos'){?>
+        <?php if($title == 'Promoções' ){?>
             <div class="header-descontos">
                 <h5>Promoções até -<?= Desconto::getDescontoMAX()->valor ?>%</h5>
                 <h6>Promoções terminam a <?= date('d/m/Y', (strtotime(Desconto::getDescontoMAX()->data_final))) ?></h6>

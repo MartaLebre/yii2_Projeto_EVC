@@ -1,51 +1,47 @@
 .navbar-light{
     background-color: white !important;
-    margin: 5px;
+    margin-top: -5px !important;
+    margin-bottom: -10px !important;
 }
 .brand-link{
-    font-size: 22px;
+    position: inherit !important;
+    left: 40% !important;
 }
-.brand-link:link, .brand-link:visited{
+.brand-text{
+    margin-left: -6px !important;
+    font-size: 24px !important;
     color: #222 !important;
 }
-.brand-link:hover{
+.brand-text:link, .brand-link:visited{
+    color: #222 !important;
+}
+.brand-text:hover{
     color: black !important;
 }
-.navbar-icons-login{
-    padding-left: 15%;
+.navbar-icons-login, .navbar-icons-guest{
+    position: absolute !important;
+    right: 2% !important;
 }
-.navbar-icons-login .fas{
+.navbar-icons-login .fas, .navbar-icons-guest .fas{
     display: block;
-    padding: 20px 16px 0 16px !important;
-    color: rgba(0,0,0,.5);
-}
-.navbar-icons-guest{
-    text-transform: uppercase;
-    padding-top: 8px;
-    padding-left: 76%;
+    padding: 0 16px 0 16px !important;
+    color: rgba(0,0,0,.7);
 }
 .navbar-icons-login .fas:hover, .navbar-icons-guest .fas:hover{
-    color: rgba(0,0,0,.6);
+    color: rgba(0,0,0,1);
 }
 .brand-image{
     margin-top: -12px !important;
     max-height: 50px !important;
 }
 .navbar-dark{
-    text-transform: uppercase;
-    font-size: 14px;
-    letter-spacing: 1px;
+    text-transform: uppercase !important;
+    font-size: 14px !important;
+    letter-spacing: 1px !important;
     background-color: #222 !important;
-    height: 40px;
-    padding-left: 33% !important;
-    margin-bottom: 15px;
+    height: 38px !important;
 }
-.dropdown-menu{
-    padding-top: 4px !important;
-    padding-bottom: 4px !important;
-}
-.fas{
-    display: block;
-    padding: 12px 16px 0 16px !important;
-    color: rgba(0,0,0,.5);
+.nav-dark{
+    position: absolute !important;
+    left: 32% !important;
 }
