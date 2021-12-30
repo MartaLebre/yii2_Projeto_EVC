@@ -141,7 +141,7 @@ class ProdutoTest extends \Codeception\Test\Unit
         $produto = new Produto();
 
         //insert na base de dados
-        $modelo->id = 1;
+        $modelo->id = 90;
         $modelo->nome = 'modelo teste';
         $modelo->save();
         $produto->codigo_produto = 1;

@@ -27,13 +27,13 @@ $db_modelos = \common\models\Modelo::find()->all();
                     <?= Html::a('<i class="fas fa-shopping-cart"></i>', ['itemcompra/index'], ['id' => 'carrinhoindex']) ?>
                 </li>
                 <li class="nav-item">
-                    <?= Html::a('<i class="fas fa-dolly"></i>', ['encomenda/index']) ?>
+                    <?= Html::a('<i class="fas fa-dolly"></i>', ['encomenda/index'], ['id' => 'encomendaindex']) ?>
                 </li>
                 <li class="nav-item">
                     <?= Html::a('<i class="fas fa-heart"></i>', ['favorito/index'], ['id' => 'favindex']) ?>
                 </li>
                 <li class="nav-item">
-                    <?= Html::a('<i class="fas fa-user"></i>', ['perfil/update', 'id' => Yii::$app->user->id]) ?>
+                    <?= Html::a('<i class="fas fa-user"></i>', ['perfil/update', 'id' => Yii::$app->user->id], ['id' => 'editar']) ?>
                 </li>
                 <li class="nav-item">
                     <?= Html::a('<i class="fas fa-sign-out-alt"></i>', ['site/logout'], ['data-method' => 'post']) ?>

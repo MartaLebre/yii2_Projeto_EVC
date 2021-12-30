@@ -70,7 +70,7 @@ class EncomendaTest extends \Codeception\Test\Unit
         $user->updated_at = 1634298813;
         $user->verification_token = 'OtB5nwgY2WdSrIl0j5wgX6eMQzpZ-poV_1634298813';
         $user->save();
-        $encomenda->id = 1;
+        $encomenda->id = 90;
         $encomenda->estado = 'carrinho';
         $encomenda->data = '2021-10-20';
         $encomenda->id_user = $user->id;

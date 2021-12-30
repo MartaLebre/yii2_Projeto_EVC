@@ -80,5 +80,11 @@ class CarrinhoComprasCest
 
         $I->click('Novidades');
         $I->wait(3);
+
+        $I->click('#carrinhoindex');
+        $I->wait(3);
+
+        $I->click('#encomendaindex');
+        $I->wait(3);
     }
 }
