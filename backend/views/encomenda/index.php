@@ -4,7 +4,6 @@ use common\models\Encomenda;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $encomendas Encomenda */
 
 $this->registerCssFile("@web/css/index_encomenda.css");

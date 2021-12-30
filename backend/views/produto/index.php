@@ -56,10 +56,7 @@ $this->title = 'Lista de Produtos';
                                 <td><?= $model_produto->quantidade ?></td>
                                 <td><?= $model_produto->data ?></td>
                                 <td><?= $model_produto->modelo->nome ?></td>
-                                <td>
-                                    <?= Html::a('<i class="fas fa-info"></i>', ['produto/view', 'codigo_produto' => $model_produto->codigo_produto],
-                                        ['class'=>'btn']) ?>
-                                </td>
+                                <td><?= Html::a('<i class="fas fa-info"></i>', ['produto/view', 'codigo_produto' => $model_produto->codigo_produto])?></td>
                             </tr>
                         <?php }?>
                         </tbody>
