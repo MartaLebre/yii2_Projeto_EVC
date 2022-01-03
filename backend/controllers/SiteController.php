@@ -2,7 +2,13 @@
 
 namespace backend\controllers;
 
+use common\models\Desconto;
+use common\models\Encomenda;
+use common\models\Faturacao;
+use common\models\Favorito;
 use common\models\LoginForm;
+use common\models\Modelo;
+use common\models\Produto;
 use common\models\User;
 use Yii;
 use yii\filters\VerbFilter;
@@ -66,6 +72,64 @@ class SiteController extends Controller
     {
         return $this->render('index');
     }
+
+    public static function actionTotalUsers()
+    {
+        $users = User::find()
+            ->where(['status' => User::STATUS_ACTIVE])
+            ->count();
+
+        return $users;
+
+    }
+
+    public static function actionTotalFavoritos()
+    {
+        $favoritos = Favorito::find()
+            ->count();
+
+        return $favoritos;
+
+    }
+
+    public static function actionTotalEncomendas()
+    {
+        $compras = Encomenda::find()
+            ->where(['estado' => 'pendente'])
+            ->count();
+
+        return $compras;
+
+    }
+
+    public static function actionTotalProdutos()
+    {
+        $produtos = Produto::find()
+            ->where(['<>', 'quantidade', 0])->count();
+
+        return $produtos;
+
+    }
+
+    public static function actionTotalDescontos()
+    {
+        $descontos = Desconto::find()
+            ->count();
+
+        return $descontos;
+
+    }
+
+    public static function actionTotalMysteryBoxes()
+    {
+        $mysteryBoxes = Modelo::find()
+            ->where(['nome' => 'Mystery Boxes'])
+            ->count();
+
+        return $mysteryBoxes;
+
+    }
+
 
     /**
      * Login action.
