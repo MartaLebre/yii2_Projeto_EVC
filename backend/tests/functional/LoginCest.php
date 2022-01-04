@@ -32,17 +32,6 @@ class LoginCest
      * @param FunctionalTester $I
      */
 
-    /*public function checkEmpty(FunctionalTester $I)
-    {
-        $I->amOnPage(Url::toRoute('/site/login'));
-        $I->fillField('LoginForm[username]', '');
-        $I->fillField('LoginForm[password]', '');
-        $I->click('Login');
-        $I->see('Iniciar Sessão');
-        $I->see('Necessário introduzir um username.');
-        $I->see('Necessário introduzir uma password.');
-    }*/
-
     public function checkWrongPassword(FunctionalTester $I)
     {
         $I->amOnPage(Url::toRoute('/site/login'));

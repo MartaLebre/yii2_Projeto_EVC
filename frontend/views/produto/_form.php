@@ -45,7 +45,7 @@ $model_desconto = $model_modelo->desconto;
                     <?php
                     if(!Yii::$app->user->isGuest){
                         if($model_produto->favorito != null) echo Html::a('<i class="fa fa-heart icon-favorito"></i>',
-                            ['favorito/delete', 'id' => $model_produto->favorito->id], ['data-method' => 'post']);
+                            ['favorito/delete', 'id' => $model_produto->favorito->id], ['data-method' => 'post', 'id' => 'fav3']);
                         else echo Html::a('<i class="far fa-heart icon-favorito"></i>',
                             ['favorito/create', 'codigo_produto' => $model_produto->codigo_produto], ['id' => 'fav']);
                     }

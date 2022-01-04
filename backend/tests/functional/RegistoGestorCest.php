@@ -98,7 +98,7 @@ class RegistoGestorCest
         $I->see('Password should contain at least 8 characters.', '.invalid-feedback');
     }
 
-    /*public function registoSuccessfully(FunctionalTester $I)
+    public function registoSuccessfully(FunctionalTester $I)
     {
         $I->fillField('UserForm[username]', 'teste');
         $I->fillField('UserForm[primeiro_nome]', 'teste');
@@ -107,13 +107,7 @@ class RegistoGestorCest
         $I->fillField('UserForm[email]', 'teste@mail.com');
         $I->fillField('UserForm[password]', '123456789');
         $I->click('Registar');
-
-        $I->seeRecord('common\models\User', [
-            'username' => 'teste',
-            'email' => 'teste@mail.com',
-            'status' => \common\models\User::STATUS_ACTIVE
-        ]);
-
+        $I->see('Lista de Utilizadores');
         $I->see('teste');
-    }*/
+    }
 }

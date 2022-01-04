@@ -55,9 +55,10 @@ class FavoritoCest
         $I->click('#favindex');
         $I->see('hoodie teste');
 
-        //remover favorito
-        /*$I->see('hoodie teste');
-        $I->click('Favorito');
+        /*//remover favorito
+        $I->see('hoodie teste');
+        $I->sendAjaxRequest('POST', '/favorito/delete&id=158', ['id'=>'fav3']);
+        //$I->click('#fav3');
         $I->see('hoodie teste foi removido da sua lista de favoritos.');*/
     }
 }
