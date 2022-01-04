@@ -39,12 +39,10 @@ class EncomendaController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new EncomendaSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $encomendas = Encomenda::find()->where(['id_user' => Yii::$app->user->id])->all();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'encomendas' => $encomendas,
         ]);
     }
 
