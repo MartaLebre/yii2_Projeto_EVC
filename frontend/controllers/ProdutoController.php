@@ -69,11 +69,13 @@ class ProdutoController extends Controller
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         $dataProvider->query->andWhere(['genero' => 'masculino']);
+
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'modelos' => Modelo::getModelos(),
-            'title' => 'Homem',
+            'title' => 'Masculino',
         ]);
     }
 
@@ -87,13 +89,31 @@ class ProdutoController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'modelos' => Modelo::getModelos(),
-            'title' => 'Homem',
+            'title' => 'Feminino',
         ]);
 
     }
 
 
+    public function actionModelo($genero, $id_modelo)
+    {
+        $searchModel = new ProdutoSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
 
+        $dataProvider->query->andWhere(['genero' => $genero])->andWhere(['id_modelo' => $id_modelo]);
+
+
+//        var_dump($dataProvider);
+//        die();
+        $model_modelo = Modelo::find()->where(['id' => $id_modelo])->one();
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'title' => $model_modelo->nome, //nome do modelo
+        ]);
+
+    }
 
 
     /**

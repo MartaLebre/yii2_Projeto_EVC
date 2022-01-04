@@ -64,4 +64,11 @@ class Modelo extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Produto::className(), ['id_modelo' => 'id']);
     }
+
+    public static function getModelos(){
+
+        $modelos = Modelo::find()->all();
+
+        return $modelos;
+    }
 }
