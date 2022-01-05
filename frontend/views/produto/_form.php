@@ -36,7 +36,7 @@ $model_desconto = $model_modelo->desconto;
                 <h6 class="card-text"><?= sprintf('%.2f', $model_produto->preco) ?>€</h6>
             <?php }?>
             <?= Html::a('Ver Produto',
-                ['produto/view', 'codigo_produto' => $model_produto->codigo_produto], ['class' => 'btn btn-dark btn-block shadow-sm']) ?>
+                ['produto/view', 'codigo_produto' => $model_produto->codigo_produto], ['class' => 'btn btn-dark btn-block shadow-sm', 'id' => $model_produto->codigo_produto]) ?>
             <div class="row">
                 <div class="col-9">
                     <p class="card-text text-publicado">Publicado <?= Yii::$app->formatter->asRelativeTime($model_produto->data) ?></p>
@@ -45,7 +45,7 @@ $model_desconto = $model_modelo->desconto;
                     <?php
                     if(!Yii::$app->user->isGuest){
                         if($model_produto->favorito != null) echo Html::a('<i class="fa fa-heart icon-favorito"></i>',
-                            ['favorito/delete', 'id' => $model_produto->favorito->id], ['data-method' => 'post', 'id' => 'fav3']);
+                            ['favorito/delete', 'id' => $model_produto->favorito->id], ['data-method' => 'post']);
                         else echo Html::a('<i class="far fa-heart icon-favorito"></i>',
                             ['favorito/create', 'codigo_produto' => $model_produto->codigo_produto], ['id' => 'fav']);
                     }
