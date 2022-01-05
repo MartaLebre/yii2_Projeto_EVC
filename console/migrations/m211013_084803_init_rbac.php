@@ -41,14 +41,6 @@ class m211013_084803_init_rbac extends Migration
         $adicionarProdutos->description = 'Adicionar Produtos';
         $auth->add($adicionarProdutos);
 
-        $editarProdutos = $auth->createPermission('editarProdutos');
-        $editarProdutos->description = 'Editar Produtos';
-        $auth->add($editarProdutos);
-
-        $eliminarProdutos = $auth->createPermission('eliminarProdutos');
-        $eliminarProdutos->description = 'Eliminar Produtos';
-        $auth->add($eliminarProdutos);
-
         $adicionarProdutosFavoritos = $auth->createPermission('adicionarProdutosFavoritos');
         $adicionarProdutosFavoritos->description = 'Adicionar Produtos aos Favoritos';
         $auth->add($adicionarProdutosFavoritos);
@@ -69,6 +61,47 @@ class m211013_084803_init_rbac extends Migration
         $visualizarProdutos->description = 'Visualizar Produtos';
         $auth->add($visualizarProdutos);
 
+        $criarModelo = $auth->createPermission('criarModelo');
+        $criarModelo->description = 'Criar Modelo';
+        $auth->add($criarModelo);
+
+        $criarDesconto = $auth->createPermission('criarDesconto');
+        $criarDesconto->description = 'Criar Desconto';
+        $auth->add($criarDesconto);
+
+        $apagarDesconto = $auth->createPermission('apagarDesconto');
+        $apagarDesconto->description = 'Apagar Desconto';
+        $auth->add($apagarDesconto);
+
+        $visualizarDesconto = $auth->createPermission('visualizarDesconto');
+        $visualizarDesconto->description = 'Visualizar Desconto';
+        $auth->add($visualizarDesconto);
+
+        $visualizarEncomendas = $auth->createPermission('visualizarEncomendas');
+        $visualizarEncomendas->description = 'Visualizar Encomendas';
+        $auth->add($visualizarEncomendas);
+
+        $atualizarEncomendas = $auth->createPermission('atualizarEncomendas');
+        $atualizarEncomendas->description = 'Atualizar Encomendas';
+        $auth->add($atualizarEncomendas);
+
+        $editarPerfil = $auth->createPermission('editarPerfil');
+        $editarPerfil->description = 'Editar Perfil';
+        $auth->add($editarPerfil);
+
+        $eliminarFavoritos = $auth->createPermission('eliminarFavoritos');
+        $eliminarFavoritos->description = 'Eliminar Favoritos';
+        $auth->add($eliminarFavoritos);
+
+        $visualizarFavoritos = $auth->createPermission('visualizarFavoritos');
+        $visualizarFavoritos->description = 'Visualizar Favoritos';
+        $auth->add($visualizarFavoritos);
+
+
+        $eliminarProdutosAoCarrinho = $auth->createPermission('eliminarProdutosAoCarrinho');
+        $eliminarProdutosAoCarrinho->description = 'Eliminar Produtos ao Carinnho';
+        $auth->add($eliminarProdutosAoCarrinho);
+
 
         $cliente = $auth->createRole('cliente');
         $auth->add($cliente);
@@ -77,13 +110,23 @@ class m211013_084803_init_rbac extends Migration
         $auth->addChild($cliente, $adicinarProdutosAoCarrinho);
         $auth->addChild($cliente, $adicionarProdutosFavoritos);
         $auth->addChild($cliente, $visualizarProdutos);
+        $auth->addChild($cliente, $visualizarEncomendas);
+        $auth->addChild($cliente, $editarPerfil);
+        $auth->addChild($cliente, $eliminarFavoritos);
+        $auth->addChild($cliente, $visualizarFavoritos);
+        $auth->addChild($cliente, $eliminarProdutosAoCarrinho);
+        $auth->addChild($cliente, $visualizarDesconto);
 
 
         $gestorStock = $auth->createRole('gestorStock');
         $auth->add($gestorStock);
         $auth->addChild($gestorStock, $adicionarProdutos);
-        $auth->addChild($gestorStock, $editarProdutos);
-        $auth->addChild($gestorStock, $eliminarProdutos);
+        $auth->addChild($gestorStock, $criarModelo);
+        $auth->addChild($gestorStock, $criarDesconto);
+        $auth->addChild($gestorStock, $apagarDesconto);
+        $auth->addChild($gestorStock, $visualizarEncomendas);
+        $auth->addChild($gestorStock, $atualizarEncomendas);
+        $auth->addChild($gestorStock, $visualizarDesconto);
         $auth->addChild($gestorStock, $pesquisarProdutos);
         $auth->addChild($gestorStock, $visualizarProdutos);
 
