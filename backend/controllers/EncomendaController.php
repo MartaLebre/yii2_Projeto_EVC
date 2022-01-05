@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\Encomenda;
 use common\models\EncomendaSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -26,6 +27,17 @@ class EncomendaController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['index', 'update', 'view'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'update', 'view'],
+                        'roles' => ['@'],
+                    ]
+                ]
+            ]
         ];
     }
 

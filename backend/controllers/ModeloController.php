@@ -5,6 +5,7 @@ namespace backend\controllers;
 use common\models\Modelo;
 use common\models\ModeloSearch;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -28,6 +29,17 @@ class ModeloController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
+                'access' => [
+                    'class' => AccessControl::class,
+                    'only' => ['index', 'view', 'create'],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['index', 'view', 'create'],
+                            'roles' => ['@'],
+                        ]
+                    ]
+                ]
             ]
         );
     }

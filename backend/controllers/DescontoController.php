@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Desconto;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -27,6 +28,17 @@ class DescontoController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
+                'access' => [
+                    'class' => AccessControl::class,
+                    'only' => ['view', 'create', 'update', 'delete'],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['view', 'create', 'update', 'delete'],
+                            'roles' => ['@'],
+                        ]
+                    ]
+                ]
             ]
         );
     }
