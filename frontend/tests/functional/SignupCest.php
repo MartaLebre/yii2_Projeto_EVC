@@ -14,7 +14,7 @@ class SignupCest
 
     public function signupWithEmptyFields(FunctionalTester $I)
     {
-        $I->see('Registo');
+        $I->see('Signup');
         $I->see('Por favor preencha os seguintes campos');
         $I->fillField('SignupForm[username]', '');
         $I->fillField('SignupForm[primeiro_nome]', '');

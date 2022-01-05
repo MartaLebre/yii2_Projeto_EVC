@@ -57,8 +57,8 @@ class LoginCest
 
     public function checkValidLogin(FunctionalTester $I)
     {
-        $I->fillField('LoginForm[username]', 'erau');
-        $I->fillField('LoginForm[password]', 'password_0');
+        $I->fillField('LoginForm[username]', 'cliente');
+        $I->fillField('LoginForm[password]', 'cliente123');
         $I->click('Login');
         $I->dontSeeLink('Login');
         $I->dontSeeLink('Signup');

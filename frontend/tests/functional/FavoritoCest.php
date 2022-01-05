@@ -57,7 +57,7 @@ class FavoritoCest
         $I->see('hoodie teste foi adicionado à sua lista de favoritos.');
     }
 
-    public function checkFavRemover(FunctionalTester $I)
+    /*public function checkFavRemover(FunctionalTester $I)
     {
         //ver index de favoritos
         $I->click('#favindex');
@@ -67,5 +67,5 @@ class FavoritoCest
         //$I->sendAjaxRequest('POST', '/favorito/delete&id=30');
         $I->click('//a[@id=30]');
         $I->see('hoodie teste2 foi removido da sua lista de favoritos.');
-    }
+    }*/
 }
