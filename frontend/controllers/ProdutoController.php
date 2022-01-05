@@ -90,7 +90,11 @@ class ProdutoController extends Controller
         $searchModel = new ProdutoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
     
-        $dataProvider->query->andWhere(['genero' => 'masculino']);
+        $dataProvider->query
+            ->leftJoin('modelo', 'modelo.id = produto.id_modelo')
+            ->where(['<>', 'modelo.nome', 'Mystery Boxes'])
+            ->andWhere(['=', 'produto.genero', 'masculino'])
+            ->all();
     
         $pages = new Pagination(['totalCount' => $dataProvider->query->count()]);
     
@@ -113,7 +117,11 @@ class ProdutoController extends Controller
         $searchModel = new ProdutoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
     
-        $dataProvider->query->andWhere(['genero' => 'feminino']);
+        $dataProvider->query
+            ->leftJoin('modelo', 'modelo.id = produto.id_modelo')
+            ->where(['<>', 'modelo.nome', 'Mystery Boxes'])
+            ->andWhere(['=', 'produto.genero', 'feminino'])
+            ->all();
     
         $pages = new Pagination(['totalCount' => $dataProvider->query->count()]);
     
