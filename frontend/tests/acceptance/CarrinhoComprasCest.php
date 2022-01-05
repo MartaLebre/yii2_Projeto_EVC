@@ -3,6 +3,7 @@
 namespace frontend\tests\acceptance;
 
 use common\fixtures\ModeloFixture;
+use common\fixtures\PerfilFixture;
 use common\fixtures\ProdutoFixture;
 use common\fixtures\UserFixture;
 use frontend\tests\AcceptanceTester;
@@ -18,6 +19,10 @@ class CarrinhoComprasCest
                 'class' => UserFixture::className(),
                 'dataFile' => codecept_data_dir() . 'login_data.php',
             ],
+            'perfil' => [
+                'class' => PerfilFixture::className(),
+                'dataFile' => codecept_data_dir() . 'perfil_data.php',
+            ],
             'modelo' => [
                 'class' => ModeloFixture::className(),
                 'dataFile' => codecept_data_dir() . 'modelo_data.php',
@@ -32,8 +37,8 @@ class CarrinhoComprasCest
     public function checkCarrinho(AcceptanceTester $I)
     {
         $I->amOnPage(Url::toRoute('/site/login'));
-        $I->fillField('LoginForm[username]', 'erau');
-        $I->fillField('LoginForm[password]', 'password_0');
+        $I->fillField('LoginForm[username]', 'cliente');
+        $I->fillField('LoginForm[password]', 'cliente123');
         $I->click('Login');
         $I->wait(3);
 
@@ -42,18 +47,30 @@ class CarrinhoComprasCest
 
         $I->wait(3);
         $I->see('hoodie teste');
-        $I->click('Ver Produto');
+        $I->click('//a[@id=1]');
         $I->wait(3);
         $I->click('Adicionar ao Carrinho de compras');
         $I->see('hoodie teste foi adicionado ao seu carrinho.');
+
+        $I->wait(3);
+        $I->see('hoodie teste2');
+        $I->click('//a[@id=2]');
+        $I->wait(3);
+        $I->click('Adicionar ao Carrinho de compras');
+        $I->see('hoodie teste2 foi adicionado ao seu carrinho.');
 
         $I->wait(3);
         $I->click('#carrinhoindex');
         $I->see('hoodie teste');
         $I->wait(3);
         $I->click('#add');
+        $I->wait(3);
+        $I->click('#sub');
+        $I->wait(3);
+        $I->click('#add');
         $I->click('#add');
         $I->wait(3);
+        $I->see('hoodie teste2');
         $I->click('Finalizar Compra');
 
         $I->wait(3);

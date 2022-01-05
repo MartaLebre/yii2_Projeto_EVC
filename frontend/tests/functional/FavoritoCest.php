@@ -1,6 +1,7 @@
 <?php
 namespace frontend\tests\functional;
 
+use common\fixtures\FavoritoFixture;
 use common\fixtures\ModeloFixture;
 use common\fixtures\ProdutoFixture;
 use common\fixtures\UserFixture;
@@ -31,14 +32,18 @@ class FavoritoCest
                 'class' => ProdutoFixture::className(),
                 'dataFile' => codecept_data_dir() . 'produto_data.php',
             ],
+            'favorito' => [
+                'class' => FavoritoFixture::className(),
+                'dataFile' => codecept_data_dir() . 'favorito_data.php',
+            ],
         ];
     }
 
     public function _before(FunctionalTester $I)
     {
         $I->amOnPage(Url::toRoute('/site/login'));
-        $I->fillField('LoginForm[username]', 'erau');
-        $I->fillField('LoginForm[password]', 'password_0');
+        $I->fillField('LoginForm[username]', 'cliente');
+        $I->fillField('LoginForm[password]', 'cliente123');
         $I->click('Login');
     }
 
@@ -50,15 +55,17 @@ class FavoritoCest
         $I->see('hoodie teste');
         $I->click('#fav');
         $I->see('hoodie teste foi adicionado à sua lista de favoritos.');
+    }
 
+    public function checkFavRemover(FunctionalTester $I)
+    {
         //ver index de favoritos
         $I->click('#favindex');
-        $I->see('hoodie teste');
-
-        /*//remover favorito
-        $I->see('hoodie teste');
-        $I->sendAjaxRequest('POST', '/favorito/delete&id=158', ['id'=>'fav3']);
-        //$I->click('#fav3');
-        $I->see('hoodie teste foi removido da sua lista de favoritos.');*/
+        $I->see('hoodie teste2');
+        //remover favorito
+        $I->see('hoodie teste2');
+        //$I->sendAjaxRequest('POST', '/favorito/delete&id=30');
+        $I->click('//a[@id=30]');
+        $I->see('hoodie teste2 foi removido da sua lista de favoritos.');
     }
 }
