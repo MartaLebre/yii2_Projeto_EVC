@@ -39,7 +39,7 @@ class EncomendaController extends Controller
      */
     public function actionIndex()
     {
-        $encomendas = Encomenda::find()->where(['id_user' => Yii::$app->user->id])->all();
+        $encomendas = Encomenda::find()->where(['id_user' => Yii::$app->user->id])->andWhere(['<>', 'estado', 'carrinho'])->all();
 
         return $this->render('index', [
             'encomendas' => $encomendas,
