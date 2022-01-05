@@ -63,10 +63,10 @@ class DescontoController extends Controller
                 if ($model->load($this->request->post())) {
                     $model->id_modelo = $id_modelo;
                     $model->save();
-
-                    return $this->redirect(['view', 'id_modelo' => $model->id_modelo]);
+                    
+                    return $this->redirect(['modelo/index']);
                 }
-            } else {
+            } else{
                 $model->loadDefaultValues();
             }
 
@@ -110,7 +110,7 @@ class DescontoController extends Controller
     {
         if (Yii::$app->user->can('apagarDesconto')) {
             $this->findModel($id_modelo)->delete();
-
+            
             return $this->redirect(['index']);
         }else {
             Yii::$app->session->setFlash('danger', ' Não têm permissões para apagar descontos');

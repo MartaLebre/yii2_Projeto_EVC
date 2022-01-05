@@ -2,12 +2,16 @@
 
 use common\models\Desconto;
 use common\widgets\Alert;
+use yii\bootstrap4\LinkPager;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\ProdutoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $model_produto common\models\Produto */
+/* @var $modelo common\models\Modelo */
+/* @var $pages \yii\data\Pagination */
+
 
 if ($dataProvider->totalCount != null) {
     $db_produtos = $dataProvider->getModels();
@@ -21,18 +25,19 @@ $this->title = $title;
 
 <div class="produto-index">
     <?php
-    if ($dataProvider->totalCount != null) {
-        if ($title == 'Masculino' || $title == 'Feminino') { ?>
-            <nav class="navbar navbar-expand navbar-dark shadow">
-                <ul class="navbar-nav nav-dark">
-                    <?php foreach ($modelos as $modelo){ ?>
-                    <li class="nav-item">
-                        <?= Html::a($modelo->nome, ['produto/modelo', 'genero' => $title, 'id_modelo' => $modelo->id], ['class' => 'nav-link']); ?>
-                        <?php } ?>
-                    </li>
+    if($dataProvider->totalCount != null){
+        if($title == 'Masculino' || $title == 'Feminino') { ?>
+            <nav class="navbar navbar-expand navbar-light navbar-modelos">
+                <ul class="navbar-nav">
+                    <?php
+                    foreach($modelos as $modelo){ ?>
+                        <li class="nav-item">
+                            <?= Html::a($modelo->nome, ['produto/modelo', 'genero' => $title, 'id_modelo' => $modelo->id], ['class' => 'nav-link']); ?>
+                        </li>
+                    <?php }?>
                 </ul>
             </nav>
-        <?php } ?>
+        <?php }?>
 
         <?= Alert::widget() ?>
 
@@ -50,6 +55,12 @@ $this->title = $title;
             <?php foreach ($db_produtos as $model_produto) {
                 echo $this->render('_form', ['model_produto' => $model_produto]);
             } ?>
+        </div>
+
+        <div class="offset-5">
+            <?= LinkPager::widget([
+                   'pagination' => $pages,
+            ])?>
         </div>
     <?php } else { ?>
         <div class="produtos-null">

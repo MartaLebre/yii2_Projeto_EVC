@@ -89,7 +89,6 @@ class SiteController extends Controller
             ->count();
 
         return $favoritos;
-
     }
 
     public static function actionTotalEncomendas()

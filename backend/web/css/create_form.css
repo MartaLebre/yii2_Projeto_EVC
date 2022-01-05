@@ -27,6 +27,15 @@
 .custom-file{
     margin-bottom: 16px !important;
 }
-.custom-file-label{
-    content: 'teste' !important;
+.btn-deletedesconto{
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
+.btn-deletedesconto:hover, .btn-deletedesconto:focus{
+    background-color: #BF2A35 !important;
+    border-color: #BF2A35 !important;
+    color: #fff;
+}
+.form-control{
+    margin-bottom: 1rem !important;
 }

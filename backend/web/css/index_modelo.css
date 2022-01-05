@@ -28,6 +28,11 @@ tbody th, tbody td{
 .btn-desconto{
     margin-right: 12px !important;
 }
+.btn-detalhesdesconto{
+    padding-left: 22.5px !important;
+    padding-right: 22.5px !important;
+     margin-right: 12px !important;
+ }
 .modelos-null h5{
     text-align: center;
     text-transform: uppercase;

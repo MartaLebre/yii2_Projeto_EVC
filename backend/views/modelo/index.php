@@ -4,6 +4,7 @@ use common\widgets\Alert;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
+/* @var $modeloProduto common\models\Modelo */
 
 $this->registerCssFile("@web/css/index_modelo.css");
 
@@ -40,8 +41,15 @@ $this->title = 'Lista de Modelos';
                                 <th scope="row" ><?= $modeloProduto->id ?></th>
                                 <td><?= $modeloProduto->nome ?></td>
                                 <td class="td-btn text-right">
-                                    <?= Html::a('Adicionar Desconto', ['/desconto/create', 'id_modelo' => $modeloProduto->id],
-                                        ['class'=>'btn btn-dark shadow-sm btn-desconto']) ?>
+                                    <?php
+                                    if($modeloProduto->desconto != null){
+                                        echo Html::a('Detalhes Desconto', ['/desconto/view', 'id_modelo' => $modeloProduto->id],
+                                            ['class'=>'btn btn-dark shadow-sm btn-detalhesdesconto']);
+                                    }
+                                    else{
+                                        echo Html::a('Adicionar Desconto', ['/desconto/create', 'id_modelo' => $modeloProduto->id],
+                                            ['class'=>'btn btn-dark shadow-sm btn-desconto']);
+                                    }?>
                                     <?= Html::a('Adicionar Produto', ['/produto/create', 'id_modelo' => $modeloProduto->id],
                                         ['class'=>'btn btn-dark shadow-sm']) ?>
                                 </td>

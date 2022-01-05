@@ -28,8 +28,9 @@ $this->title = 'Carrinho';
             <div class="col-1 col-hr">
                 <div class="vr-index"></div>
             </div>
-            <div class="col-2">
+            <div class="col-3">
                 <div class="checkout">
+                    <br>
                     <h5>Resumo</h5>
                     <?php
                     $total_encomenda = 0;
@@ -43,14 +44,13 @@ $this->title = 'Carrinho';
                         else {
                             $total_encomenda += ($model_produto->preco *  $model_itemcompra->quantidade)?>
                         <?php }
-
-
                     }?>
-                    <h6 class="taxa-iva">Taxa (Iva): <?= sprintf('%.2f', $total_encomenda - ($total_encomenda * 0.81295)) .  '€'?> </h6>
+                    <h6>Taxa (Iva): <?= sprintf('%.2f', $total_encomenda - ($total_encomenda * 0.81295)) . '€'?> </h6>
 
-                        <h6>Total Encomenda: <?= sprintf('%.2f', $total_encomenda) ?>€</h6>
+                    <h6>Total Encomenda: <?= sprintf('%.2f', $total_encomenda) ?>€</h6>
+                    
+                    <?= Html::a('Finalizar Compra', ['faturacao/create'], ['class' => 'btn btn-dark shadow-sm']) ?>
                 </div>
-                    <?= Html::a('Finalizar Compra', ['faturacao/create'], ['class' => 'btn btn-dark btn-block shadow-sm']) ?>
             </div>
         </div>
     <?php }

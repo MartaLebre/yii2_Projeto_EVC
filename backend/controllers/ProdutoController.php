@@ -6,6 +6,7 @@ use backend\models\UploadFormProduto;
 use common\models\Produto;
 use common\models\ProdutoSearch;
 use Yii;
+use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -43,10 +44,17 @@ class ProdutoController extends Controller
         if (Yii::$app->user->can('visualizarProdutos')) {
             $searchModel = new ProdutoSearch();
             $dataProvider = $searchModel->search($this->request->queryParams);
+    
+            $pages = new Pagination(['totalCount' => $dataProvider->query->count()]);
+    
+            $dataProvider->query->offset($pages->offset)
+                ->limit($pages->limit)
+                ->all();
 
             return $this->render('index', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
+                'pages' => $pages,
             ]);
         }else{
             Yii::$app->session->setFlash('danger', ' Não têm permissões para visualizar produtos');

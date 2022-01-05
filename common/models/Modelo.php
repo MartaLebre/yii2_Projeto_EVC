@@ -67,7 +67,9 @@ class Modelo extends \yii\db\ActiveRecord
 
     public static function getModelos(){
 
-        $modelos = Modelo::find()->all();
+        $modelos = Modelo::find()
+            ->where(['<>', 'nome', 'Mystery Boxes'])
+            ->all();
 
         return $modelos;
     }

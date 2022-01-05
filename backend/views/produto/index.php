@@ -3,6 +3,7 @@
 use common\widgets\Alert;
 use common\models\Produto;
 use yii\helpers\Html;
+use yii\bootstrap4\LinkPager;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\ProdutoSearch */
@@ -67,6 +68,12 @@ $this->title = 'Lista de Produtos';
                             <h5>Não existem produtos disponíveis</h5>
                         </div>
                     <?php }?>
+                </div>
+                <br>
+                <div class="offset-5">
+                    <?= LinkPager::widget([
+                        'pagination' => $pages,
+                    ])?>
                 </div>
             </div>
         </div>

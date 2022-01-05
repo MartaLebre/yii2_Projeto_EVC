@@ -48,8 +48,10 @@ $this->title = 'Lista de Utilizadores';
                                     <td></td>
                                     <td></td>
                                     <td></td>
+                                    <td></td>
                                 <?php }
                                 elseif(User::isCliente($modelUser->id)){ ?>
+                                    <td><?= Html::a('<i class="fas fa-info"></i>', ['user/view', 'id' => $modelUser->id]) ?></td>
                                     <td></td>
                                     <td></td>
                                     <?php
@@ -61,8 +63,9 @@ $this->title = 'Lista de Utilizadores';
                                     <?php }
                                 }
                                 else{ ?>
+                                    <td><?= Html::a('<i class="fas fa-info"></i>', ['user/view', 'id' => $modelUser->id]) ?></td>
                                     <td><?= Html::a('<i class="fas fa-user-edit"></i>', ['user/update', 'id' => $modelUser->id]) ?></td>
-                                    <td><?= Html::a('<i class="fas fa-trash-alt"></i>', ['user/delete', 'id' => $modelUser->id], ['data' => ['confirm' => 'Tem a certeza que quer eliminar este utilizador?', 'method' => 'post']]) ?></td>
+                                    <td><?= Html::a('<i class="fas fa-trash-alt"></i>', ['user/delete', 'id' => $modelUser->id], ['data' => ['confirm' => 'Tem a certeza que quer eliminar este utilizador?', 'data-method' => 'post']]) ?></td>
                                     <td></td>
                                 <?php }?>
                             </tr>

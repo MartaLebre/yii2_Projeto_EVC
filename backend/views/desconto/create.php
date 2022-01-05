@@ -38,7 +38,7 @@ $this->title = 'Adicionar Desconto';
                         'removeButton' => false,
                         'pluginOptions' => [
                             'autoclose' => true,
-                            'format' => 'yyyy/mm/dd'
+                            'format' => 'yyyy-mm-dd'
                         ]])?>
                 
                 <?= $form->field($model, 'data_final', [
@@ -56,7 +56,7 @@ $this->title = 'Adicionar Desconto';
                         'removeButton' => false,
                         'pluginOptions' => [
                             'autoclose' => true,
-                            'format' => 'yyyy/mm/dd'
+                            'format' => 'yyyy-mm-dd'
                         ]])?>
                 
                 <?= $form->field($model, 'valor', [
