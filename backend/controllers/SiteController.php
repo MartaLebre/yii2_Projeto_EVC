@@ -95,7 +95,7 @@ class SiteController extends Controller
     public static function actionTotalEncomendas()
     {
         $compras = Encomenda::find()
-            ->where(['estado' => 'pendente'])
+            ->where(['<>' , 'estado', 'carrinho'])
             ->count();
 
         return $compras;
@@ -122,8 +122,8 @@ class SiteController extends Controller
 
     public static function actionTotalMysteryBoxes()
     {
-        $mysteryBoxes = Modelo::find()
-            ->where(['nome' => 'Mystery Boxes'])
+        $mysteryBoxes = Produto::find()
+            ->where(['id_modelo' => '9'])
             ->count();
 
         return $mysteryBoxes;
