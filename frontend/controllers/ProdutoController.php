@@ -6,6 +6,7 @@ use common\models\Desconto;
 use common\models\Modelo;
 use common\models\Produto;
 use common\models\ProdutoSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -39,58 +40,66 @@ class ProdutoController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ProdutoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-        
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'title' => 'Produtos',
-        ]);
+        if (Yii::$app->user->can('visualizarProdutos')) {
+            $searchModel = new ProdutoSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
+
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'title' => 'Produtos',
+            ]);
+        }else {
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para visualizar produtos');
+            return $this->redirect(['site/index']);
+        }
     }
     
     public function actionNovidades()
     {
-        $searchModel = new ProdutoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-        
-        $dataProvider->pagination->setPageSize(8);
-        
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'title' => 'Novidades',
-        ]);
+            $searchModel = new ProdutoSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
+
+            $dataProvider->pagination->setPageSize(8);
+
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'title' => 'Novidades',
+            ]);
+
     }
 
     public function actionHomem()
     {
-        $searchModel = new ProdutoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
 
-        $dataProvider->query->andWhere(['genero' => 'masculino']);
+            $searchModel = new ProdutoSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
+
+            $dataProvider->query->andWhere(['genero' => 'masculino']);
 
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'modelos' => Modelo::getModelos(),
-            'title' => 'Masculino',
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'modelos' => Modelo::getModelos(),
+                'title' => 'Masculino',
+            ]);
+
     }
 
     public function actionMulher()
     {
-        $searchModel = new ProdutoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+            $searchModel = new ProdutoSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
 
-        $dataProvider->query->andWhere(['genero' => 'feminino']);
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'modelos' => Modelo::getModelos(),
-            'title' => 'Feminino',
-        ]);
+            $dataProvider->query->andWhere(['genero' => 'feminino']);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'modelos' => Modelo::getModelos(),
+                'title' => 'Feminino',
+            ]);
 
     }
 
@@ -122,20 +131,21 @@ class ProdutoController extends Controller
      */
     public function actionMysteryboxes()
     {
-        $searchModel = new ProdutoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+            $searchModel = new ProdutoSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
 
-        $modelo_mysteryBoxes = Modelo::find()->where(['nome' => 'Mystery Boxes'])->one();
+            $modelo_mysteryBoxes = Modelo::find()->where(['nome' => 'Mystery Boxes'])->one();
 
-        if($modelo_mysteryBoxes != null){
-            $dataProvider->query->andWhere(['id_modelo' => $modelo_mysteryBoxes->id]);
-        }
+            if ($modelo_mysteryBoxes != null) {
+                $dataProvider->query->andWhere(['id_modelo' => $modelo_mysteryBoxes->id]);
+            }
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'title' => 'Mystery Boxes',
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'title' => 'Mystery Boxes',
+            ]);
+
     }
     
     /**
@@ -144,20 +154,25 @@ class ProdutoController extends Controller
      */
     public function actionDescontos()
     {
-        $searchModel = new ProdutoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-    
-        $dataProvider->query
-            ->leftJoin('desconto', 'desconto.id_modelo = produto.id_modelo')
-            ->where(['<=', 'desconto.data_comeco', date('Y-m-d')])
-            ->andWhere(['>=', 'desconto.data_final', date('Y-m-d')])
-            ->all();
-        
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'title' => 'Promoções',
-        ]);
+        if (Yii::$app->user->can('visualizarDesconto')) {
+            $searchModel = new ProdutoSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
+
+            $dataProvider->query
+                ->leftJoin('desconto', 'desconto.id_modelo = produto.id_modelo')
+                ->where(['<=', 'desconto.data_comeco', date('Y-m-d')])
+                ->andWhere(['>=', 'desconto.data_final', date('Y-m-d')])
+                ->all();
+
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'title' => 'Promoções',
+            ]);
+        }else {
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para visualizar  descontos - Faça Login');
+            return $this->redirect(['site/login']);
+        }
     }
 
     /**
@@ -168,17 +183,18 @@ class ProdutoController extends Controller
      */
     public function actionView($codigo_produto)
     {
-        $model_produto = $this->findModel($codigo_produto);
-        
-        $db_produtos = Produto::find()
-            ->where(['id_modelo' => $model_produto->id_modelo])
-            ->limit(4)
-            ->all();
-        
-        return $this->render('view', [
-            'model_produto' => $model_produto,
-            'db_produtos' => $db_produtos,
-        ]);
+            $model_produto = $this->findModel($codigo_produto);
+
+            $db_produtos = Produto::find()
+                ->where(['id_modelo' => $model_produto->id_modelo])
+                ->limit(4)
+                ->all();
+
+            return $this->render('view', [
+                'model_produto' => $model_produto,
+                'db_produtos' => $db_produtos,
+            ]);
+
     }
 
     /**

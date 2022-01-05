@@ -70,15 +70,45 @@ class PagamentoController extends Controller
      * @return mixed
      */
     public function actionCreate(){
-        $model_pagamento = $this->findModel(Yii::$app->user->id);
-        
-        if($model_pagamento == null){
-            $model_pagamento = new Pagamento();
-            
-            if($this->request->isPost){
-                if($model_pagamento->load($this->request->post())){
-                    $model_pagamento->id_user = Yii::$app->user->id;
-                    $model_pagamento->save();
+
+        if (Yii::$app->user->can('encomendarProdutos')) {
+            $model_pagamento = $this->findModel(Yii::$app->user->id);
+
+            if ($model_pagamento == null) {
+                $model_pagamento = new Pagamento();
+
+                if ($this->request->isPost) {
+                    if ($model_pagamento->load($this->request->post())) {
+                        $model_pagamento->id_user = Yii::$app->user->id;
+                        $model_pagamento->save();
+
+                        $model_encomenda = Encomenda::find()
+                            ->where(['id_user' => $model_pagamento->id_user, 'estado' => 'carrinho'])
+                            ->one();
+
+                        $models_itemcompra = ItemCompra::find()
+                            ->where(['id_encomenda' => $model_encomenda->id])
+                            ->all();
+
+                        foreach ($models_itemcompra as $model_itemcompra) {
+                            $model_produto = Produto::find()
+                                ->where(['codigo_produto' => $model_itemcompra->codigo_produto])
+                                ->one();
+
+                            $model_produto->updateAttributes(['quantidade' => $model_produto->quantidade - $model_itemcompra->quantidade]);
+                        }
+
+                        Encomenda::getUpdateStatusEncomenda($model_encomenda->id);
+
+                        Yii::$app->session->setFlash('success', 'Obrigado pela sua compra! Para mais informações sobre o estado da sua encomenda aceda à área "Minhas Encomendas"! ');
+                        return $this->redirect(Url::home());
+                    }
+                } else {
+                    $model_pagamento->loadDefaultValues();
+                }
+            } else {
+                if ($this->request->isPost && $model_pagamento->load($this->request->post())) {
+                    $model_pagamento->update();
 
                     $model_encomenda = Encomenda::find()
                         ->where(['id_user' => $model_pagamento->id_user, 'estado' => 'carrinho'])
@@ -87,56 +117,30 @@ class PagamentoController extends Controller
                     $models_itemcompra = ItemCompra::find()
                         ->where(['id_encomenda' => $model_encomenda->id])
                         ->all();
-    
-                    foreach ($models_itemcompra as $model_itemcompra){
-                        $model_produto =  Produto::find()
-                            ->where(['codigo_produto' => $model_itemcompra->codigo_produto ])
+
+                    foreach ($models_itemcompra as $model_itemcompra) {
+                        $model_produto = Produto::find()
+                            ->where(['codigo_produto' => $model_itemcompra->codigo_produto])
                             ->one();
-    
+
                         $model_produto->updateAttributes(['quantidade' => $model_produto->quantidade - $model_itemcompra->quantidade]);
                     }
 
                     Encomenda::getUpdateStatusEncomenda($model_encomenda->id);
-    
-                    Yii::$app->session->setFlash('success', 'Obrigado pela sua compra! Para mais informações sobre o estado da sua encomenda aceda à área "Minhas Encomendas"! ');
+
+                    Yii::$app->session->setFlash('success', 'Obrigado pela sua compra! Para mais informações sobre o estado da sua encomenda aceda à área "Minhas Encomendas"!');
                     return $this->redirect(Url::home());
                 }
             }
-            else{
-                $model_pagamento->loadDefaultValues();
-            }
+
+            return $this->render('create', [
+                'model' => $model_pagamento,
+            ]);
+
+        }else {
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para finalizar encomenda');
+            return $this->redirect(['site/index']);
         }
-        else{
-            if($this->request->isPost && $model_pagamento->load($this->request->post())){
-                $model_pagamento->update();
-                
-                $model_encomenda = Encomenda::find()
-                    ->where(['id_user' => $model_pagamento->id_user, 'estado' => 'carrinho'])
-                    ->one();
-                
-                $models_itemcompra = ItemCompra::find()
-                    ->where(['id_encomenda' => $model_encomenda->id])
-                    ->all();
-
-                foreach ($models_itemcompra as $model_itemcompra){
-                    $model_produto =  Produto::find()
-                        ->where(['codigo_produto' => $model_itemcompra->codigo_produto ])
-                        ->one();
-
-                    $model_produto->updateAttributes(['quantidade' => $model_produto->quantidade - $model_itemcompra->quantidade]);
-                }
-                
-                Encomenda::getUpdateStatusEncomenda($model_encomenda->id);
-    
-                Yii::$app->session->setFlash('success', 'Obrigado pela sua compra! Para mais informações sobre o estado da sua encomenda aceda à área "Minhas Encomendas"!');
-                return $this->redirect(Url::home());
-            }
-        }
-
-        return $this->render('create', [
-            'model' => $model_pagamento,
-        ]);
-
 
     }
 

@@ -35,18 +35,28 @@ class EncomendaController extends Controller
      */
     public function actionIndex()
     {
-        $encomendas = Encomenda::find()->where(['estado' =>  'pendente'])->orWhere(['estado' => 'em processamento'])->orWhere(['estado' => 'enviado'])->orWhere(['estado' => 'entregue'])->all();
+        if (Yii::$app->user->can('visualizarEncomendas')) {
+            $encomendas = Encomenda::find()->where(['estado' => 'pendente'])->orWhere(['estado' => 'em processamento'])->orWhere(['estado' => 'enviado'])->orWhere(['estado' => 'entregue'])->all();
 
-        return $this->render('index', [
-            'encomendas' => $encomendas,
-        ]);
+            return $this->render('index', [
+                'encomendas' => $encomendas,
+            ]);
+        }else {
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para Visualizar encomendas');
+            return $this->redirect(['site/index']);
+        }
     }
 
     public function actionUpdate($id_encomenda)
     {
-        Encomenda::getUpdateStatusEncomenda($id_encomenda);
+        if (Yii::$app->user->can('atualizarEncomendas')) {
+            Encomenda::getUpdateStatusEncomenda($id_encomenda);
 
-        return $this->redirect(Yii::$app->request->referrer);
+            return $this->redirect(Yii::$app->request->referrer);
+        }else{
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para Atualizar encomendas');
+            return $this->redirect(['site/index']);
+        }
     }
 
 

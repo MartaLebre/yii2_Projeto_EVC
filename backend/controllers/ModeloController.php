@@ -67,39 +67,44 @@ class ModeloController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Modelo();
+        if (Yii::$app->user->can('criarModelo')) {
+            $model = new Modelo();
 
-        $modelos = $this->getModelos();
+            $modelos = $this->getModelos();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post())) {
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post())) {
 
-                //var_dump($modelos);
-                $checkModelo = false;
-                if ($modelos != null) {
-                    foreach ($modelos as $modelo) {
-                        if ($model->nome == $modelo) {
-                            $checkModelo = true;
+                    //var_dump($modelos);
+                    $checkModelo = false;
+                    if ($modelos != null) {
+                        foreach ($modelos as $modelo) {
+                            if ($model->nome == $modelo) {
+                                $checkModelo = true;
 
+                            }
                         }
-                    }
-                    if($checkModelo == false){
-                        $model->save();
-                    }else {
-                        Yii::$app->session->setFlash('error', "O Modelo criado já existe");
+                        if ($checkModelo == false) {
+                            $model->save();
+                        } else {
+                            Yii::$app->session->setFlash('error', "O Modelo criado já existe");
+                        }
+
                     }
 
+                    return $this->redirect(['index']);
                 }
-
-                return $this->redirect(['index']);
+            } else {
+                $model->loadDefaultValues();
             }
-        } else {
-            $model->loadDefaultValues();
-        }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }else{
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para criar modelos');
+            return $this->redirect(['site/index']);
+        }
     }
 
     public static function getModelos()

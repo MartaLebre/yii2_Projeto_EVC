@@ -1,7 +1,13 @@
+
+
 <?php
+
+use common\widgets\Alert;
+
 $this->title = 'Backend';
 $this->params['breadcrumbs'] = [['label' => $this->title]];
 ?>
+<?= Alert::widget() ?>
 
 <div class="container-fluid">
     <div class="row">

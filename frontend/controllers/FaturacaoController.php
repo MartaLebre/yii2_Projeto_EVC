@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\Faturacao;
 use common\models\FaturacaoSearch;
 use common\models\User;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -67,31 +68,35 @@ class FaturacaoController extends Controller
      */
     public function actionCreate()
     {
-        $model = $this->findModel(\Yii::$app->user->id);
+        if (Yii::$app->user->can('encomendarProdutos')) {
+            $model = $this->findModel(\Yii::$app->user->id);
 
-        if ($model == null) {
-            $model = new Faturacao();
-            if ($this->request->isPost) {
-                if ($model->load($this->request->post())) {
+            if ($model == null) {
+                $model = new Faturacao();
+                if ($this->request->isPost) {
+                    if ($model->load($this->request->post())) {
 
-                    $model->id_user = \Yii::$app->user->id;
-                    $model->save();
+                        $model->id_user = \Yii::$app->user->id;
+                        $model->save();
 
-                    return $this->redirect(['pagamento/create']);
+                        return $this->redirect(['pagamento/create']);
+                    }
+                } else {
+                    $model->loadDefaultValues();
                 }
             } else {
-                $model->loadDefaultValues();
+                if ($this->request->isPost && $model->load($this->request->post())) {
+                    $model->update();
+                    return $this->redirect(['pagamento/create']);
+                }
             }
-        } else {
-            if ($this->request->isPost && $model->load($this->request->post())) {
-                $model->update();
-                return $this->redirect(['pagamento/create']);
-            }
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }else {
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para avançar com a compra');
+            return $this->redirect(['site/index']);
         }
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-
     }
 
 

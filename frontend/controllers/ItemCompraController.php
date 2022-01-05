@@ -60,33 +60,40 @@ class ItemcompraController extends Controller
      */
     public function actionCreate($id_encomenda, $codigo_produto)
     {
-        $checkItemcompra = ItemCompra::find()
-            ->where(['codigo_produto' => $codigo_produto])
-            ->andWhere(['id_encomenda' => $id_encomenda])
-            ->one();
+        if (Yii::$app->user->can('adicinarProdutosAoCarrinho')) {
 
-        if ($checkItemcompra != null) {
-            Yii::$app->session->setFlash('info', $checkItemcompra->produto->modelo->nome . ' ' . $checkItemcompra->produto->nome . ' já foi adicionado ao seu carrinho.');
-            return $this->redirect(['produto/index']);
-        } else {
-            $model_itemcompra = new ItemCompra();
 
-            $model_itemcompra->codigo_produto = $codigo_produto;
-            $model_itemcompra->id_encomenda = $id_encomenda;
-            $model_itemcompra->quantidade = 1;
+            $checkItemcompra = ItemCompra::find()
+                ->where(['codigo_produto' => $codigo_produto])
+                ->andWhere(['id_encomenda' => $id_encomenda])
+                ->one();
 
-            $model_modelo = $model_itemcompra->produto->modelo;
-            $model_desconto = $model_modelo->desconto;
-            if ($model_desconto != null && $model_desconto->getDescontoActivo($model_desconto->id_modelo)) {
-                $model_itemcompra->preco_venda = $model_itemcompra->produto->preco - ($model_itemcompra->produto->preco * ($model_desconto->valor / 100));
+            if ($checkItemcompra != null) {
+                Yii::$app->session->setFlash('info', $checkItemcompra->produto->modelo->nome . ' ' . $checkItemcompra->produto->nome . ' já foi adicionado ao seu carrinho.');
+                return $this->redirect(['produto/index']);
             } else {
+                $model_itemcompra = new ItemCompra();
 
-                $model_itemcompra->preco_venda = $model_itemcompra->produto->preco;
+                $model_itemcompra->codigo_produto = $codigo_produto;
+                $model_itemcompra->id_encomenda = $id_encomenda;
+                $model_itemcompra->quantidade = 1;
+
+                $model_modelo = $model_itemcompra->produto->modelo;
+                $model_desconto = $model_modelo->desconto;
+                if ($model_desconto != null && $model_desconto->getDescontoActivo($model_desconto->id_modelo)) {
+                    $model_itemcompra->preco_venda = $model_itemcompra->produto->preco - ($model_itemcompra->produto->preco * ($model_desconto->valor / 100));
+                } else {
+
+                    $model_itemcompra->preco_venda = $model_itemcompra->produto->preco;
+                }
+                $model_itemcompra->save();
+
+                Yii::$app->session->setFlash('success', $model_itemcompra->produto->modelo->nome . ' ' . $model_itemcompra->produto->nome . ' foi adicionado ao seu carrinho.');
+                return $this->redirect(['produto/index']);
             }
-            $model_itemcompra->save();
-
-            Yii::$app->session->setFlash('success', $model_itemcompra->produto->modelo->nome . ' ' . $model_itemcompra->produto->nome . ' foi adicionado ao seu carrinho.');
-            return $this->redirect(['produto/index']);
+        }else {
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para adicionar produtos do carrinho');
+            return $this->redirect(['site/index']);
         }
     }
 
@@ -98,8 +105,7 @@ class ItemcompraController extends Controller
              * @return mixed
              * @throws NotFoundHttpException if the model cannot be found
              */
-            public
-            function actionUpdate($codigo_produto, $id_encomenda)
+            public function actionUpdate($codigo_produto, $id_encomenda)
             {
                 $model = $this->findModel($codigo_produto, $id_encomenda);
 
@@ -112,8 +118,7 @@ class ItemcompraController extends Controller
                 ]);
             }
 
-            public
-            function actionQuantidade_add($codigo_produto, $id_encomenda)
+            public function actionQuantidade_add($codigo_produto, $id_encomenda)
             {
                 $model_itemcompra = $this->findModel($codigo_produto, $id_encomenda);
 
@@ -125,8 +130,7 @@ class ItemcompraController extends Controller
                 return $this->redirect(Yii::$app->request->referrer);
             }
 
-            public
-            function actionQuantidade_sub($codigo_produto, $id_encomenda)
+            public function actionQuantidade_sub($codigo_produto, $id_encomenda)
             {
                 $model_itemcompra = $this->findModel($codigo_produto, $id_encomenda);
 
@@ -149,11 +153,17 @@ class ItemcompraController extends Controller
             public
             function actionDelete($codigo_produto, $id_encomenda)
             {
-                $this->findModel($codigo_produto, $id_encomenda)->delete();
-                $model_produto = Produto::findOne($codigo_produto);
+                if (Yii::$app->user->can('eliminarProdutosAoCarrinho')) {
 
-                Yii::$app->session->setFlash('danger', $model_produto->modelo->nome . ' ' . $model_produto->nome . ' foi removido do seu carrinho de compras.');
-                return $this->redirect(Yii::$app->request->referrer);
+                    $this->findModel($codigo_produto, $id_encomenda)->delete();
+                    $model_produto = Produto::findOne($codigo_produto);
+
+                    Yii::$app->session->setFlash('danger', $model_produto->modelo->nome . ' ' . $model_produto->nome . ' foi removido do seu carrinho de compras.');
+                    return $this->redirect(Yii::$app->request->referrer);
+                }else{
+                    Yii::$app->session->setFlash('danger', ' Não têm permissões para eliminar produtos do carrinho');
+                    return $this->redirect(['site/index']);
+                }
             }
 
             /**

@@ -40,13 +40,18 @@ class ProdutoController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ProdutoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        if (Yii::$app->user->can('visualizarProdutos')) {
+            $searchModel = new ProdutoSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }else{
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para visualizar produtos');
+            return $this->redirect(['site/index']);
+        }
     }
     
     /**
@@ -57,9 +62,14 @@ class ProdutoController extends Controller
      */
     public function actionView($codigo_produto)
     {
-        return $this->render('view', [
-            'model_produto' => $this->findModel($codigo_produto),
-        ]);
+        if (Yii::$app->user->can('visualizarProdutos')) {
+            return $this->render('view', [
+                'model_produto' => $this->findModel($codigo_produto),
+            ]);
+        }else {
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para visualizar produtos');
+            return $this->redirect(['site/index']);
+        }
     }
     
     /**
@@ -67,9 +77,10 @@ class ProdutoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($id_modelo){
+    public function actionCreate($id_modelo)
+    {
 
-        //if (Yii::$app->user->can('criarProduto')) {
+        if (Yii::$app->user->can('adicionarProdutos')) {
 
             $model = new Produto();
             $modelUpload = new UploadFormProduto();
@@ -123,9 +134,12 @@ class ProdutoController extends Controller
                 'model' => $model,
                 'modelUpload' => $modelUpload,
             ]);
-        //}  else {
-
+        }else {
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para criar produtos');
+            return $this->redirect(['site/index']);
         }
+
+    }
     
     public static function getCodigoProdutos(){
         

@@ -39,11 +39,16 @@ class EncomendaController extends Controller
      */
     public function actionIndex()
     {
-        $encomendas = Encomenda::find()->where(['id_user' => Yii::$app->user->id])->andWhere(['<>', 'estado', 'carrinho'])->all();
+        if (Yii::$app->user->can('visualizarEncomendas')) {
+            $encomendas = Encomenda::find()->where(['id_user' => Yii::$app->user->id])->andWhere(['<>', 'estado', 'carrinho'])->all();
 
-        return $this->render('index', [
-            'encomendas' => $encomendas,
-        ]);
+            return $this->render('index', [
+                'encomendas' => $encomendas,
+            ]);
+        }else {
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para Visualizar encomendas');
+            return $this->redirect(['site/index']);
+        }
     }
 
     /**
@@ -66,21 +71,26 @@ class EncomendaController extends Controller
      */
     public function actionCreate($codigo_produto)
     {
+        if (Yii::$app->user->can('encomendarProdutos')) {
 
-        $encomenda = Encomenda::find()->where(['estado' =>  'carrinho', 'id_user' => Yii::$app->user->id])->one();
+            $encomenda = Encomenda::find()->where(['estado' => 'carrinho', 'id_user' => Yii::$app->user->id])->one();
 
-        if ($encomenda == null) {
-            $model_encomenda = new Encomenda();
-            $model_encomenda->estado = 'carrinho';
-            $model_encomenda->data = date('Y-m-d H:i:s');
-            $model_encomenda->id_user = Yii::$app->user->getId();
-            $model_encomenda->save();
+            if ($encomenda == null) {
+                $model_encomenda = new Encomenda();
+                $model_encomenda->estado = 'carrinho';
+                $model_encomenda->data = date('Y-m-d H:i:s');
+                $model_encomenda->id_user = Yii::$app->user->getId();
+                $model_encomenda->save();
 
-            return $this->redirect(['/itemcompra/create', 'id_encomenda' => $model_encomenda->id, 'codigo_produto' => $codigo_produto]);
+                return $this->redirect(['/itemcompra/create', 'id_encomenda' => $model_encomenda->id, 'codigo_produto' => $codigo_produto]);
 
-        } else {
-            return $this->redirect(['/itemcompra/create', 'id_encomenda' => $encomenda->id, 'codigo_produto' => $codigo_produto]);
+            } else {
+                return $this->redirect(['/itemcompra/create', 'id_encomenda' => $encomenda->id, 'codigo_produto' => $codigo_produto]);
 
+            }
+        }else{
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para criar encomenda e adicionar o produto ao carrinho');
+            return $this->redirect(['site/index']);
         }
 
     }

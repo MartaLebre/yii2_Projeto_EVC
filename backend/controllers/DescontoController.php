@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\Desconto;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,9 +39,14 @@ class DescontoController extends Controller
      */
     public function actionView($id_modelo)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id_modelo),
-        ]);
+        if (Yii::$app->user->can('visualizarDesconto')) {
+            return $this->render('view', [
+                'model' => $this->findModel($id_modelo),
+            ]);
+        }else {
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para Visualizar descontos');
+            return $this->redirect(['site/index']);
+        }
     }
 
     /**
@@ -50,22 +56,27 @@ class DescontoController extends Controller
      */
     public function actionCreate($id_modelo)
     {
-        $model = new Desconto();
+        if (Yii::$app->user->can('criarDesconto')) {
+            $model = new Desconto();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post())) {
-                $model->id_modelo = $id_modelo;
-                $model->save();
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post())) {
+                    $model->id_modelo = $id_modelo;
+                    $model->save();
 
-                return $this->redirect(['view', 'id_modelo' => $model->id_modelo]);
+                    return $this->redirect(['view', 'id_modelo' => $model->id_modelo]);
+                }
+            } else {
+                $model->loadDefaultValues();
             }
-        } else {
-            $model->loadDefaultValues();
-        }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }else{
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para criar descontos');
+            return $this->redirect(['site/index']);
+        }
     }
 
     /**
@@ -97,9 +108,14 @@ class DescontoController extends Controller
      */
     public function actionDelete($id_modelo)
     {
-        $this->findModel($id_modelo)->delete();
+        if (Yii::$app->user->can('apagarDesconto')) {
+            $this->findModel($id_modelo)->delete();
 
-        return $this->redirect(['index']);
+            return $this->redirect(['index']);
+        }else {
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para apagar descontos');
+            return $this->redirect(['site/index']);
+        }
     }
 
     /**

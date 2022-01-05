@@ -6,6 +6,7 @@ use backend\models\UserForm;
 use common\models\Perfil;
 use common\models\User;
 use common\models\UserSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -69,20 +70,25 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-        $model = new UserForm();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->createUser()) {
-                return $this->redirect(['index']);
-               // return $this->redirect(['view', 'id' => $model->id]);
+        if (Yii::$app->user->can('adicionarGestor')) {
+            $model = new UserForm();
+    
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post()) && $model->createUser()) {
+                    return $this->redirect(['index']);
+                   // return $this->redirect(['view', 'id' => $model->id]);
+                }
+            } else {
+                //$model->loadDefaultValues();
             }
+    
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         } else {
-            //$model->loadDefaultValues();
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para adicionar Gestores de Stock');
+            return $this->redirect(['site/index']);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -94,20 +100,27 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
-        $modelUser = $this->findModel($id);
-        $modelPerfil = $modelUser->perfil;
-    
-        if($this->request->isPost && $modelUser->load($this->request->post()) && $modelPerfil->load($this->request->post())){
-            $modelUser->update();
-            $modelPerfil->update();
-            return $this->redirect(['view', 'id' => $modelUser->id]);
+        if (Yii::$app->user->can('editarGestor')) {
+
+            $modelUser = $this->findModel($id);
+            $modelPerfil = $modelUser->perfil;
+
+            if ($this->request->isPost && $modelUser->load($this->request->post()) && $modelPerfil->load($this->request->post())) {
+                $modelUser->update();
+                $modelPerfil->update();
+                return $this->redirect(['view', 'id' => $modelUser->id]);
+            }
+
+            return $this->render('update', [
+                'modelUser' => $modelUser,
+                'modelPerfil' => $modelPerfil,
+
+            ]);
+
+        } else {
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para atualizar Gestores de Stock');
+            return $this->redirect(['site/index']);
         }
-        
-        return $this->render('update', [
-            'modelUser' => $modelUser,
-            'modelPerfil' => $modelPerfil,
-            
-        ]);
     }
 
     /**
@@ -119,14 +132,20 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        //Perfil::deleteAll(['id_user' => $id]);
-        $user = User::findOne(['id' => $id]);
+        if (Yii::$app->user->can('apagarGestor')) {
 
-        $user->status  = User::STATUS_DELETED;
+            //Perfil::deleteAll(['id_user' => $id]);
+            $user = User::findOne(['id' => $id]);
 
-        $user->save();
+            $user->status = User::STATUS_DELETED;
 
-        return $this->redirect(['index']);
+            $user->save();
+
+            return $this->redirect(['index']);
+        } else {
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para apagar Gestores de Stock');
+            return $this->redirect(['site/index']);
+        }
     }
 
     /**
@@ -148,16 +167,28 @@ class UserController extends Controller
 
     public function actionBloquear($id){
 
-        $this->findModel($id)->updateAttributes(['status' => User::STATUS_INACTIVE]);
+        if (Yii::$app->user->can('bloquearCliente')) {
 
-         return $this->redirect(['index']);
+            $this->findModel($id)->updateAttributes(['status' => User::STATUS_INACTIVE]);
+
+            return $this->redirect(['index']);
+        }else {
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para bloquear clientes');
+            return $this->redirect(['site/index']);
+        }
     }
 
     public function actionDesbloquear($id){
 
-        $this->findModel($id)->updateAttributes(['status' => User::STATUS_ACTIVE]);
+        if (Yii::$app->user->can('desbloquearCliente')) {
 
-        return $this->redirect(['index']);
+            $this->findModel($id)->updateAttributes(['status' => User::STATUS_ACTIVE]);
+
+            return $this->redirect(['index']);
+        }else{
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para desbloquear clientes');
+            return $this->redirect(['site/index']);
+        }
     }
 
 }

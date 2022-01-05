@@ -41,21 +41,27 @@ class PerfilController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model_user = $this->findModel($id);
-        $model_perfil = $model_user->perfil;
-    
-        if($this->request->isPost && $model_user->load($this->request->post()) && $model_perfil->load($this->request->post())){
-            $model_user->update();
-            $model_perfil->update();
-            Yii::$app->session->setFlash('success', 'Dados atualizados com sucesso.');
-            return $this->redirect(['update', 'id' => $model_user->id]);
+        if (Yii::$app->user->can('editarPerfil')) {
+
+            $model_user = $this->findModel($id);
+            $model_perfil = $model_user->perfil;
+
+            if ($this->request->isPost && $model_user->load($this->request->post()) && $model_perfil->load($this->request->post())) {
+                $model_user->update();
+                $model_perfil->update();
+                Yii::$app->session->setFlash('success', 'Dados atualizados com sucesso.');
+                return $this->redirect(['update', 'id' => $model_user->id]);
+            }
+
+            return $this->render('update', [
+                'model_user' => $model_user,
+                'model_perfil' => $model_perfil,
+
+            ]);
+        }else{
+            Yii::$app->session->setFlash('danger', ' Não têm permissões para editar o perfil');
+            return $this->redirect(['site/index']);
         }
-    
-        return $this->render('update', [
-            'model_user' => $model_user,
-            'model_perfil' => $model_perfil,
-    
-        ]);
     }
 
     /**
