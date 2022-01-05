@@ -65,4 +65,14 @@ class LoginCest
         $I->dontSeeLink('Login');
         $I->see('LOGOUT');
     }
+
+    public function loginUserCliente(FunctionalTester $I)
+    {
+        $I->amOnPage(Url::toRoute('/site/login'));
+        $I->fillField('LoginForm[username]', 'cliente');
+        $I->fillField('LoginForm[password]', 'cliente123');
+        $I->click('Login');
+
+        $I->see('Iniciar sessão');
+    }
 }
