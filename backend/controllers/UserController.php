@@ -102,7 +102,7 @@ class UserController extends Controller
                 'model' => $model,
             ]);
         } else {
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para adicionar Gestores de Stock');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para adicionar Gestores de Stock');
             return $this->redirect(['site/index']);
         }
     }
@@ -134,7 +134,7 @@ class UserController extends Controller
             ]);
 
         } else {
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para atualizar Gestores de Stock');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para atualizar Gestores de Stock');
             return $this->redirect(['site/index']);
         }
     }
@@ -159,7 +159,7 @@ class UserController extends Controller
 
             return $this->redirect(['index']);
         } else {
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para apagar Gestores de Stock');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para apagar Gestores de Stock');
             return $this->redirect(['site/index']);
         }
     }
@@ -189,7 +189,7 @@ class UserController extends Controller
 
             return $this->redirect(['index']);
         }else {
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para bloquear clientes');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para bloquear clientes');
             return $this->redirect(['site/index']);
         }
     }
@@ -202,7 +202,7 @@ class UserController extends Controller
 
             return $this->redirect(['index']);
         }else{
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para desbloquear clientes');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para desbloquear clientes');
             return $this->redirect(['site/index']);
         }
     }

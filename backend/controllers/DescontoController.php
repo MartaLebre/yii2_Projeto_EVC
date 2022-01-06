@@ -56,7 +56,7 @@ class DescontoController extends Controller
                 'model' => $this->findModel($id_modelo),
             ]);
         }else {
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para Visualizar descontos');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para Visualizar descontos');
             return $this->redirect(['site/index']);
         }
     }
@@ -86,7 +86,7 @@ class DescontoController extends Controller
                 'model' => $model,
             ]);
         }else{
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para criar descontos');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para criar descontos');
             return $this->redirect(['site/index']);
         }
     }
@@ -125,7 +125,7 @@ class DescontoController extends Controller
             
             return $this->redirect(['modelo/index']);
         }else {
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para apagar descontos');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para apagar descontos');
             return $this->redirect(['modelo/index']);
         }
     }

@@ -54,7 +54,7 @@ class EncomendaController extends Controller
                 'encomendas' => $encomendas,
             ]);
         }else {
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para Visualizar encomendas');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para Visualizar encomendas');
             return $this->redirect(['site/index']);
         }
     }
@@ -66,7 +66,7 @@ class EncomendaController extends Controller
 
             return $this->redirect(Yii::$app->request->referrer);
         }else{
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para Atualizar encomendas');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para Atualizar encomendas');
             return $this->redirect(['site/index']);
         }
     }

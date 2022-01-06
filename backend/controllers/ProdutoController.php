@@ -69,7 +69,7 @@ class ProdutoController extends Controller
                 'pages' => $pages,
             ]);
         }else{
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para visualizar produtos');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para visualizar produtos');
             return $this->redirect(['site/index']);
         }
     }
@@ -87,7 +87,7 @@ class ProdutoController extends Controller
                 'model_produto' => $this->findModel($codigo_produto),
             ]);
         }else {
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para visualizar produtos');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para visualizar produtos');
             return $this->redirect(['site/index']);
         }
     }
@@ -155,7 +155,7 @@ class ProdutoController extends Controller
                 'modelUpload' => $modelUpload,
             ]);
         }else {
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para criar produtos');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para criar produtos');
             return $this->redirect(['site/index']);
         }
 

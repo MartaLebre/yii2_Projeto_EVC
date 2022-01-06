@@ -114,7 +114,7 @@ class ModeloController extends Controller
                 'model' => $model,
             ]);
         }else{
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para criar modelos');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para criar modelos');
             return $this->redirect(['site/index']);
         }
     }
