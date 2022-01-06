@@ -79,7 +79,12 @@ class SiteController extends Controller
             '<img src="img/slideshow/slideshow_5.jpg"/>'
         ];
     
-        $db_produtos = Produto::find()
+        $db_novidades = Produto::find()
+            ->orderBy(['data' => SORT_DESC])
+            ->limit(4)
+            ->all();
+    
+        $db_descontos = Produto::find()
             ->orderBy(['data' => SORT_DESC])
             ->where(['<=', 'desconto.data_comeco', date('Y-m-d')])
             ->andWhere(['>=', 'desconto.data_final', date('Y-m-d')])
@@ -89,7 +94,8 @@ class SiteController extends Controller
         
         return $this->render('index', [
             'slideshow' => $slideshow,
-            'db_produtos' => $db_produtos,
+            'db_descontos' => $db_descontos,
+            'db_novidades' => $db_novidades,
         ]);
     }
 

@@ -69,10 +69,8 @@ $this->registerCssFile("@web/css/user_form.css");
                     ->label(false)
                     ->textInput(['placeholder' => $model->getAttributeLabel('morada_faturacao')]) ?>
 
-                <div class="row">
-                    <div class="col-3 offset-9">
-                        <?= Html::submitButton('Continuar', ['class' => 'btn btn-dark btn-block', 'name' => 'update-button']) ?>
-                    </div>
+                <div class="text-right">
+                    <?= Html::submitButton('Continuar', ['class' => 'btn btn-dark', 'name' => 'update-button']) ?>
                 </div>
                 <?php ActiveForm::end(); ?>
             </div>

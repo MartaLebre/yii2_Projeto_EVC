@@ -18,9 +18,21 @@ $this->title = 'eVintageClothing';
         <?= Html::a('Novidades', ['produto/novidades'], ['class' => 'btn btn-block btn-slideshow shadow']) ?>
     </div>
 
+    <div class="produtos-novidades">
+        <?php
+        if($db_novidades != null){?>
+            <div class="row">
+                <?php
+                foreach($db_novidades as $model_produto){
+                    echo $this->render('../produto/_form', ['model_produto' => $model_produto]);
+                }?>
+            </div>
+        <?php }?>
+    </div>
+    
     <div class="produtos-desconto">
         <?php
-        if($db_produtos != null){?>
+        if($db_descontos != null){?>
             <div class="header-descontos">
                 <hr>
                 <h5>Promoções até -<?= Desconto::getDescontoMAX()->valor ?>%</h5>
@@ -29,7 +41,7 @@ $this->title = 'eVintageClothing';
             </div>
             <div class="row">
                 <?php
-                foreach($db_produtos as $model_produto){
+                foreach($db_descontos as $model_produto){
                     echo $this->render('../produto/_form', ['model_produto' => $model_produto]);
                 }?>
             </div>

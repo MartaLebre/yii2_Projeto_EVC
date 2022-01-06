@@ -112,6 +112,7 @@ class ProdutoController extends Controller
             ->leftJoin('modelo', 'modelo.id = produto.id_modelo')
             ->where(['<>', 'modelo.nome', 'Mystery Boxes'])
             ->andWhere(['=', 'produto.genero', 'masculino'])
+            ->andWhere(['<>', 'produto.quantidade', 0])
             ->all();
     
         $pages = new Pagination(['totalCount' => $dataProvider->query->count()]);
@@ -139,6 +140,7 @@ class ProdutoController extends Controller
             ->leftJoin('modelo', 'modelo.id = produto.id_modelo')
             ->where(['<>', 'modelo.nome', 'Mystery Boxes'])
             ->andWhere(['=', 'produto.genero', 'feminino'])
+            ->andWhere(['<>', 'produto.quantidade', 0])
             ->all();
     
         $pages = new Pagination(['totalCount' => $dataProvider->query->count()]);
@@ -226,6 +228,7 @@ class ProdutoController extends Controller
                 ->leftJoin('desconto', 'desconto.id_modelo = produto.id_modelo')
                 ->where(['<=', 'desconto.data_comeco', date('Y-m-d')])
                 ->andWhere(['>=', 'desconto.data_final', date('Y-m-d')])
+                ->andWhere(['<>', 'produto.quantidade', 0])
                 ->all();
             
             $pages = new Pagination(['totalCount' => $dataProvider->query->count()]);

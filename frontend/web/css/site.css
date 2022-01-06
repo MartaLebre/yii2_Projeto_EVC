@@ -22,9 +22,11 @@
     color: #fff;
     background-color: #151515 !important;
 }
-
-.header-descontos hr{
+.produtos-novidades{
     margin-top: 48px !important;
+}
+.header-descontos hr{
+    margin-top: 0 !important;
     padding-bottom: 10px !important;
 }
 .header-descontos{

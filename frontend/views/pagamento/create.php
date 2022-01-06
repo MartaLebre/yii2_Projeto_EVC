@@ -51,10 +51,10 @@ $this->registerCssFile("@web/css/user_form.css");
                         ->label(false)
                         ->textInput(['placeholder' => $model->getAttributeLabel('codigo_seguranca')]) ?>
                 </div>
-
-                <div class="col-3 offset-9">
-                    <?= Html::submitButton('Finalizar', ['class' => 'btn btn-dark btn-block', 'name' => 'update-button']) ?>
-                </div>
+            </div>
+            
+            <div class="text-right">
+                <?= Html::submitButton('Finalizar', ['class' => 'btn btn-dark', 'name' => 'update-button']) ?>
             </div>
             
             <?php ActiveForm::end(); ?>

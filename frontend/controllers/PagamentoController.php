@@ -119,7 +119,7 @@ class PagamentoController extends Controller
                     $model_pagamento->loadDefaultValues();
                 }
             } else {
-                if ($this->request->isPost && $model_pagamento->load($this->request->post())) {
+                if ($this->request->isPost && $model_pagamento->load($this->request->post())    ) {
                     $model_pagamento->update();
 
                     $model_encomenda = Encomenda::find()
