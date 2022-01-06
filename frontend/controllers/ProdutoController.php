@@ -38,13 +38,13 @@ class ProdutoController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
-                            'actions' => ['descontos'],
+                            'actions' => ['index', 'novidades', 'homem', 'mulher', 'modelo', 'mysteryboxes', 'view' ,'descontos'],
                             'roles' => ['@'],
                         ],
                        [
-                                'allow' => true,
-                                'actions' => ['index', 'novidades', 'homem', 'mulher', 'modelo', 'mysteryboxes', 'view'],
-                                'roles' => ['?'],
+                           'allow' => true,
+                           'actions' => ['index', 'novidades', 'homem', 'mulher', 'modelo', 'mysteryboxes', 'view'],
+                           'roles' => ['?'],
                        ],
 
                     ],
