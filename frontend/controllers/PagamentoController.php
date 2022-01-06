@@ -8,6 +8,7 @@ use common\models\Pagamento;
 use common\models\PagamentoSearch;
 use common\models\Produto;
 use Yii;
+use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -30,6 +31,17 @@ class PagamentoController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                    ],
+                ],
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'only' => ['index', 'view', 'create', 'update', 'delete'],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                            'roles' => ['@'],
+                        ],
                     ],
                 ],
             ]
@@ -138,7 +150,7 @@ class PagamentoController extends Controller
             ]);
 
         }else {
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para finalizar encomenda');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para finalizar encomenda');
             return $this->redirect(['site/index']);
         }
 

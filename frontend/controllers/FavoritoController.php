@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\Favorito;
 use common\models\FavoritoSearch;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -28,6 +29,17 @@ class FavoritoController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'only' => ['index', 'create', 'delete'],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['index', 'create', 'delete'],
+                            'roles' => ['@'],
+                        ],
+                    ],
+                ],
             ]
         );
     }
@@ -47,7 +59,7 @@ class FavoritoController extends Controller
                 'db_favoritos' => $db_favoritos,
             ]);
         }else{
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para visualizar os favoritos');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para visualizar os favoritos');
             return $this->redirect(['site/index']);
         }
     }
@@ -70,7 +82,7 @@ class FavoritoController extends Controller
             Yii::$app->session->setFlash('success', $model_favorito->produto->modelo->nome . ' ' . $model_favorito->produto->nome . ' foi adicionado à sua lista de favoritos.');
             return $this->redirect(Yii::$app->request->referrer);
         }else{
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para adicionar aos favoritos');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para adicionar aos favoritos');
             return $this->redirect(['site/index']);
         }
     }
@@ -91,7 +103,7 @@ class FavoritoController extends Controller
             Yii::$app->session->setFlash('danger', $model_favorito->produto->modelo->nome . ' ' . $model_favorito->produto->nome . ' foi removido da sua lista de favoritos.');
             return $this->redirect(Yii::$app->request->referrer);
         }else {
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para eliminar favoritos');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para eliminar favoritos');
             return $this->redirect(['site/index']);
         }
     }

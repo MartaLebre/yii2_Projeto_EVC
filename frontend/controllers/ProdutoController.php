@@ -8,6 +8,7 @@ use common\models\Produto;
 use common\models\ProdutoSearch;
 use Yii;
 use yii\data\Pagination;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -29,6 +30,23 @@ class ProdutoController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                    ],
+                ],
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'only' => ['index', 'novidades', 'homem', 'mulher', 'modelo', 'mysteryboxes', 'descontos', 'view'],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['descontos'],
+                            'roles' => ['@'],
+                        ],
+                       [
+                                'allow' => true,
+                                'actions' => ['index', 'novidades', 'homem', 'mulher', 'modelo', 'mysteryboxes', 'view'],
+                                'roles' => ['?'],
+                       ],
+
                     ],
                 ],
             ]
@@ -58,7 +76,7 @@ class ProdutoController extends Controller
                 'pages' => $pages,
             ]);
         }else {
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para visualizar produtos');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para visualizar produtos');
             return $this->redirect(['site/index']);
         }
     }
@@ -223,7 +241,7 @@ class ProdutoController extends Controller
                 'pages' => $pages,
             ]);
         }else {
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para visualizar  descontos - Faça Login');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para visualizar  descontos - Faça Login');
             return $this->redirect(['site/login']);
         }
     }

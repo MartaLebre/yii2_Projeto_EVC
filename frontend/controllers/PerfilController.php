@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\User;
 use common\models\Perfil;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -26,6 +27,17 @@ class PerfilController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                    ],
+                ],
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'only' => ['update'],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['update'],
+                            'roles' => ['@'],
+                        ],
                     ],
                 ],
             ]
@@ -59,7 +71,7 @@ class PerfilController extends Controller
 
             ]);
         }else{
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para editar o perfil');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para editar o perfil');
             return $this->redirect(['site/index']);
         }
     }

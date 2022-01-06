@@ -7,6 +7,7 @@ use common\models\ItemCompra;
 use common\models\Produto;
 use common\models\ProdutoSearch;
 use Yii;
+use yii\filters\AccessControl;
 use yii\rbac\Item;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -29,6 +30,17 @@ class ItemcompraController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                    ],
+                ],
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'only' => ['index', 'create', 'delete'],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['index', 'create', 'delete'],
+                            'roles' => ['@'],
+                        ],
                     ],
                 ],
             ]
@@ -92,7 +104,7 @@ class ItemcompraController extends Controller
                 return $this->redirect(['produto/index']);
             }
         }else {
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para adicionar produtos do carrinho');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para adicionar produtos do carrinho');
             return $this->redirect(['site/index']);
         }
     }
@@ -161,7 +173,7 @@ class ItemcompraController extends Controller
                     Yii::$app->session->setFlash('danger', $model_produto->modelo->nome . ' ' . $model_produto->nome . ' foi removido do seu carrinho de compras.');
                     return $this->redirect(Yii::$app->request->referrer);
                 }else{
-                    Yii::$app->session->setFlash('danger', ' Não têm permissões para eliminar produtos do carrinho');
+                    Yii::$app->session->setFlash('danger', ' Não tem permissões para eliminar produtos do carrinho');
                     return $this->redirect(['site/index']);
                 }
             }

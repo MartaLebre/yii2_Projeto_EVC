@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\Encomenda;
 use common\models\EncomendaSearch;
 use Yii;
+use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -29,6 +30,17 @@ class EncomendaController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'only' => ['index', 'view', 'create', 'update', 'delete'],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                            'roles' => ['@'],
+                        ],
+                    ],
+                ],
             ]
         );
     }
@@ -46,7 +58,7 @@ class EncomendaController extends Controller
                 'encomendas' => $encomendas,
             ]);
         }else {
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para Visualizar encomendas');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para Visualizar encomendas');
             return $this->redirect(['site/index']);
         }
     }
@@ -89,7 +101,7 @@ class EncomendaController extends Controller
 
             }
         }else{
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para criar encomenda e adicionar o produto ao carrinho');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para criar encomenda e adicionar o produto ao carrinho');
             return $this->redirect(['site/index']);
         }
 

@@ -6,6 +6,7 @@ use common\models\Faturacao;
 use common\models\FaturacaoSearch;
 use common\models\User;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -27,6 +28,17 @@ class FaturacaoController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                    ],
+                ],
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'only' => ['index', 'view', 'create', 'update', 'delete'],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                            'roles' => ['@'],
+                        ],
                     ],
                 ],
             ]
@@ -94,7 +106,7 @@ class FaturacaoController extends Controller
                 'model' => $model,
             ]);
         }else {
-            Yii::$app->session->setFlash('danger', ' Não têm permissões para avançar com a compra');
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para avançar com a compra');
             return $this->redirect(['site/index']);
         }
     }
