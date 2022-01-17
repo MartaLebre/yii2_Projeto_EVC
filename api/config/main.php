@@ -75,11 +75,13 @@ return [
                     'controller' => 'v1/favorito',
                     'pluralize' => false,
                     'extraPatterns' => [
-
+                        'POST adicionar/{token}' => 'adicionar',
+                        'DELETE remover/{codigo_produto}/{token}' => 'remover',
                     ],
                     'tokens' =>
                         [
-
+                            '{codigo_produto}' => '<codigo_produto:.*?>',
+                            '{token}' => '<token:.*?>',
                         ],
                 ],
             ],
