@@ -75,6 +75,7 @@ return [
                     'controller' => 'v1/favorito',
                     'pluralize' => false,
                     'extraPatterns' => [
+                        'GET info/{token}' => 'info',
                         'POST adicionar/{token}' => 'adicionar',
                         'DELETE remover/{codigo_produto}/{token}' => 'remover',
                     ],

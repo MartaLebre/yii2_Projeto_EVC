@@ -3,6 +3,7 @@
 namespace api\modules\v1\controllers;
 
 use common\models\Favorito;
+use common\models\Produto;
 use common\models\User;
 use yii\rest\ActiveController;
 
@@ -10,6 +11,17 @@ use yii\rest\ActiveController;
 class FavoritoController extends ActiveController
 {
     public $modelClass = 'common\models\Favorito';
+
+    public function actionInfo($token){
+        $user = User::find()->where(['verification_token' => $token])->one();
+        $favoritos = Favorito::find()->where(['id_user' => $user->id])->all();
+
+        if ($favoritos == null) {
+            return null;
+        } else {
+            return $favoritos;
+        }
+    }
 
     public function actionAdicionar($token){
 
