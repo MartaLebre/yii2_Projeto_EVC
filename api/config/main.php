@@ -78,6 +78,7 @@ return [
                         'GET info/{token}' => 'info',
                         'POST adicionar/{token}' => 'adicionar',
                         'DELETE remover/{codigo_produto}/{token}' => 'remover',
+                        'GET check/{codigo_produto}/{token}' => 'check',
                     ],
                     'tokens' =>
                         [

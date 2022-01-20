@@ -19,7 +19,15 @@ class FavoritoController extends ActiveController
         if ($favoritos == null) {
             return null;
         } else {
-            return $favoritos;
+            foreach ($favoritos as $favorito) {
+                $produtosFavoritos[] = Produto::find()->where(['codigo_produto' => $favorito->codigo_produto])->one();
+            }
+            if ($produtosFavoritos != null) {
+                return $produtosFavoritos;
+            }
+            else {
+                    return null;
+                 }
         }
     }
 
@@ -61,5 +69,23 @@ class FavoritoController extends ActiveController
         } else {
             return "Utilizador não encontrado";
         }
+    }
+
+    public function actionCheck($codigo_produto, $token)
+    {
+        $user = User::find()->where(['verification_token' => $token])->one();
+        if ($user != null) {
+            $favorito = Favorito::find()->where(['codigo_produto' => $codigo_produto])
+                ->andWhere(['id_user' => $user->id])->one();
+
+            if ($favorito != null) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return "Utilizador não encontrado";
+        }
+
     }
 }
