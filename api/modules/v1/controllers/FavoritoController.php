@@ -22,6 +22,10 @@ class FavoritoController extends ActiveController
             foreach ($favoritos as $favorito) {
                 $produtosFavoritos[] = Produto::find()->where(['codigo_produto' => $favorito->codigo_produto])->one();
             }
+            foreach ($produtosFavoritos as $produtosFavorito) {
+                $produtosFavorito->foto = 'http://192.168.1.177:8080/imagens/' . $produtosFavorito->foto;
+            }
+
             if ($produtosFavoritos != null) {
                 return $produtosFavoritos;
             }
