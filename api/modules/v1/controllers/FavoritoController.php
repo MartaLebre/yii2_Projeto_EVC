@@ -23,6 +23,17 @@ class FavoritoController extends ActiveController
                 $produtosFavoritos[] = Produto::find()->where(['codigo_produto' => $favorito->codigo_produto])->one();
             }
             foreach ($produtosFavoritos as $produtosFavorito) {
+                $model_modelo = $produtosFavorito->modelo;
+                $model_desconto = $model_modelo->desconto;
+
+                if ($model_desconto != null && $model_desconto->getDescontoActivo($model_desconto->id_modelo)) {
+                    $preco = $produtosFavorito->preco - ($produtosFavorito->preco * ($model_desconto->valor / 100));
+                } else {
+                    $preco = $produtosFavorito->preco;
+                }
+
+                $produtosFavorito->preco = $preco;
+
                 $produtosFavorito->foto = 'http://192.168.1.177:8080/imagens/' . $produtosFavorito->foto;
             }
 

@@ -9,6 +9,30 @@ class ProdutoController extends ActiveController
 {
     public $modelClass = 'common\models\Produto';
 
+    public function actionAll(){
+        $produtos = Produto::find()->all();
+
+        if ($produtos == null) {
+            return null;
+        } else {
+            foreach ($produtos as $produto) {
+                $model_modelo = $produto->modelo;
+                $model_desconto = $model_modelo->desconto;
+
+                if ($model_desconto != null && $model_desconto->getDescontoActivo($model_desconto->id_modelo)) {
+                    $preco = $produto->preco - ($produto->preco * ($model_desconto->valor / 100));
+                } else {
+                    $preco = $produto->preco;
+                }
+
+                $produto->preco = $preco;
+
+                $produto->foto = 'http://192.168.1.177:8080/imagens/' . $produto->foto;
+            }
+            return $produtos;
+        }
+    }
+
     public function actionPesquisa($pesquisa){
         $produtos = Produto::find()
             ->andFilterWhere(['like', 'codigo_produto', $pesquisa])
