@@ -64,7 +64,8 @@ return [
                     'extraPatterns' => [
                         'GET pesquisa/{pesquisa}' => 'pesquisa',
                         'GET all' => 'all',
-                        'GET detalhes/{codigo_produto}' => 'detalhes'
+                        'GET detalhes/{codigo_produto}' => 'detalhes',
+                        'POST adicionar' => 'adicionar'
                     ],
                     'tokens' =>
                         [

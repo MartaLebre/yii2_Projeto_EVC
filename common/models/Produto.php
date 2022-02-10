@@ -74,5 +74,70 @@ class Produto extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Favorito::className(), ['codigo_produto' => 'codigo_produto']);
     }
+
+    public function FazPublish($canal, $msg)
+    {
+        try {
+            $server = "127.0.0.1";
+            $port = 1883;
+            $username = ""; // set your username
+            $password = ""; // set your password
+            $client_id = "phpMQTT-publisher"; // unique!
+            $mqtt = new \api\mosquitto\phpMQTT($server, $port, $client_id);
+            if ($mqtt->connect(true, NULL, $username, $password)) {
+                $mqtt->publish($canal, $msg, 0);
+                $mqtt->close();
+            } else {
+                file_put_contents("debug.output", "Time out!");
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        //Obter dados do registo em causa
+        $codigo_produto = $this->codigo_produto;
+        $nome = $this->nome;
+        $genero = $this->genero;
+        $descricao = $this->descricao;
+        $tamanho = $this->tamanho;
+        $preco = $this->preco;
+        $quantidade = $this->quantidade;
+        $data = $this->data;
+        $id_modelo = $this->id_modelo;
+        $foto = $this->foto;
+
+        $myObj = new \stdClass();
+        $myObj->codigo_produto = $codigo_produto;
+        $myObj->nome = $nome;
+        $myObj->genero = $genero;
+        $myObj->descricao = $descricao;
+        $myObj->tamanho = $tamanho;
+        $myObj->preco = $preco;
+        $myObj->quantidade = $quantidade;
+        $myObj->data = $data;
+        $myObj->id_modelo = $id_modelo;
+        $myObj->foto = $foto;
+
+        $myJSON = json_encode($myObj);
+        if ($insert)
+            $this->FazPublish("INSERT", $myJSON);
+        else
+            $this->FazPublish("UPDATE", $myJSON);
+    }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+        $codigo_produto = $this->codigo_produto;
+        $myObj = new \stdClass();
+        $myObj->codigo_produto = $codigo_produto;
+        $myJSON = json_encode($myObj);
+        $this->FazPublish("DELETE", $myJSON);
+    }
 }
 

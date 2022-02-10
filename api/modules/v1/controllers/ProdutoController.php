@@ -9,7 +9,8 @@ class ProdutoController extends ActiveController
 {
     public $modelClass = 'common\models\Produto';
 
-    public function actionAll(){
+    public function actionAll()
+    {
         $produtos = Produto::find()->all();
 
         if ($produtos == null) {
@@ -33,19 +34,21 @@ class ProdutoController extends ActiveController
         }
     }
 
-    public function actionPesquisa($pesquisa){
+    public function actionPesquisa($pesquisa)
+    {
         $produtos = Produto::find()
             ->andFilterWhere(['like', 'codigo_produto', $pesquisa])
             ->one();
 
-        if($produtos != null){
+        if ($produtos != null) {
             return $produtos;
-        }else{
+        } else {
             throw new \yii\web\NotFoundHttpException("Produto não encontrado");
         }
     }
 
-    public function actionDetalhes($codigo_produto){
+    public function actionDetalhes($codigo_produto)
+    {
         $produto = Produto::findOne(['codigo_produto' => $codigo_produto]);
 
         $model_modelo = $produto->modelo;
@@ -57,8 +60,8 @@ class ProdutoController extends ActiveController
             $preco = $produto->preco;
         }
 
-        if($produto != null){
-            return[
+        if ($produto != null) {
+            return [
                 'codigo_produto' => $produto->codigo_produto,
                 'nome' => $produto->nome,
                 'genero' => $produto->genero,
@@ -67,9 +70,38 @@ class ProdutoController extends ActiveController
                 'preco' => $preco,
                 'foto' => $produto->foto = 'http://192.168.1.177:8080/imagens/' . $produto->foto,
             ];
-        }else{
+        } else {
             throw new \yii\web\NotFoundHttpException("O produto não foi encontrado");
         }
+    }
 
+    public function actionAdicionar()
+    {
+        $codigo_produto = \Yii::$app->request->post('codigo_produto');
+        $nome = \Yii::$app->request->post('nome');
+        $genero = \Yii::$app->request->post('genero');
+        $descricao = \Yii::$app->request->post('descricao');
+        $tamanho = \Yii::$app->request->post('tamanho');
+        $preco = \Yii::$app->request->post('preco');
+        $quantidade = \Yii::$app->request->post('quantidade');
+        $data = \Yii::$app->request->post('data');
+        $id_modelo = \Yii::$app->request->post('id_modelo');
+        $foto = \Yii::$app->request->post('foto');
+
+        $produtomodel = new $this->modelClass;
+
+        $produtomodel->codigo_produto = $codigo_produto;
+        $produtomodel->nome = $nome;
+        $produtomodel->genero = $genero;
+        $produtomodel->descricao = $descricao;
+        $produtomodel->tamanho = $tamanho;
+        $produtomodel->preco = $preco;
+        $produtomodel->quantidade = $quantidade;
+        $produtomodel->data = $data;
+        $produtomodel->id_modelo = $id_modelo;
+        $produtomodel->foto = $foto;
+
+        $rec = $produtomodel->save();
+        return ['SaveError' => $rec];
     }
 }
