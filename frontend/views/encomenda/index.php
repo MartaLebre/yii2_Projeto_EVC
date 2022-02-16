@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\EncomendaSearch */
@@ -25,9 +24,10 @@ $this->title = 'Encomendas';
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Cliente</th>
+                            <th scope="col">Nome</th>
                             <th scope="col">Estado</th>
                             <th scope="col">Data</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
 
@@ -38,6 +38,10 @@ $this->title = 'Encomendas';
                                 <td><?= $encomenda->user->perfil->primeiro_nome . ' ' . $encomenda->user->perfil->ultimo_nome ?></td>
                                 <td><?= $encomenda->estado ?></td>
                                 <td><?= $encomenda->data ?></td>
+                                <td class="td-btn">
+                                    <?= Html::a('Detalhes', ['itemcompra/detalhes', 'id' => $encomenda->id],
+                                            ['class'=>'btn btn-dark']); ?>
+                                </td>
                             </tr>
                         <?php }?>
                         </tbody>

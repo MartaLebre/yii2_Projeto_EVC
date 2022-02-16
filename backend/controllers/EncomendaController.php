@@ -2,6 +2,9 @@
 
 namespace backend\controllers;
 
+use common\models\Faturacao;
+use common\models\ItemCompra;
+use common\models\Pagamento;
 use Yii;
 use common\models\Encomenda;
 use common\models\EncomendaSearch;
@@ -48,7 +51,7 @@ class EncomendaController extends Controller
     public function actionIndex()
     {
         if (Yii::$app->user->can('visualizarEncomendas')) {
-            $encomendas = Encomenda::find()->where(['estado' => 'pendente'])->orWhere(['estado' => 'em processamento'])->orWhere(['estado' => 'enviado'])->orWhere(['estado' => 'entregue'])->all();
+            $encomendas = Encomenda::find()->where(['estado' => 'pendente'])->orWhere(['estado' => 'em processamento'])->orWhere(['estado' => 'enviado'])->orWhere(['estado' => 'entregue'])->orWhere(['estado' => 'cancelado'])->all();
 
             return $this->render('index', [
                 'encomendas' => $encomendas,
@@ -64,6 +67,41 @@ class EncomendaController extends Controller
         if (Yii::$app->user->can('atualizarEncomendas')) {
             Encomenda::getUpdateStatusEncomenda($id_encomenda);
 
+            return $this->redirect(Yii::$app->request->referrer);
+        }else{
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para Atualizar encomendas');
+            return $this->redirect(['site/index']);
+        }
+    }
+    
+    public function actionDetalhes($id_encomenda)
+    {
+        if(Yii::$app->user->can('atualizarEncomendas')){
+            if(Encomenda::findOne($id_encomenda)->getAttribute('estado') == 'pendente')
+                Encomenda::getUpdateStatusEncomenda($id_encomenda);
+            
+            $model_encomenda = Encomenda::findOne($id_encomenda);
+            $models_itemcompra = ItemCompra::find()->where(['id_encomenda' => $id_encomenda])->all();
+            $model_faturacao = Faturacao::find()->where(['id_user' => $model_encomenda->id_user])->one();
+            $model_pagamento = Pagamento::find()->where(['id_user' => $model_encomenda->id_user])->one();
+            
+            return $this->render('detalhes', [
+                'models_itemcompra' => $models_itemcompra,
+                'model_encomenda' => $model_encomenda,
+                'model_faturacao' => $model_faturacao,
+                'model_pagamento' => $model_pagamento,
+            ]);
+        }else{
+            Yii::$app->session->setFlash('danger', ' Não tem permissões para Atualizar encomendas');
+            return $this->redirect(['site/index']);
+        }
+    }
+    
+    public function actionCancelar($id_encomenda)
+    {
+        if (Yii::$app->user->can('atualizarEncomendas')) {
+            Encomenda::findOne($id_encomenda)->updateAttributes(['estado' => 'cancelado']);
+        
             return $this->redirect(Yii::$app->request->referrer);
         }else{
             Yii::$app->session->setFlash('danger', ' Não tem permissões para Atualizar encomendas');

@@ -3,7 +3,9 @@
 namespace frontend\controllers;
 
 use common\models\Encomenda;
+use common\models\Faturacao;
 use common\models\ItemCompra;
+use common\models\Pagamento;
 use common\models\Produto;
 use common\models\ProdutoSearch;
 use Yii;
@@ -64,6 +66,21 @@ class ItemcompraController extends Controller
             'db_carrinho' => $db_carrinho
         ]);
     }
+    
+    public function actionDetalhes($id)
+    {
+        $model_encomenda = Encomenda::findOne($id);
+        $models_itemcompra = ItemCompra::find()->where(['id_encomenda' => $id])->all();
+        $model_faturacao = Faturacao::find()->where(['id_user' => $model_encomenda->id_user])->one();
+        $model_pagamento = Pagamento::find()->where(['id_user' => $model_encomenda->id_user])->one();
+    
+        return $this->render('detalhes', [
+            'models_itemcompra' => $models_itemcompra,
+            'model_encomenda' => $model_encomenda,
+            'model_faturacao' => $model_faturacao,
+            'model_pagamento' => $model_pagamento,
+        ]);
+    }
 
     /**
      * Creates a new ItemCompra model.
@@ -92,10 +109,11 @@ class ItemcompraController extends Controller
 
                 $model_modelo = $model_itemcompra->produto->modelo;
                 $model_desconto = $model_modelo->desconto;
+                
                 if ($model_desconto != null && $model_desconto->getDescontoActivo($model_desconto->id_modelo)) {
                     $model_itemcompra->preco_venda = $model_itemcompra->produto->preco - ($model_itemcompra->produto->preco * ($model_desconto->valor / 100));
-                } else {
-
+                }
+                else{
                     $model_itemcompra->preco_venda = $model_itemcompra->produto->preco;
                 }
                 $model_itemcompra->save();

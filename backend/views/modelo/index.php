@@ -43,8 +43,14 @@ $this->title = 'Lista de Modelos';
                                 <td class="td-btn text-right">
                                     <?php
                                     if($modeloProduto->desconto != null){
-                                        echo Html::a('Detalhes Desconto', ['/desconto/view', 'id_modelo' => $modeloProduto->id],
-                                            ['class'=>'btn btn-dark shadow-sm btn-detalhesdesconto']);
+                                        if($modeloProduto->desconto->getDescontoActivo($modeloProduto->desconto->id_modelo)){
+                                            echo Html::a('Desconto Ativo', ['/desconto/view', 'id_modelo' => $modeloProduto->id],
+                                                ['class'=>'btn btn-success shadow-sm btn-detalhesdesconto']);
+                                        }
+                                        else{
+                                            echo Html::a('Desconto Inativo', ['/desconto/view', 'id_modelo' => $modeloProduto->id],
+                                                ['class'=>'btn btn-danger shadow-sm btn-descontoinativo']);
+                                        }
                                     }
                                     else{
                                         echo Html::a('Adicionar Desconto', ['/desconto/create', 'id_modelo' => $modeloProduto->id],

@@ -29,43 +29,14 @@
     border-left:1px solid rgba(0,0,0,.1) !important;
 }
 .card-body h5{
-    color: #333 !important;
     margin-top: -5px !important;
     font-size: 18px !important;
 }
 .card-body h6{
-    color: #333 !important;
-    font-size: 17px !important;
+    font-size: 16px !important;
 }
 .card-body h6 span{
     font-weight: lighter !important;
-}
-.btn-desconto{
-    margin-bottom: 4px;
-    margin-left: 10px;
-    cursor: default !important;
-    color: black !important;
-    background-color: #fecb01 !important;
-    font-size: 15px !important;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 0 8px 0 8px !important;
-}
-.preco-semdesconto{
-    font-size: 15px !important;
-    color: #6c757d !important;
-    opacity: .6;
-    text-decoration: line-through;
-    margin-left: 10px;
-}
-.semdesconto{
-    padding-top: 4px !important;
-    margin-bottom: 12px !important;
-}
-.update-quantidade{
-    text-align: center;
-    padding-top: 10px !important;
-    width: 40% !important;
 }
 .row-btn{
     padding-top: 20px !important;
@@ -81,18 +52,4 @@
 .btn-dark:hover, .btn-dark:focus{
     color: #fff;
     background-color: #151515 !important;
-}
-.icon-favorito{
-    display: block;
-    color: red;
-    font-size: 18px !important;
-    padding-top: 9px;
-    padding-left: 6px;
-}
-.icon-delete{
-    display: block;
-    color: #151515;
-    font-size: 18px !important;
-    padding-top: 9px;
-    padding-left: 55px;
 }

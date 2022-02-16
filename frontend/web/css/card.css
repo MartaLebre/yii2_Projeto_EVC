@@ -35,9 +35,6 @@
     text-transform: uppercase;
     padding: 0 8px 0 8px !important;
 }
-.btn-desconto:hover, .btn-desconto:focus{
-    color: #fff !important;
-}
 .card-body h5{
     margin-top: -7px !important;
     font-size: 17px !important;
@@ -49,7 +46,6 @@
     padding-bottom: 5px !important;
 }
 .preco-semdesconto{
-    font-size: 15px !important;
     color: #6c757d !important;
     opacity: .6;
     text-decoration: line-through;

@@ -29,7 +29,8 @@ $this->title = 'Lista de Utilizadores';
                             <th scope="col">Role</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
-                            <th></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
     

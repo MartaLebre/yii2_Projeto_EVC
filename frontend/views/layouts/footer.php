@@ -20,7 +20,7 @@ $this->registerCssFile("@web/css/footer.css");
             <ul class="footer-links text-uppercase">
                 <li><?= Html::a('Novidades', ['produto/novidades'], ['class' => 'footer-links']) ?></li>
                 <li><?= Html::a('Mystery Boxes', ['produto/mysteryboxes'], ['class' => 'footer-links']) ?></li>
-                <li><?= Html::a('Descontos', ['produto/descontos'], ['class' => 'footer-links']) ?></li>
+                <li><?= Html::a('Promoções', ['produto/descontos'], ['class' => 'footer-links']) ?></li>
             </ul>
         </div>
     </div>

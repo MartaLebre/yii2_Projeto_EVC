@@ -8,7 +8,7 @@ tbody th, tbody td{
     padding: 9px 12px 9px 12px !important;
 }
 .card-title{
-    padding-top: 5px !important;
+    padding-top: 3px !important;
 }
 .card-body{
     text-transform: capitalize !important;
@@ -25,26 +25,7 @@ tbody th, tbody td{
     color: #fff;
     background-color: #151515 !important;
 }
-.btn-desconto{
-    margin-right: 12px !important;
-}
-.btn-detalhesdesconto{
-    padding-left: 36px !important;
-    padding-right: 36px !important;
-    margin-right: 12px !important;
-    font-size: 13px !important;
-    text-transform: uppercase;
-    letter-spacing: 1px;
- }
-.btn-descontoinativo{
-    padding-left: 29.5px !important;
-    padding-right: 29.5px !important;
-    margin-right: 12px !important;
-    font-size: 13px !important;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-.modelos-null h5{
+.encomendas-null h5{
     text-align: center;
     text-transform: uppercase;
     font-weight: lighter !important;

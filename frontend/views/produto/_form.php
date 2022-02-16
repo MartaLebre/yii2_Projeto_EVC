@@ -11,6 +11,7 @@ $this->registerCssFile("@web/css/card.css");
 
 $model_modelo = $model_produto->modelo;
 $model_desconto = $model_modelo->desconto;
+$model_user = \common\models\User::findOne(Yii::$app->user->getId());
 ?>
 <div class="col-3">
     <div class="card">
@@ -45,7 +46,7 @@ $model_desconto = $model_modelo->desconto;
                 <div class="col-3">
                     <?php
                     if(!Yii::$app->user->isGuest){
-                        if($model_produto->favorito != null) echo Html::a('<i class="fa fa-heart icon-favorito"></i>',
+                        if($model_produto->favorito['id_user'] == Yii::$app->user->getId()) echo Html::a('<i class="fa fa-heart icon-favorito"></i>',
                             ['favorito/delete', 'id' => $model_produto->favorito->id], ['data-method' => 'post']);
                         else echo Html::a('<i class="far fa-heart icon-favorito"></i>',
                             ['favorito/create', 'codigo_produto' => $model_produto->codigo_produto], ['id' => 'fav']);

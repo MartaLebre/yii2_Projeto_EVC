@@ -39,15 +39,8 @@ $this->title = 'Lista de Encomendas';
                                 <td><?= $encomenda->estado ?></td>
                                 <td><?= $encomenda->data ?></td>
                                 <td class="td-btn">
-                                    <?php
-                                    if($encomenda->estado != 'entregue'){
-                                        echo Html::a('Atualizar', ['encomenda/update', 'id_encomenda' => $encomenda->id],
-                                            ['class'=>'btn btn-dark']);
-                                    }
-                                    else{
-                                        echo Html::a('Atualizar', ['encomenda/update', 'id_encomenda' => $encomenda->id],
-                                            ['class'=>'btn btn-dark disabled']);
-                                    }?>
+                                    <?= Html::a('Atualizar', ['encomenda/detalhes', 'id_encomenda' => $encomenda->id],
+                                        ['class'=>'btn btn-dark'])?>
                                 </td>
                             </tr>
                         <?php }?>

@@ -42,19 +42,21 @@ $this->title = $model_produto->nome;
                     <h5><?= $model_modelo->nome . ' ' . $model_produto->nome ?></h5>
                     <h5><?= sprintf('%.2f', $model_produto->preco) ?>€</h5>
                 <?php }?>
-                <p>Quantidade em stock: <?= $model_produto->quantidade ?></p>
                 <hr>
             </div>
             <div class="info">
                 <p><?= $model_produto->descricao ?></p>
-                <p>Tamanho recomendado: <?= $model_produto->tamanho ?></p>
+                <p>Quantidade em stock: <span><?= $model_produto->quantidade ?></span></p>
+                <p>Tamanho recomendado: <span><?= $model_produto->tamanho ?></span></p>
                 <p>Genero: <span class="text-capitalize"><?= $model_produto->genero ?></span></p>
                 <p>Sem marcas ou manchas</p>
                 <p>Pode mostrar alguns sinais de desgaste ou desbotamento</p>
-                <p>ID do produto: <?= $model_produto->codigo_produto ?></p>
+                <p>ID do produto: <span><?= $model_produto->codigo_produto ?></span></p>
                 <br>
             </div>
             
+            <?php
+            if($model_produto->quantidade != 0){ ?>
             <div class="produto-btn">
                 <div class="row">
                     <div class="col-9 offset-1">
@@ -71,13 +73,7 @@ $this->title = $model_produto->nome;
                     </div>
                 </div>
             </div>
-            
-            <?php /*
-            <div class="qrcode">
-                <h6>Abre na nossa aplicação</h6>
-                <img src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=<?= $model_produto->codigo_produto ?>">
-            </div>
-            */?>
+            <?php }?>
         </div>
     </div>
 
