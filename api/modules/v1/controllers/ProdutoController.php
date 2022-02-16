@@ -11,7 +11,7 @@ class ProdutoController extends ActiveController
 
     public function actionAll()
     {
-        $produtos = Produto::find()->all();
+        $produtos = Produto::find()->where(['<>', 'quantidade', 0])->all();
 
         if ($produtos == null) {
             return null;
@@ -28,7 +28,7 @@ class ProdutoController extends ActiveController
 
                 $produto->preco = $preco;
 
-                $produto->foto = 'http://192.168.1.177:8080/imagens/' . $produto->foto;
+                $produto->foto = 'http://192.168.1.189:8080/imagens/' . $produto->foto;
             }
             return $produtos;
         }
@@ -68,7 +68,7 @@ class ProdutoController extends ActiveController
                 'descricao' => $produto->descricao,
                 'tamanho' => $produto->tamanho,
                 'preco' => $preco,
-                'foto' => $produto->foto = 'http://192.168.1.177:8080/imagens/' . $produto->foto,
+                'foto' => $produto->foto = 'http://192.168.1.189:8080/imagens/' . $produto->foto,
             ];
         } else {
             throw new \yii\web\NotFoundHttpException("O produto não foi encontrado");

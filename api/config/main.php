@@ -88,6 +88,18 @@ return [
                             '{token}' => '<token:.*?>',
                         ],
                 ],
+                ['class' => 'yii\rest\UrlRule',
+                    'controller' => 'v1/encomenda',
+                    'pluralize' => false,
+                    'extraPatterns' => [
+                        'GET all/{token}' => 'all',
+                    ],
+                    'tokens' =>
+                        [
+                            '{id}' => '<id:.*?>',
+                            '{token}' => '<token:.*?>',
+                        ],
+                ],
             ],
         ],
         'urlManagerBackend' => [

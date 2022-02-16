@@ -34,7 +34,7 @@ class FavoritoController extends ActiveController
 
                 $produtosFavorito->preco = $preco;
 
-                $produtosFavorito->foto = 'http://192.168.1.177:8080/imagens/' . $produtosFavorito->foto;
+                $produtosFavorito->foto = 'http://192.168.1.189:8080/imagens/' . $produtosFavorito->foto;
             }
 
             if ($produtosFavoritos != null) {
