@@ -66,7 +66,7 @@ $this->title = $model_produto->nome;
                     <div class="col-2">
                         <?php
                         if(!Yii::$app->user->isGuest){
-                            if($model_produto->favorito != null) echo Html::a('<i class="fa fa-heart icon-favorito-view"></i>', ['/favorito/delete', 'id' => $model_produto->favorito->id], ['data' => ['method' => 'post']]);
+                            if(($model_produto->favorito['id_user'] == Yii::$app->user->id)) echo Html::a('<i class="fa fa-heart icon-favorito-view"></i>', ['/favorito/delete', 'id' => $model_produto->favorito->id], ['data' => ['method' => 'post']]);
                             else echo Html::a('<i class="far fa-heart icon-favorito-view"></i>', ['/favorito/create', 'codigo_produto' => $model_produto->codigo_produto]);
                         }
                         else echo Html::a('<i class="far fa-heart icon-favorito-view"></i>', ['/site/login']); ?>
